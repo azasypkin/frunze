@@ -1,0 +1,17 @@
+
+# compiled output
+/ng-app/dist
+/ng-app/tmp
+
+# dependencies
+/ng-app/node_modules
+
+# IDEs and editors
+.idea
+
+npm-debug.log
+/typings
+
+# e2e
+/ng-app/e2e/*.js
+/ng-app/e2e/*.map
