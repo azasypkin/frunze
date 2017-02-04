@@ -4,10 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './components/app/app.component';
+import {
+  ExpandableGroups
+} from './components/expandable-groups/expandable-groups.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ExpandableGroups
   ],
   imports: [
     BrowserModule,
