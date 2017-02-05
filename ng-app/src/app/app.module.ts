@@ -7,11 +7,13 @@ import { AppComponent } from './components/app/app.component';
 import {
   ExpandableGroups
 } from './components/expandable-groups/expandable-groups.component';
+import { Workspace } from './components/workspace/workspace.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ExpandableGroups
+    ExpandableGroups,
+    Workspace
   ],
   imports: [
     BrowserModule,
