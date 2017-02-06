@@ -181,3 +181,21 @@ body {
 
   box-sizing: border-box;
 }
+
+.frunze-button-link {
+  background: none;
+  border: none;
+
+  margin: 0.5rem 0;
+  padding: 0;
+
+  font-family: "Fira Sans", "Open Sans", sans-serif;
+  color: #104FCF;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.frunze-button-link ::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
