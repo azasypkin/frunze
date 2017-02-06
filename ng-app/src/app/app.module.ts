@@ -8,11 +8,13 @@ import {
   ExpandableGroups
 } from './components/expandable-groups/expandable-groups.component';
 import { Workspace } from './components/workspace/workspace.component';
+import { Properties } from './components/properties/properties.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExpandableGroups,
+    Properties,
     Workspace
   ],
   imports: [
