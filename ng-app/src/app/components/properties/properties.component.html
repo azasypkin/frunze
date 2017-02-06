@@ -1,0 +1,87 @@
+<section>
+  <section class="expandable-group"
+           *ngIf="!!groups.info.items.length"
+           [attr.aria-expanded]="groups.info.expanded">
+    <header class="expandable-group__header"
+            (click)="groups.info.expanded = !groups.info.expanded">
+      {{ groups.info.name }}
+    </header>
+    <ul class="expandable-group__list">
+      <li class="expandable-group__item" *ngFor="let property of groups.info.items">
+        <div>{{property.name}}</div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="expandable-group"
+           *ngIf="!!groups.properties.items.length"
+           [attr.aria-expanded]="groups.properties.expanded">
+    <header class="expandable-group__header"
+            (click)="groups.properties.expanded = !groups.properties.expanded">
+      {{ groups.properties.name }}
+    </header>
+    <ul class="expandable-group__list">
+      <li class="expandable-group__item" *ngFor="let property of groups.properties.items">
+        <div>{{property.name}}</div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="expandable-group"
+           *ngIf="!!groups.styles.items.length"
+           [attr.aria-expanded]="groups.styles.expanded">
+    <header class="expandable-group__header"
+            (click)="groups.styles.expanded = !groups.styles.expanded">
+      {{ groups.styles.name }}
+    </header>
+    <ul class="expandable-group__list">
+      <li class="expandable-group__item" *ngFor="let property of groups.styles.items">
+        <div>{{property.name}}</div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="expandable-group"
+           *ngIf="!!groups.events.items.length"
+           [attr.aria-expanded]="groups.events.expanded">
+    <header class="expandable-group__header"
+            (click)="groups.events.expanded = !groups.events.expanded">
+      {{ groups.events.name }}
+    </header>
+    <ul class="expandable-group__list">
+      <li class="expandable-group__item" *ngFor="let property of groups.events.items">
+        <div>{{property.name}}</div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="expandable-group"
+           *ngIf="!!activeControl"
+           [attr.aria-expanded]="groups.triggers.expanded">
+    <header class="expandable-group__header"
+            (click)="groups.triggers.expanded = !groups.triggers.expanded">
+      {{ groups.triggers.name }}
+    </header>
+    <ul class="expandable-group__list">
+      <li class="expandable-group__item" *ngFor="let property of groups.triggers.items">
+        <div>{{property.name}}</div>
+      </li>
+      <li class="expandable-group__item">
+        <div class="frunze-editor__triggers">
+          <div *ngIf="!groups.triggers.items.length">(No triggers defined...)</div>
+          <button (click)="addTrigger()" class="frunze-button-link">
+            + Add new trigger
+          </button>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <button class="frunze-properties__remove-control" *ngIf="!!activeControl"
+          (click)="removeControl()">
+    Remove control
+  </button>
+  <div class="frunze-properties_empty" *ngIf="!activeControl">
+    (Select control...)
+  </div>
+</section>
