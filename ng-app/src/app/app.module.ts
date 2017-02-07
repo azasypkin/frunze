@@ -5,17 +5,17 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './components/app/app.component';
 import {
-  ExpandableGroups
+  ExpandableGroupsComponent
 } from './components/expandable-groups/expandable-groups.component';
-import { Workspace } from './components/workspace/workspace.component';
-import { Properties } from './components/properties/properties.component';
+import { WorkspaceComponent } from './components/workspace/workspace.component';
+import { PropertiesComponent } from './components/properties/properties.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ExpandableGroups,
-    Properties,
-    Workspace
+    ExpandableGroupsComponent,
+    PropertiesComponent,
+    WorkspaceComponent
   ],
   imports: [
     BrowserModule,

@@ -5,9 +5,9 @@ import {Component} from '@angular/core';
   templateUrl: 'workspace.component.html',
   styleUrls: ['workspace.component.css']
 })
-export class Workspace {
-  private activePageIndex: number = 0;
-  private pages: any[] = [{
+export class WorkspaceComponent {
+  activePageIndex = 0;
+  pages: any[] = [{
     id: 'page#1',
     name: 'Page #1'
   }, {

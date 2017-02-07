@@ -5,10 +5,10 @@ import {Component} from '@angular/core';
   templateUrl: 'properties.component.html',
   styleUrls: ['properties.component.css']
 })
-export class Properties {
-  private activeControl: any = null;
+export class PropertiesComponent {
+  activeControl: any = null;
 
-  private groups: {
+  groups: {
     info: {
       name: string,
       expanded: boolean,
@@ -75,7 +75,7 @@ export class Properties {
     };
   }
 
-  private removeControl() {
+  removeControl() {
     // TODO: Implement.
     if (!this.activeControl) {
       return;
@@ -84,7 +84,7 @@ export class Properties {
     this.activeControl.remove();
   }
 
-  private addTrigger() {
+  addTrigger() {
     // TODO: Implement.
   }
 }

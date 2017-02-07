@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 interface IExpandableGroupItem {
   name: string;
@@ -13,13 +13,12 @@ export interface IExpandableGroup {
 }
 
 @Component({
-  selector: 'expandable-groups',
-  inputs: ['groups'],
+  selector: 'frunze-expandable-groups',
   templateUrl: 'expandable-groups.component.html',
   styleUrls: ['expandable-groups.component.css']
 })
-export class ExpandableGroups {
-  groups: IExpandableGroup[] = [];
+export class ExpandableGroupsComponent {
+  @Input() groups: IExpandableGroup[] = [];
 
   toggleGroupState(group: IExpandableGroup) {
     group.expanded = !group.expanded;
