@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.css']
 })
 export class AppComponent {
-  title = 'Frunze is up and running!';
   controlGroups = [{
     name: 'Group#1',
     type: 'group#1',
