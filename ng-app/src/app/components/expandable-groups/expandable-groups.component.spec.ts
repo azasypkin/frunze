@@ -2,7 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { ExpandableGroupsComponent } from './expandable-groups.component';
 
-describe('AppComponent', () => {
+describe('ExpandableGroupsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ExpandableGroupsComponent],
@@ -80,7 +80,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
 
     const groupNode = element.querySelector('.expandable-group');
-    expect(groupNode).toBeDefined();
+    expect(groupNode).toBeTruthy();
     expect(groupNode.querySelector('.expandable-group__header').textContent).toEqual('Group#1');
 
     // Check number of group item nodes.
