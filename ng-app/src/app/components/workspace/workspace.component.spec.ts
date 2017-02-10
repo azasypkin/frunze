@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 
 import { WorkspaceComponent } from './workspace.component';
 
-describe('WorkspaceComponent', () => {
+describe('Components/WorkspaceComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WorkspaceComponent],

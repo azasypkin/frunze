@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { ControlsService } from './services/controls.service';
+
 import { AppComponent } from './components/app/app.component';
 import {
   ExpandableGroupsComponent
@@ -22,7 +24,7 @@ import { PropertiesComponent } from './components/properties/properties.componen
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [ControlsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

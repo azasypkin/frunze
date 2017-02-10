@@ -1,32 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { ControlGroup } from '../../core/controls/control-group';
+import { ControlsService } from '../../services/controls.service';
 
 @Component({
   selector: 'frunze-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css']
 })
-export class AppComponent {
-  controlGroups = [{
-    name: 'Group#1',
-    type: 'group#1',
-    expanded: false,
-    items: [{
-      name: 'Item #1',
-      type: 'type#1'
-    }, {
-      name: 'Item #2',
-      type: 'type#2'
-    }]
-  }, {
-    name: 'Group#2',
-    type: 'group#2',
-    expanded: false,
-    items: [{
-      name: 'Item #1',
-      type: 'type#1'
-    }, {
-      name: 'Item #2',
-      type: 'type#2'
-    }]
-  }];
+export class AppComponent implements OnInit {
+  controlGroups: ControlGroup[] = [];
+
+  constructor(private controlsService: ControlsService) {}
+
+  ngOnInit(): void {
+    this.fetchGroups();
+  }
+
+  /**
+   * Fetches groups from the ControlsService.
+   */
+  private fetchGroups() {
+    this.controlsService.getGroups().then((groups) => {
+      this.controlGroups = groups;
+    }, (e) => {
+      console.error('Error occurred while retrieving of control groups.', e);
+    });
+  }
 }

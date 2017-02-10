@@ -2,7 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 
 import { ExpandableGroupsComponent } from './expandable-groups.component';
 
-describe('ExpandableGroupsComponent', () => {
+describe('Components/ExpandableGroupsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ExpandableGroupsComponent],
