@@ -1,3 +1,4 @@
+api/target
 
 # compiled output
 /ng-app/dist
@@ -8,6 +9,7 @@
 
 # IDEs and editors
 .idea
+*.iml
 
 npm-debug.log
 /typings
