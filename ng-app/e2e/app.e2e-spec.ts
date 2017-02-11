@@ -1,14 +1,14 @@
 import { NgAppPage } from './app.po';
 
-describe('ng-app App', () => {
+describe('Frunze ng-app', () => {
   let page: NgAppPage;
 
   beforeEach(() => {
     page = new NgAppPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display correct control groups in Toolbox', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getToolboxGroups()).toEqual(['Group #1', 'Group #2']);
   });
 });

@@ -5,7 +5,7 @@ export class NgAppPage {
     return browser.get('/');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  getToolboxGroups(): any {
+    return element.all(by.css('.expandable-group__header')).getText();
   }
 }
