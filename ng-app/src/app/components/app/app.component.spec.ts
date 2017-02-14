@@ -1,17 +1,20 @@
-import { TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {TestBed, async} from '@angular/core/testing';
+import {HttpModule, XHRBackend} from '@angular/http';
+import {MockBackend} from '@angular/http/testing';
+import {Observable} from 'rxjs/Observable';
+import {By} from '@angular/platform-browser';
 
-import { ControlGroup } from '../../core/controls/control-group';
-import { ControlMetadata } from '../../core/controls/control-metadata';
+import {ControlGroup} from '../../core/controls/control-group';
+import {ControlMetadata} from '../../core/controls/control-metadata';
 
-import { ControlsService } from '../../services/controls.service';
+import {ControlsService} from '../../services/controls.service';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {
   ExpandableGroupsComponent
 } from '../expandable-groups/expandable-groups.component';
-import { WorkspaceComponent } from '../workspace/workspace.component';
-import { PropertiesComponent } from '../properties/properties.component';
+import {WorkspaceComponent} from '../workspace/workspace.component';
+import {PropertiesComponent} from '../properties/properties.component';
 
 
 describe('Components/AppComponent', () => {
@@ -19,18 +22,22 @@ describe('Components/AppComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [HttpModule],
       declarations: [
         AppComponent,
         ExpandableGroupsComponent,
         WorkspaceComponent,
         PropertiesComponent
       ],
-      providers: [ControlsService]
+      providers: [
+        {provide: XHRBackend, useClass: MockBackend},
+        ControlsService
+      ]
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(AppComponent);
       const controlsService = fixture.debugElement.injector.get(ControlsService);
       controlsServiceSpy = spyOn(controlsService, 'getGroups')
-        .and.returnValue(Promise.resolve([
+        .and.returnValue(Observable.of([
           new ControlGroup('group#1test', 'Group #1 Test', 'Group #1 Description Test', [
             new ControlMetadata('type#11', 'Item #11', 'Item #11 Description'),
             new ControlMetadata('type#12', 'Item #12', 'Item #12 Description')

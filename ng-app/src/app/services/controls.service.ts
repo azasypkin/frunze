@@ -1,27 +1,51 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Http, Response}          from '@angular/http';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/of';
 
-import { ControlGroup } from '../core/controls/control-group';
-import { ControlMetadata } from '../core/controls/control-metadata';
+import {ControlGroup} from '../core/controls/control-group';
+import {ControlMetadata} from '../core/controls/control-metadata';
 
 @Injectable()
 export class ControlsService {
-  private groups: ControlGroup[];
+  // TODO: URL should become configuration value.
+  private apiURL = 'http://0.0.0.0:8009/control-groups';
 
-  constructor() {
-    this.groups = [
-      new ControlGroup('group#1', 'Group #1', 'Group #1 Description', [
-        new ControlMetadata('type#11', 'Item #11', 'Item #11 Description'),
-        new ControlMetadata('type#12', 'Item #12', 'Item #12 Description')
-      ]),
-      new ControlGroup('group#2', 'Group #2', 'Group #2 Description', [
-        new ControlMetadata('type#21', 'Item #21', 'Item #21 Description'),
-        new ControlMetadata('type#22', 'Item #22', 'Item #22 Description')
-      ])
-    ];
+  constructor(private http: Http) {
   }
 
-  getGroups(): Promise<ControlGroup[]> {
-    // TODO: Obviously here we should return new list with _frozen_ objects, for now it is not required.
-    return Promise.resolve(this.groups);
+  getGroups(): Observable<ControlGroup[]> {
+    return this.http.get(this.apiURL)
+      .map(this.jsonToGroups)
+      .catch(ControlsService.handleError);
+  }
+
+  private jsonToGroups(response: Response) {
+    let rawGroups = response.json();
+
+    if (!rawGroups) {
+      return [];
+    }
+
+    return rawGroups.map((rawGroup) => {
+      return new ControlGroup(rawGroup.type, rawGroup.name, rawGroup.description, rawGroup.items.map((item) => {
+        return new ControlMetadata(item.type, item.name, item.description);
+      }))
+    });
+  }
+
+  private static handleError(error: Response | any) {
+    let errorMessage: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      errorMessage = `${error.status} - ${error.statusText || ''} ${body.error || JSON.stringify(body)}`;
+    } else {
+      errorMessage = error.message ? error.message : error.toString();
+    }
+
+    console.error(errorMessage);
+    return Observable.throw(errorMessage);
   }
 }
