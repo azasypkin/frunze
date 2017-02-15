@@ -48,6 +48,20 @@ $ ng serve
 
 After that navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+There is also option to run the app in a dedicated Docker container if you just want to check it out:
+
+```bash
+$ cd ng-app
+$ docker build -t frunze-ng-app:dev .
+$ docker run -d --name frunze-ng-app -p 4200:4200 frunze-ng-app:dev
+```
+
+Docker command line arguments are quite obvi    ous so there is no need to explain them. Once you're done stop container with:
+
+```bash
+$ docker stop frunze-ng-app
+```
+
 ## Build
 
 ### API Server
