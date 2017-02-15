@@ -4,6 +4,8 @@ import {MockBackend} from '@angular/http/testing';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 
+import {Config} from '../../config';
+
 import {ControlGroup} from '../../core/controls/control-group';
 import {ControlMetadata} from '../../core/controls/control-metadata';
 
@@ -31,6 +33,7 @@ describe('Components/AppComponent', () => {
       ],
       providers: [
         {provide: XHRBackend, useClass: MockBackend},
+        Config,
         ControlsService
       ]
     }).compileComponents().then(() => {

@@ -5,19 +5,20 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
+import {Config} from '../config';
+
 import {ControlGroup} from '../core/controls/control-group';
 import {ControlMetadata} from '../core/controls/control-metadata';
 
 @Injectable()
 export class ControlsService {
-  // TODO: URL should become configuration value.
-  private apiURL = 'http://0.0.0.0:8009/control-groups';
+  private controlGroupsAPIPath = 'control-groups';
 
-  constructor(private http: Http) {
+  constructor(private config: Config, private http: Http) {
   }
 
   getGroups(): Observable<ControlGroup[]> {
-    return this.http.get(this.apiURL)
+    return this.http.get(`${this.config.apiDomain}/${this.controlGroupsAPIPath}`)
       .map(this.jsonToGroups)
       .catch(ControlsService.handleError);
   }

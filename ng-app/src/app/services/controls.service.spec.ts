@@ -1,8 +1,12 @@
 import {TestBed, async, inject} from '@angular/core/testing';
 import {HttpModule, XHRBackend, Response, ResponseOptions} from '@angular/http';
 import {MockBackend, MockConnection} from '@angular/http/testing';
+
+import {Config} from '../config';
+
 import {ControlGroup} from '../core/controls/control-group';
 import {ControlMetadata} from '../core/controls/control-metadata';
+
 import {ControlsService} from './controls.service';
 
 describe('Services/ControlsService', () => {
@@ -13,6 +17,7 @@ describe('Services/ControlsService', () => {
       imports: [HttpModule],
       providers: [
         {provide: XHRBackend, useClass: MockBackend},
+        Config,
         ControlsService
       ]
     });
