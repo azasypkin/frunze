@@ -14,6 +14,11 @@
   border: 1px solid #ddd;
 }
 
+.frunze-editor__components,
+.frunze-editor__properties {
+  flex: 1;
+}
+
 .frunze-editor__workspace {
   flex: 3;
 
