@@ -36,6 +36,13 @@ or if you'd like to use custom IP address or/and port (don't forget to re-config
 $ cd api
 $ cargo run -- --ip 127.0.0.2 --port 8008
 ```
+There is also option to run the API server in a dedicated Docker container if you just want to check it out:
+
+```bash
+$ cd api
+$ docker build -t frunze-api:dev .
+$ docker run -d --name frunze-api -p 8009:8009 frunze-api:dev
+```
 
 ### Client
 
