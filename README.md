@@ -21,6 +21,18 @@ __Frunze__ is an Angular2 TypeScript app with Rust API backend. So you'll need t
 
 ## Development setup
 
+If you just want to give Frunze a try and skip environment setup then use provided Docker Compose file:
+
+```bash
+$ docker-compose up
+```
+
+Once everything is downloaded, compiled and run you'll see something like this in the terminal window `** NG Live Development Server is running on http://0.0.0.0:4200 **`. 
+So open that address in your browser and you're done!
+
+Please, read below if you'd like to have more control over the development setup.
+
+
 ### API Server
 
 Run development API server with (localhost:8009 by default):

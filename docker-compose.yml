@@ -1,0 +1,13 @@
+version: '2'
+
+# Define the services/containers to be run
+services:
+  ng-app:
+    build: ng-app
+    ports:
+      - "4200:4200"
+
+  api:
+    build: api
+    ports:
+      - "8009:8009"
