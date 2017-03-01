@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 # Define the services/containers to be run
 services:
@@ -11,3 +11,15 @@ services:
     build: api
     ports:
       - "8009:8009"
+    links:
+      - db
+    environment:
+      - RUST_LOG=frunze_api=info
+
+  db:
+    image: mongo:3.2
+    ports:
+      - "27017:27017"
+    # Use for development only if you'd like to store DB files in a known place on your host machine.
+    volumes:
+      - ./data-files:/data/db

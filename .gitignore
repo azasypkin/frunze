@@ -1,4 +1,5 @@
 api/target
+data-files
 
 # compiled output
 /ng-app/dist
