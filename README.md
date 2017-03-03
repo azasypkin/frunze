@@ -17,7 +17,7 @@ __Current status:__ in active development.
 
 # Development
 
-__Frunze__ is an Angular2 TypeScript app with Rust API backend. So you'll need to deal with both parts.
+__Frunze__ is an Angular2 TypeScript app with Rust API backend and MongoDB database. So you'll need to deal with all parts.
 
 ## Development setup
 
@@ -32,6 +32,25 @@ So open that address in your browser and you're done!
 
 Please, read below if you'd like to have more control over the development setup.
 
+### Database
+
+Usually you don't have to deal with the DB itself too much, so you can leverage Docker Compose to run the DB server with
+exposed port:
+
+```bash
+$ docker-compose start db
+``` 
+
+To check if mongoDB is running, just go to `http://localhost:27017` in you browser, and you should see this message. 
+`It looks like you are trying to access MongoDB over HTTP on the native driver port.`.
+
+To stop mongoDB:
+
+```bash
+$ docker-compose stop db
+``` 
+
+Checkout `docker-compose.yml` for default settings that you can modify if you want to.
 
 ### API Server
 
@@ -48,6 +67,14 @@ or if you'd like to use custom IP address or/and port (don't forget to re-config
 $ cd api
 $ cargo run -- --ip 127.0.0.2 --port 8008
 ```
+
+For custom MongoDB instance use the following parameters:
+
+```bash
+$ cd api
+$ cargo run -- ... --db-ip 127.0.0.3 --db-port 27018 --db-name my-own-db-name
+```
+
 There is also option to run the API server in a dedicated Docker container if you just want to check it out:
 
 ```bash
