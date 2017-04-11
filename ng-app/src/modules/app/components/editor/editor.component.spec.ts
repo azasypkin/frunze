@@ -11,7 +11,7 @@ import {ControlMetadata} from '../../core/controls/control-metadata';
 
 import {ControlsService} from '../../services/controls.service';
 
-import {BootstrapComponent} from './bootstrap.component';
+import {EditorComponent} from './editor.component';
 import {
   ExpandableGroupsComponent
 } from '../expandable-groups/expandable-groups.component';
@@ -19,14 +19,14 @@ import {WorkspaceComponent} from '../workspace/workspace.component';
 import {PropertiesComponent} from '../properties/properties.component';
 
 
-describe('Components/BootstrapComponent', () => {
+describe('Components/EditorComponent', () => {
   let fixture, controlsServiceSpy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule],
       declarations: [
-        BootstrapComponent,
+        EditorComponent,
         ExpandableGroupsComponent,
         WorkspaceComponent,
         PropertiesComponent
@@ -37,7 +37,7 @@ describe('Components/BootstrapComponent', () => {
         ControlsService
       ]
     }).compileComponents().then(() => {
-      fixture = TestBed.createComponent(BootstrapComponent);
+      fixture = TestBed.createComponent(EditorComponent);
       const controlsService = fixture.debugElement.injector.get(ControlsService);
       controlsServiceSpy = spyOn(controlsService, 'getGroups')
         .and.returnValue(Observable.of([

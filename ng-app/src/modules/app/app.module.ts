@@ -8,13 +8,18 @@ import {Config} from './config';
 import {ControlsService} from './services/controls.service';
 
 import {BootstrapComponent} from './components/bootstrap/bootstrap.component';
+import {EditorComponent} from './components/editor/editor.component';
 import {ExpandableGroupsComponent} from './components/expandable-groups/expandable-groups.component';
 import {WorkspaceComponent} from './components/workspace/workspace.component';
 import {PropertiesComponent} from './components/properties/properties.component';
 
+import {PromoModule}      from '../promo/promo.module';
+import {AppRoutingModule}   from './app-routing.module';
+
 @NgModule({
   declarations: [
     BootstrapComponent,
+    EditorComponent,
     ExpandableGroupsComponent,
     PropertiesComponent,
     WorkspaceComponent
@@ -22,7 +27,9 @@ import {PropertiesComponent} from './components/properties/properties.component'
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    PromoModule,
+    AppRoutingModule
   ],
   providers: [Config, ControlsService],
   bootstrap: [BootstrapComponent]
