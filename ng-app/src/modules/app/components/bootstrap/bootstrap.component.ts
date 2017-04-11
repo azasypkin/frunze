@@ -5,10 +5,10 @@ import { ControlsService } from '../../services/controls.service';
 
 @Component({
   selector: 'frunze-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css']
+  templateUrl: 'bootstrap.component.html',
+  styleUrls: ['bootstrap.component.css']
 })
-export class AppComponent implements OnInit {
+export class BootstrapComponent implements OnInit {
   controlGroups: ControlGroup[] = [];
 
   constructor(private controlsService: ControlsService) {}

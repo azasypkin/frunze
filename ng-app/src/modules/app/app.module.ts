@@ -7,14 +7,14 @@ import {Config} from './config';
 
 import {ControlsService} from './services/controls.service';
 
-import {AppComponent} from './components/app/app.component';
+import {BootstrapComponent} from './components/bootstrap/bootstrap.component';
 import {ExpandableGroupsComponent} from './components/expandable-groups/expandable-groups.component';
 import {WorkspaceComponent} from './components/workspace/workspace.component';
 import {PropertiesComponent} from './components/properties/properties.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    BootstrapComponent,
     ExpandableGroupsComponent,
     PropertiesComponent,
     WorkspaceComponent
@@ -25,7 +25,7 @@ import {PropertiesComponent} from './components/properties/properties.component'
     HttpModule
   ],
   providers: [Config, ControlsService],
-  bootstrap: [AppComponent]
+  bootstrap: [BootstrapComponent]
 })
 export class AppModule {
 }
