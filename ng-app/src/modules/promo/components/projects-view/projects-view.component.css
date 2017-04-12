@@ -1,0 +1,68 @@
+.frunze-projects-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/** Navigation **/
+.frunze-projects-nav {
+  padding: 1.5rem 1.5rem 1.5rem 1rem;
+
+  background-color: #1f2532;
+}
+
+.frunze-projects-nav-link {
+  display: inline-block;
+  margin-right: 0.5rem;
+
+  color: #596377;
+  text-decoration: none;
+}
+
+.frunze-projects-nav-link:hover,
+.frunze-projects-nav-link--active {
+  color: #D3D8E0;
+}
+
+.frunze-projects-nav-logo {
+  font-size: 200%;
+}
+
+.frunze-projects-nav-logo:hover {
+  color: #596377;
+}
+
+/** Content **/
+.frunze-projects-content {
+  flex: 1;
+}
+
+
+/** Empty content **/
+.frunze-projects-content--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frunze-projects-empty {
+  font-size: 150%;
+  text-align: center;
+}
+
+.frunze-projects-empty-sign {
+  width: 10rem;
+}
+
+.frunze-projects-empty-create {
+  display: block;
+  margin-top: 1rem;
+  padding: 0.5rem 2rem;
+
+  border: 0.1rem solid;
+  border-radius: 1rem;
+
+  color: #1f2532;
+  font-size: 60%;
+}
