@@ -1,0 +1,41 @@
+.frunze-project-edit-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/** Navigation **/
+.frunze-projects-nav {
+  padding: 1.5rem 1.5rem 1.5rem 1rem;
+
+  line-height: 1rem;
+
+  background-color: #1f2532;
+}
+
+.frunze-projects-nav-link {
+  display: inline-block;
+  margin-right: 0.5rem;
+
+  color: #596377;
+  text-decoration: none;
+}
+
+.frunze-projects-nav-link:hover,
+.frunze-projects-nav-link--active {
+  color: #D3D8E0;
+}
+
+.frunze-projects-nav-logo {
+  font-size: 200%;
+}
+
+.frunze-projects-nav-logo:hover {
+  color: #596377;
+}
+
+/** Content **/
+.frunze-project-edit-content {
+  flex: 1;
+}
