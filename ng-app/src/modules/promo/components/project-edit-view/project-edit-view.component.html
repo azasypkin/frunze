@@ -1,3 +1,17 @@
 <section class="frunze-project-edit-view-content">
-  Edit Project
+  <form [formGroup]="projectEditor" novalidate>
+    <p>Edit Project</p>
+    <section>
+      <label>Name:<input formControlName="name"></label>
+    </section>
+    <section>
+      <label>Category:
+        <select formControlName="category">
+          <option *ngFor="let category of projectCategories" [value]="category">{{getCategoryLabel(category)}}</option>
+        </select>
+      </label>
+    </section>
+  </form>
+  <p>Form value: {{ projectEditor.value | json }}</p>
+  <p>Form status: {{ projectEditor.status | json }}</p>
 </section>

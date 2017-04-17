@@ -1,6 +1,6 @@
-import {CommonModule}        from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import {ProjectsViewComponent} from './components/projects-view/projects-view.component';
 import {ProjectEditViewComponent} from './components/project-edit-view/project-edit-view.component';
@@ -15,7 +15,7 @@ import {PromoRoutingModule}   from './promo-routing.module';
     ProjectEditViewComponent,
     UpdatesViewComponent
   ],
-  imports: [CommonModule, FormsModule, PromoRoutingModule]
+  imports: [CommonModule, ReactiveFormsModule, PromoRoutingModule]
 })
 export class PromoModule {
 }
