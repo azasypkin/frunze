@@ -9,7 +9,8 @@ import {UpdatesViewComponent} from './components/updates-view/updates-view.compo
   imports: [RouterModule.forChild([
     {path: 'promo', redirectTo: 'promo/projects', pathMatch: 'full'},
     {path: 'promo/projects', component: ProjectsViewComponent},
-    {path: 'promo/project-create', component: ProjectEditViewComponent},
+    {path: 'promo/project/new', component: ProjectEditViewComponent},
+    {path: 'promo/project/edit/:id', component: ProjectEditViewComponent},
     {path: 'promo/updates', component: UpdatesViewComponent}
   ])],
   exports: [RouterModule]
