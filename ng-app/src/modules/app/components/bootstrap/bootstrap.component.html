@@ -1,9 +1,15 @@
 <article class="frunze-view">
   <nav class="frunze-view-nav">
-    <a href="/promo" class="frunze-nav-link frunze-nav-logo">&#966;</a>
-    <a href="/promo/projects" class="frunze-nav-link frunze-nav-link--active">Projects</a>
-    <a href="/promo/updates" class="frunze-nav-link">Updates</a>
-    <a href="/promo/help" class="frunze-nav-link">Help</a>
+    <a routerLink="/promo" class="frunze-nav-link frunze-nav-logo">&#966;</a>
+    <a routerLink="/promo/projects" routerLinkActive="frunze-nav-link--active" class="frunze-nav-link">
+      Projects
+    </a>
+    <a routerLink="/promo/updates" routerLinkActive="frunze-nav-link--active" class="frunze-nav-link">
+      Updates
+    </a>
+    <a routerLink="/promo/help" routerLinkActive="frunze-nav-link--active" class="frunze-nav-link">
+      Help
+    </a>
   </nav>
   <section class="frunze-view-content">
     <router-outlet></router-outlet>
