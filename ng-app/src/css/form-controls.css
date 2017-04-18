@@ -1,0 +1,53 @@
+.frunze-form-field {
+  padding: 1rem;
+}
+
+.frunze-form-label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.frunze-form-control {
+  display: block;
+  box-sizing: border-box;
+  width: 300px;
+  padding: 0.5rem 0.75rem;
+
+  border: 1px solid rgba(0,0,0,.15);
+  background-clip: padding-box;
+  border-radius: .25rem;
+
+  font-size: 1rem;
+  line-height: 1.25;
+  color: #464a4c;
+  background: #fff none;
+
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.frunze-form-input {}
+
+.frunze-form-select {}
+
+.frunze-form-control:focus {
+  border-color: #5cb3fd;
+  outline: none;
+}
+
+.frunze-form-button-link {
+  margin: 0.5rem 0;
+  padding: 0;
+
+  background: none;
+  border: none;
+
+  color: #104FCF;
+  cursor: pointer;
+  font-family: "Fira Sans", "Open Sans", sans-serif;
+  font-weight: 300;
+}
+
+.frunze-form-button-link ::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}

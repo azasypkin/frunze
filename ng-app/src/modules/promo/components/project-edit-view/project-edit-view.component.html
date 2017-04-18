@@ -1,12 +1,15 @@
 <section class="frunze-project-edit-view-content">
   <form [formGroup]="projectEditor" novalidate>
-    <p>Edit Project</p>
-    <section>
-      <label>Name:<input formControlName="name"></label>
+    <section class="frunze-form-field">
+      <label>
+        <span class="frunze-form-label">Name</span>
+        <input formControlName="name" class="frunze-form-control frunze-form-input">
+      </label>
     </section>
-    <section>
-      <label>Category:
-        <select formControlName="category">
+    <section class="frunze-form-field">
+      <label>
+        <span class="frunze-form-label">Category</span>
+        <select formControlName="category" class="frunze-form-control frunze-form-select">
           <option *ngFor="let category of projectCategories" [value]="category">{{getCategoryLabel(category)}}</option>
         </select>
       </label>
