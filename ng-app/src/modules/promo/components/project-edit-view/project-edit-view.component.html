@@ -8,9 +8,9 @@
     </section>
     <section class="frunze-form-field">
       <label>
-        <span class="frunze-form-label">Category</span>
-        <select formControlName="category" class="frunze-form-control frunze-form-select">
-          <option *ngFor="let category of projectCategories" [value]="category">{{getCategoryLabel(category)}}</option>
+        <span class="frunze-form-label">Kind</span>
+        <select formControlName="kind" class="frunze-form-control frunze-form-select">
+          <option *ngFor="let kind of projectKinds" [value]="kind">{{getKindLabel(kind)}}</option>
         </select>
       </label>
     </section>

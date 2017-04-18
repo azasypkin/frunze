@@ -1,7 +1,7 @@
 /**
- * Enum that describes all possible project high level categories.
+ * Enum that describes all possible project high level kinds.
  */
-export enum ProjectCategory {
+export enum ProjectKind {
   Indicator = 1,
   Sensor,
   Actuator,
@@ -18,12 +18,12 @@ export class Project {
   name: string;
 
   /**
-   * Category of the project.
+   * Kind of the project.
    */
-  category: ProjectCategory;
+  kind: ProjectKind;
 
-  constructor(name: string = 'New Project', category: ProjectCategory = ProjectCategory.Custom) {
+  constructor(name: string = 'New Project', kind: ProjectKind = ProjectKind.Custom) {
     this.name = name;
-    this.category = category;
+    this.kind = kind;
   }
 }

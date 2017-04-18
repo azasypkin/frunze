@@ -6,7 +6,7 @@ import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
-import {Project, ProjectCategory} from '../../../app/core/projects/project';
+import {Project, ProjectKind} from '../../../app/core/projects/project';
 
 
 @Component({
@@ -15,8 +15,8 @@ import {Project, ProjectCategory} from '../../../app/core/projects/project';
 })
 export class ProjectEditViewComponent implements OnInit {
   project: Project;
-  projectCategories = [
-    ProjectCategory.Indicator, ProjectCategory.Sensor, ProjectCategory.Actuator, ProjectCategory.Custom
+  projectKinds = [
+    ProjectKind.Indicator, ProjectKind.Sensor, ProjectKind.Actuator, ProjectKind.Custom
   ];
 
   projectEditor: FormGroup;
@@ -24,28 +24,28 @@ export class ProjectEditViewComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.projectEditor = this.formBuilder.group({
       name: ['', Validators.required],
-      category: [ProjectCategory.Custom, Validators.required]
+      kind: [ProjectKind.Custom, Validators.required]
     });
   }
 
   /**
-   * Converts category code to localized category label.
+   * Converts kind code to localized kind label.
    * TODO: Add localization support and get rid of hardcoded strings.
-   * @param {ProjectCategory} category Category to get a label for.
-   * @returns {string} Human readable category label.
+   * @param {ProjectKind} kind Project kind to get a label for.
+   * @returns {string} Human readable kind label.
    */
-  getCategoryLabel(category: ProjectCategory) {
-    switch (category) {
-      case ProjectCategory.Indicator:
+  getKindLabel(kind: ProjectKind) {
+    switch (kind) {
+      case ProjectKind.Indicator:
         return 'Indicator';
-      case ProjectCategory.Sensor:
+      case ProjectKind.Sensor:
         return 'Sensor';
-      case ProjectCategory.Actuator:
+      case ProjectKind.Actuator:
         return 'Actuator';
-      case ProjectCategory.Custom:
+      case ProjectKind.Custom:
         return 'Custom';
       default:
-        throw new Error(`Unsupported project category code "${category}"`);
+        throw new Error(`Unsupported project kind code "${kind}"`);
     }
   }
 
@@ -54,7 +54,7 @@ export class ProjectEditViewComponent implements OnInit {
 
     this.projectEditor.setValue({
       name: this.project.name,
-      category: this.project.category
+      kind: this.project.kind
     });
   }
 
