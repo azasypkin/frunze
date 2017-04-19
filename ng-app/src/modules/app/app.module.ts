@@ -6,6 +6,8 @@ import {HttpModule} from '@angular/http';
 import {Config} from './config';
 
 import {ControlsService} from './services/controls.service';
+import {ProjectService} from './services/project.service';
+
 
 import {BootstrapComponent} from './components/bootstrap/bootstrap.component';
 import {EditorComponent} from './components/editor/editor.component';
@@ -13,8 +15,8 @@ import {ExpandableGroupsComponent} from './components/expandable-groups/expandab
 import {WorkspaceComponent} from './components/workspace/workspace.component';
 import {PropertiesComponent} from './components/properties/properties.component';
 
-import {PromoModule}      from '../promo/promo.module';
-import {AppRoutingModule}   from './app-routing.module';
+import {PromoModule} from '../promo/promo.module';
+import {AppRoutingModule} from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import {AppRoutingModule}   from './app-routing.module';
     PromoModule,
     AppRoutingModule
   ],
-  providers: [Config, ControlsService],
+  providers: [Config, ControlsService, ProjectService],
   bootstrap: [BootstrapComponent]
 })
 export class AppModule {

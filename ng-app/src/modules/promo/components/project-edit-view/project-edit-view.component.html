@@ -7,12 +7,16 @@
       </label>
     </section>
     <section class="frunze-form-field">
-      <label>
-        <span class="frunze-form-label">Kind</span>
-        <select formControlName="kind" class="frunze-form-control frunze-form-select">
-          <option *ngFor="let kind of projectKinds" [value]="kind">{{getKindLabel(kind)}}</option>
-        </select>
-      </label>
+      <span class="frunze-form-label">Capabilities</span>
+      <ul class="frunze-form-checkbox-group-container">
+        <li *ngFor="let group of projectCapabilityGroups" class="frunze-form-checkbox-group">
+          <h3 class="frunze-form-checkbox-group-header">{{group.name}}</h3>
+          <label class="frunze-form-checkbox-item" *ngFor="let capability of group.capabilities">
+            <input class="frunze-form-checkbox" type="checkbox" />
+            <span class="frunze-form-label">{{capability.name}}</span>
+          </label>
+        </li>
+      </ul>
     </section>
   </form>
   <p>Form value: {{ projectEditor.value | json }}</p>

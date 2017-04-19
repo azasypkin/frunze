@@ -6,8 +6,10 @@ import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
-import {Project, ProjectKind} from '../../../app/core/projects/project';
+import {ProjectService} from '../../../app/services/project.service';
 
+import {Project} from '../../../app/core/projects/project';
+import {ProjectCapabilityGroup} from '../../../app/core/projects/project-capability-group';
 
 @Component({
   templateUrl: 'project-edit-view.component.html',
@@ -15,38 +17,15 @@ import {Project, ProjectKind} from '../../../app/core/projects/project';
 })
 export class ProjectEditViewComponent implements OnInit {
   project: Project;
-  projectKinds = [
-    ProjectKind.Indicator, ProjectKind.Sensor, ProjectKind.Actuator, ProjectKind.Custom
-  ];
+  projectCapabilityGroups: ProjectCapabilityGroup[];
 
   projectEditor: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private projectService: ProjectService) {
     this.projectEditor = this.formBuilder.group({
       name: ['', Validators.required],
-      kind: [ProjectKind.Custom, Validators.required]
+      kind: ['', Validators.required]
     });
-  }
-
-  /**
-   * Converts kind code to localized kind label.
-   * TODO: Add localization support and get rid of hardcoded strings.
-   * @param {ProjectKind} kind Project kind to get a label for.
-   * @returns {string} Human readable kind label.
-   */
-  getKindLabel(kind: ProjectKind) {
-    switch (kind) {
-      case ProjectKind.Indicator:
-        return 'Indicator';
-      case ProjectKind.Sensor:
-        return 'Sensor';
-      case ProjectKind.Actuator:
-        return 'Actuator';
-      case ProjectKind.Custom:
-        return 'Custom';
-      default:
-        throw new Error(`Unsupported project kind code "${kind}"`);
-    }
   }
 
   updateProject(project: Project) {
@@ -54,14 +33,18 @@ export class ProjectEditViewComponent implements OnInit {
 
     this.projectEditor.setValue({
       name: this.project.name,
-      kind: this.project.kind
+      kind: ''
     });
   }
 
   ngOnInit() {
     // TODO: Temporal solution, later on we should implement project service to load project by id if it's provided.
     this.route.params
-      .switchMap((params: Params) => Observable.of(new Project(params['id'] || 'New Project')))
+      .switchMap((params: Params) => Observable.of(new Project(params['id'] || 'New Project', [])))
       .subscribe((project: Project) => this.updateProject(project));
+
+    this.projectService.getCapabilities().subscribe(
+      (groups: ProjectCapabilityGroup[]) => this.projectCapabilityGroups = groups
+    );
   }
 }

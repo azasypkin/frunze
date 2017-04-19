@@ -1,29 +1,24 @@
-/**
- * Enum that describes all possible project high level kinds.
- */
-export enum ProjectKind {
-  Indicator = 1,
-  Sensor,
-  Actuator,
-  Custom
-}
+import {ProjectCapability} from './project-capability'
 
 /**
  * Class that describes the specific project.
  */
 export class Project {
+  constructor(private _name: string = 'New Project', private _capabilities: ProjectCapability[]) {}
+
   /**
    * Name of the project.
+   * @returns {string}
    */
-  name: string;
+  get name() {
+    return this._name;
+  }
 
   /**
-   * Kind of the project.
+   * Project  capabilities.
+   * @returns {ProjectCapability[]}
    */
-  kind: ProjectKind;
-
-  constructor(name: string = 'New Project', kind: ProjectKind = ProjectKind.Custom) {
-    this.name = name;
-    this.kind = kind;
+  get capabilities() {
+    return this._capabilities;
   }
 }
