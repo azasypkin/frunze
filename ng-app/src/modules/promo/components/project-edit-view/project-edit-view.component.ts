@@ -17,34 +17,41 @@ import {ProjectCapabilityGroup} from '../../../app/core/projects/project-capabil
 })
 export class ProjectEditViewComponent implements OnInit {
   project: Project;
-  projectCapabilityGroups: ProjectCapabilityGroup[];
+  availableCapabilityGroups: ProjectCapabilityGroup[];
 
   projectEditor: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private projectService: ProjectService) {
     this.projectEditor = this.formBuilder.group({
       name: ['', Validators.required],
-      kind: ['', Validators.required]
+      capabilities: this.formBuilder.array([])
     });
   }
 
   updateProject(project: Project) {
     this.project = project;
 
-    this.projectEditor.setValue({
-      name: this.project.name,
-      kind: ''
-    });
+    this.projectEditor.patchValue({ name: this.project.name });
+  }
+
+  updateCapabilityGroups(capabilities: ProjectCapabilityGroup[]) {
+    this.availableCapabilityGroups = capabilities;
+
+    const capabilityGroups = capabilities.map(
+      (group) => this.formBuilder.array(group.capabilities.map((capability) => this.formBuilder.control(false)))
+    );
+
+    this.projectEditor.setControl('capabilities', this.formBuilder.array(capabilityGroups));
   }
 
   ngOnInit() {
+    this.projectService.getCapabilities().subscribe(
+      (groups: ProjectCapabilityGroup[]) => this.updateCapabilityGroups(groups)
+    );
+
     // TODO: Temporal solution, later on we should implement project service to load project by id if it's provided.
     this.route.params
       .switchMap((params: Params) => Observable.of(new Project(params['id'] || 'New Project', [])))
       .subscribe((project: Project) => this.updateProject(project));
-
-    this.projectService.getCapabilities().subscribe(
-      (groups: ProjectCapabilityGroup[]) => this.projectCapabilityGroups = groups
-    );
   }
 }
