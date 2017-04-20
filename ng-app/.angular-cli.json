@@ -19,6 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "../node_modules/hint.css/hint.css",
         "css/fonts.css",
         "css/global.css",
         "css/form-controls.css"

@@ -1,4 +1,5 @@
 <section class="frunze-project-edit-view-content">
+  <h1>Configure your new Project</h1>
   <form [formGroup]="projectEditor" novalidate>
     <section class="frunze-form-field">
       <label>
@@ -10,10 +11,10 @@
       <span class="frunze-form-label">Capabilities</span>
       <ul class="frunze-form-checkbox-group-container">
         <li *ngFor="let group of projectCapabilityGroups" class="frunze-form-checkbox-group">
-          <h3 class="frunze-form-checkbox-group-header">{{group.name}}</h3>
+          <span class="frunze-form-checkbox-group-header hint--bottom hint--info" [attr.data-hint]="group.hint">{{group.name}}</span>
           <label class="frunze-form-checkbox-item" *ngFor="let capability of group.capabilities">
             <input class="frunze-form-checkbox" type="checkbox" />
-            <span class="frunze-form-label">{{capability.name}}</span>
+            <span class="hint--bottom hint--info" [attr.data-hint]="capability.hint">{{capability.name}}</span>
           </label>
         </li>
       </ul>

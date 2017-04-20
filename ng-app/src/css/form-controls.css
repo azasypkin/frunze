@@ -1,10 +1,12 @@
 .frunze-form-field {
-  padding: 1rem;
+  margin: 1.5rem 0;
 }
 
 .frunze-form-label {
   display: inline-block;
   margin-bottom: 0.5rem;
+
+  font-weight: 400;
 }
 
 .frunze-form-control {
@@ -62,11 +64,11 @@
 
 .frunze-form-checkbox-group-header {
   display: inline-block;
+  margin: 0.5rem 0;
   padding-bottom: 0.2rem;
   border-bottom: 1px solid rgba(0,0,0,.25);
 
-  font-weight: 400;
-  font-size: 100%;
+  font-style: italic;
 }
 
 .frunze-form-checkbox-group {
