@@ -17,29 +17,6 @@ const APIPaths = Object.freeze({
 
 @Injectable()
 export class ProjectService {
-  constructor(private config: Config, private http: Http) {
-  }
-
-  getCapabilities(): Observable<ProjectCapabilityGroup[]> {
-    return this.http.get(`${this.config.apiDomain}/${APIPaths.projectCapabilities}`)
-      .map(this.jsonToGroups)
-      .catch(ProjectService.handleError);
-  }
-
-  private jsonToGroups(response: Response) {
-    let rawGroups = response.json();
-
-    if (!rawGroups) {
-      return [];
-    }
-
-    return rawGroups.map((rawGroup) => {
-      return new ProjectCapabilityGroup(rawGroup.type, rawGroup.name, rawGroup.hint,
-        rawGroup.capabilities.map((item) => new ProjectCapability(item.type, item.name, item.hint))
-      )
-    });
-  }
-
   private static handleError(error: Response | any) {
     let errorMessage: string;
     if (error instanceof Response) {
@@ -51,5 +28,28 @@ export class ProjectService {
 
     console.error(errorMessage);
     return Observable.throw(errorMessage);
+  }
+
+  constructor(private config: Config, private http: Http) {
+  }
+
+  getCapabilities(): Observable<ProjectCapabilityGroup[]> {
+    return this.http.get(`${this.config.apiDomain}/${APIPaths.projectCapabilities}`)
+      .map(this.jsonToGroups)
+      .catch(ProjectService.handleError);
+  }
+
+  private jsonToGroups(response: Response) {
+    const rawGroups = response.json();
+
+    if (!rawGroups) {
+      return [];
+    }
+
+    return rawGroups.map((rawGroup) => {
+      return new ProjectCapabilityGroup(rawGroup.type, rawGroup.name, rawGroup.hint,
+        rawGroup.capabilities.map((item) => new ProjectCapability(item.type, item.name, item.hint))
+      );
+    });
   }
 }

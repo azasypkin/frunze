@@ -7,7 +7,7 @@ import {ProjectEditViewComponent} from './components/project-edit-view/project-e
 import {UpdatesViewComponent} from './components/updates-view/updates-view.component';
 
 
-import {PromoRoutingModule}   from './promo-routing.module';
+import {PromoRoutingModule} from './promo-routing.module';
 
 @NgModule({
   declarations: [

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response}          from '@angular/http';
+import {Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -14,29 +14,6 @@ import {ControlMetadata} from '../core/controls/control-metadata';
 export class ControlsService {
   private controlGroupsAPIPath = 'control-groups';
 
-  constructor(private config: Config, private http: Http) {
-  }
-
-  getGroups(): Observable<ControlGroup[]> {
-    return this.http.get(`${this.config.apiDomain}/${this.controlGroupsAPIPath}`)
-      .map(this.jsonToGroups)
-      .catch(ControlsService.handleError);
-  }
-
-  private jsonToGroups(response: Response) {
-    let rawGroups = response.json();
-
-    if (!rawGroups) {
-      return [];
-    }
-
-    return rawGroups.map((rawGroup) => {
-      return new ControlGroup(rawGroup.type, rawGroup.name, rawGroup.description, rawGroup.items.map((item) => {
-        return new ControlMetadata(item.type, item.name, item.description);
-      }))
-    });
-  }
-
   private static handleError(error: Response | any) {
     let errorMessage: string;
     if (error instanceof Response) {
@@ -48,5 +25,28 @@ export class ControlsService {
 
     console.error(errorMessage);
     return Observable.throw(errorMessage);
+  }
+
+  constructor(private config: Config, private http: Http) {
+  }
+
+  getGroups(): Observable<ControlGroup[]> {
+    return this.http.get(`${this.config.apiDomain}/${this.controlGroupsAPIPath}`)
+      .map(this.jsonToGroups)
+      .catch(ControlsService.handleError);
+  }
+
+  private jsonToGroups(response: Response) {
+    const rawGroups = response.json();
+
+    if (!rawGroups) {
+      return [];
+    }
+
+    return rawGroups.map((rawGroup) => {
+      return new ControlGroup(rawGroup.type, rawGroup.name, rawGroup.description, rawGroup.items.map((item) => {
+        return new ControlMetadata(item.type, item.name, item.description);
+      }));
+    });
   }
 }

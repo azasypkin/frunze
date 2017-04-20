@@ -16,12 +16,12 @@ export class ProjectCapabilityGroup {
   }
 
   /**
-   * Human-readable name for the project capability group.
-   * @returns {string}
-   */
-  get name() {
-    return this._name;
-  }
+ * Human-readable name for the project capability group.
+ * @returns {string}
+ */
+get name() {
+  return this._name;
+}
 
   /**
    * Human-readable description of the project capability group.

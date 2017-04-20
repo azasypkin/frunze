@@ -1,4 +1,4 @@
-import {ProjectCapability} from './project-capability'
+import {ProjectCapability} from './project-capability';
 
 /**
  * Class that describes the specific project.
