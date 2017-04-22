@@ -22,7 +22,9 @@
         </li>
       </ul>
     </section>
+    <button type="button" class="frunze-button" (click)="onNext()">Next</button>
   </form>
   <p>Form value: {{ projectEditor.value | json }}</p>
   <p>Form status: {{ projectEditor.status | json }}</p>
+  <p>Project: {{ project | json }}</p>
 </section>

@@ -83,3 +83,13 @@
 .frunze-form-checkbox {
   margin: 0;
 }
+
+.frunze-button {
+  padding: 0.7rem;
+
+  border: none;
+
+  color: #fff;
+  background-color: #286090;
+  font-size: 120%;
+}

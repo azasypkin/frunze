@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Params} from '@angular/router';
 
 import {Observable} from 'rxjs/Observable';
@@ -53,5 +53,22 @@ export class ProjectEditViewComponent implements OnInit {
     this.route.params
       .switchMap((params: Params) => Observable.of(new Project(params['id'] || 'New Project', [])))
       .subscribe((project: Project) => this.updateProject(project));
+  }
+
+  onNext() {
+    const capabilities = [];
+    const capabilitiesEditor = this.projectEditor.get('capabilities') as FormArray;
+
+    this.availableCapabilityGroups.forEach((group, groupIndex) => {
+      group.capabilities.forEach((capability, capabilityIndex) => {
+        const capabilityEditor = capabilitiesEditor.at(groupIndex) as FormArray;
+        if (capabilityEditor.at(capabilityIndex).value) {
+          capabilities.push(capability.type);
+        }
+      });
+    });
+
+    // Update project.
+    this.project = new Project(this.projectEditor.get('name').value.toString(), capabilities);
   }
 }

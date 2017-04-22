@@ -9,6 +9,11 @@ html, body {
   font-weight: 300;
 }
 
+button {
+  font-family: "Fira Sans", "Open Sans", sans-serif;
+  font-weight: 300;
+}
+
 body {
   box-sizing: border-box;
 }
