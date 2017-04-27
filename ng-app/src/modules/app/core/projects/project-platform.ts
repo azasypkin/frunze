@@ -5,8 +5,8 @@ import {ProjectTypedEntity} from './project-typed-entity';
  * Class that describes the specific project platform.
  */
 export class ProjectPlatform extends ProjectTypedEntity {
-  constructor(_type: string, _name: string, _hint: string, private _capabilities: ProjectCapability[]) {
-    super(_type, _name, _hint);
+  constructor(_type: string, _name: string, _description: string, private _capabilities: ProjectCapability[]) {
+    super(_type, _name, _description);
   }
 
   /**

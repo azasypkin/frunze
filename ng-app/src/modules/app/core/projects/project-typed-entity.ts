@@ -2,7 +2,7 @@
  * Class that describes the thing that have a unique type, human readable name and description.
  */
 export class ProjectTypedEntity {
-  constructor(private _type: string, private _name: string, private _hint: string) {}
+  constructor(private _type: string, private _name: string, private _description: string) {}
 
   /**
    * Unique type of the project entity.
@@ -24,7 +24,7 @@ export class ProjectTypedEntity {
    * Human-readable description of the project entity.
    * @returns {string}
    */
-  get hint() {
-    return this._hint;
+  get description() {
+    return this._description;
   }
 }

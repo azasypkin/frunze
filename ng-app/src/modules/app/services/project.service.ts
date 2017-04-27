@@ -47,8 +47,8 @@ export class ProjectService {
     }
 
     return rawGroups.map((rawGroup) => {
-      return new ProjectCapabilityGroup(rawGroup.type, rawGroup.name, rawGroup.hint,
-        rawGroup.capabilities.map((item) => new ProjectCapability(item.type, item.name, item.hint))
+      return new ProjectCapabilityGroup(rawGroup.type, rawGroup.name, rawGroup.description,
+        rawGroup.capabilities.map((item) => new ProjectCapability(item.type, item.name, item.description))
       );
     });
   }
