@@ -10,6 +10,10 @@ import {ProjectService} from '../../../app/services/project.service';
 
 import {Project} from '../../../app/core/projects/project';
 import {ProjectCapabilityGroup} from '../../../app/core/projects/project-capability-group';
+import {ProjectPlatform} from '../../../app/core/projects/project-platform';
+
+const DEFAULT_PLATFORM = new ProjectPlatform('attiny', 'Atmel ATtiny85',
+    'High Performance, Low Power AVR® 8-Bit Microcontroller', []);
 
 @Component({
   templateUrl: 'project-edit-view.component.html',
@@ -51,7 +55,7 @@ export class ProjectEditViewComponent implements OnInit {
 
     // TODO: Temporal solution, later on we should implement project service to load project by id if it's provided.
     this.route.params
-      .switchMap((params: Params) => Observable.of(new Project(params['id'] || 'New Project', [])))
+      .switchMap((params: Params) => Observable.of(new Project(params['id'] || 'New Project', [], DEFAULT_PLATFORM)))
       .subscribe((project: Project) => this.updateProject(project));
   }
 
@@ -63,12 +67,16 @@ export class ProjectEditViewComponent implements OnInit {
       group.capabilities.forEach((capability, capabilityIndex) => {
         const capabilityEditor = capabilitiesEditor.at(groupIndex) as FormArray;
         if (capabilityEditor.at(capabilityIndex).value) {
-          capabilities.push(capability.type);
+          capabilities.push(capability);
         }
       });
     });
 
     // Update project.
-    this.project = new Project(this.projectEditor.get('name').value.toString(), capabilities);
+    this.project = new Project(
+        this.projectEditor.get('name').value.toString(),
+        capabilities,
+        DEFAULT_PLATFORM
+    );
   }
 }
