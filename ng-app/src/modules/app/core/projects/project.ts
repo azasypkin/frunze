@@ -6,7 +6,7 @@ import {ProjectPlatform} from './project-platform';
  */
 export class Project {
   constructor(private _name: string = 'New Project', private _capabilities: ProjectCapability[],
-              private _platform: ProjectPlatform) {}
+              private _platform: ProjectPlatform = null) {}
 
   /**
    * Name of the project.

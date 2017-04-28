@@ -9,11 +9,9 @@ import 'rxjs/add/observable/of';
 import {ProjectService} from '../../../app/services/project.service';
 
 import {Project} from '../../../app/core/projects/project';
+import {ProjectCapability} from '../../../app/core/projects/project-capability';
 import {ProjectCapabilityGroup} from '../../../app/core/projects/project-capability-group';
 import {ProjectPlatform} from '../../../app/core/projects/project-platform';
-
-const DEFAULT_PLATFORM = new ProjectPlatform('attiny', 'Atmel ATtiny85',
-    'High Performance, Low Power AVR® 8-Bit Microcontroller', []);
 
 @Component({
   templateUrl: 'project-edit-view.component.html',
@@ -21,7 +19,9 @@ const DEFAULT_PLATFORM = new ProjectPlatform('attiny', 'Atmel ATtiny85',
 })
 export class ProjectEditViewComponent implements OnInit {
   project: Project;
-  availableCapabilityGroups: ProjectCapabilityGroup[];
+  capabilities: ProjectCapability[];
+  capabilityGroups: ProjectCapabilityGroup[];
+  platforms: ProjectPlatform[];
 
   projectEditor: FormGroup;
 
@@ -38,24 +38,24 @@ export class ProjectEditViewComponent implements OnInit {
     this.projectEditor.patchValue({ name: this.project.name });
   }
 
-  updateCapabilityGroups(capabilities: ProjectCapabilityGroup[]) {
-    this.availableCapabilityGroups = capabilities;
+  updateCapabilityGroups(capabilityGroups: ProjectCapabilityGroup[]) {
+    this.capabilityGroups = capabilityGroups;
 
-    const capabilityGroups = capabilities.map(
+    const capabilityGroupsControl = capabilityGroups.map(
       (group) => this.formBuilder.array(group.capabilities.map((capability) => this.formBuilder.control(false)))
     );
 
-    this.projectEditor.setControl('capabilities', this.formBuilder.array(capabilityGroups));
+    this.projectEditor.setControl('capabilities', this.formBuilder.array(capabilityGroupsControl));
   }
 
   ngOnInit() {
-    this.projectService.getCapabilities().subscribe(
+    this.projectService.getCapabilityGroups().subscribe(
       (groups: ProjectCapabilityGroup[]) => this.updateCapabilityGroups(groups)
     );
 
     // TODO: Temporal solution, later on we should implement project service to load project by id if it's provided.
     this.route.params
-      .switchMap((params: Params) => Observable.of(new Project(params['id'] || 'New Project', [], DEFAULT_PLATFORM)))
+      .switchMap((params: Params) => Observable.of(new Project(params['id'] || 'New Project', [])))
       .subscribe((project: Project) => this.updateProject(project));
   }
 
@@ -63,7 +63,7 @@ export class ProjectEditViewComponent implements OnInit {
     const capabilities = [];
     const capabilitiesEditor = this.projectEditor.get('capabilities') as FormArray;
 
-    this.availableCapabilityGroups.forEach((group, groupIndex) => {
+    this.capabilityGroups.forEach((group, groupIndex) => {
       group.capabilities.forEach((capability, capabilityIndex) => {
         const capabilityEditor = capabilitiesEditor.at(groupIndex) as FormArray;
         if (capabilityEditor.at(capabilityIndex).value) {
@@ -74,9 +74,7 @@ export class ProjectEditViewComponent implements OnInit {
 
     // Update project.
     this.project = new Project(
-        this.projectEditor.get('name').value.toString(),
-        capabilities,
-        DEFAULT_PLATFORM
+        this.projectEditor.get('name').value.toString(), capabilities, this.project.platform
     );
   }
 }

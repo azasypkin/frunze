@@ -5,18 +5,26 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/forkJoin';
 
 import {Config} from '../config';
 
 import {ProjectCapabilityGroup} from '../core/projects/project-capability-group';
 import {ProjectCapability} from '../core/projects/project-capability';
+import {ProjectPlatform} from '../core/projects/project-platform';
 
 const APIPaths = Object.freeze({
-  projectCapabilities: 'project-capabilities'
+  projectCapabilities: 'project-capabilities',
+  projectCapabilityGroups: 'project-capability-groups',
+  projectPlatforms: 'project-platforms'
 });
 
 @Injectable()
 export class ProjectService {
+  private capabilities: Observable<ProjectCapability[]> = null;
+  private capabilityGroups: Observable<ProjectCapabilityGroup[]> = null;
+  private platforms: ProjectPlatform[] = null;
+
   private static handleError(error: Response | any) {
     let errorMessage: string;
     if (error instanceof Response) {
@@ -33,22 +41,84 @@ export class ProjectService {
   constructor(private config: Config, private http: Http) {
   }
 
-  getCapabilities(): Observable<ProjectCapabilityGroup[]> {
-    return this.http.get(`${this.config.apiDomain}/${APIPaths.projectCapabilities}`)
-      .map(this.jsonToGroups)
-      .catch(ProjectService.handleError);
+  /**
+   * Returns an array of project capabilities (either from inline cache or from server).
+   * @returns {Observable.<ProjectCapability[]>}
+   */
+  getCapabilities(): Observable<ProjectCapability[]> {
+    if (this.capabilities) {
+      return this.capabilities;
+    }
+
+    return this.capabilities = this.http.get(`${this.config.apiDomain}/${APIPaths.projectCapabilities}`)
+        .map((response: Response) => {
+          const capabilities = this.constructCapabilities(response);
+
+          // Copy an array to avoid side modifications.
+          this.capabilities = Observable.of(capabilities).map((c) => [...c]);
+
+          return capabilities;
+        })
+        .catch(ProjectService.handleError);
   }
 
-  private jsonToGroups(response: Response) {
-    const rawGroups = response.json();
+  /**
+   * Returns an array of project capability groups (either from inline cache or from server).
+   * @returns {Observable.<ProjectCapabilityGroup[]>}
+   */
+  getCapabilityGroups(): Observable<ProjectCapabilityGroup[]> {
+    if (this.capabilityGroups) {
+      return this.capabilityGroups;
+    }
 
-    if (!rawGroups) {
+    return this.capabilityGroups = Observable.forkJoin(
+        this.getCapabilities(),
+        this.http.get(`${this.config.apiDomain}/${APIPaths.projectCapabilityGroups}`)
+    ).map(([capabilities, response]) => {
+      const capabilityGroups = this.constructCapabilityGroups(capabilities, response);
+
+      // Copy an array to avoid side modifications.
+      this.capabilityGroups = Observable.of(capabilityGroups).map((c) => [...c]);
+
+      return capabilityGroups;
+    })
+    .catch(ProjectService.handleError);
+  }
+
+  /**
+   * Converts raw project capability json to an array of ProjectCapability instances.
+   * @param {Response} response Raw response returned from the API.
+   * @returns {ProjectCapability[]}
+   * @private
+   */
+  private constructCapabilities(response: Response) {
+    const jsonResponse = response.json();
+    if (!jsonResponse) {
       return [];
     }
 
-    return rawGroups.map((rawGroup) => {
-      return new ProjectCapabilityGroup(rawGroup.type, rawGroup.name, rawGroup.description,
-        rawGroup.capabilities.map((item) => new ProjectCapability(item.type, item.name, item.description))
+    return jsonResponse.map((rawData) => new ProjectCapability(rawData.type, rawData.name, rawData.description));
+  }
+
+  /**
+   * Converts raw project capability group json to an array of ProjectCapabilityGroup instances.
+   * @param {ProjectCapability[]} capabilities List of already loaded ProjectCapability instances.
+   * @param {Response} response Raw response returned from the API.
+   * @returns {ProjectCapabilityGroup[]}
+   * @private
+   */
+  private constructCapabilityGroups(capabilities: ProjectCapability[], response: Response) {
+    const jsonResponse = response.json();
+    if (!jsonResponse) {
+      return [];
+    }
+
+    return jsonResponse.map((rawData) => {
+      return new ProjectCapabilityGroup(rawData.type, rawData.name, rawData.description,
+          // FIXME: "find" is very ineffective in this case, here we should use Map.
+          rawData.capabilities.map(
+              (capabilityType) => capabilities.find((capability) => capability.type === capabilityType)
+          )
       );
     });
   }

@@ -10,7 +10,7 @@
     <section class="frunze-form-field">
       <span class="frunze-form-label">Capabilities</span>
       <ul class="frunze-form-checkbox-group-container" formArrayName="capabilities">
-        <li *ngFor="let group of availableCapabilityGroups; let i=index" [formArrayName]="i"
+        <li *ngFor="let group of capabilityGroups; let i=index" [formArrayName]="i"
             class="frunze-form-checkbox-group">
           <span class="frunze-form-checkbox-group-header hint--bottom hint--info" [attr.data-hint]="group.description">
             {{group.name}}
