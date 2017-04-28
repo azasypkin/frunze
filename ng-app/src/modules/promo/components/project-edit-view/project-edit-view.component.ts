@@ -28,7 +28,8 @@ export class ProjectEditViewComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private projectService: ProjectService) {
     this.projectEditor = this.formBuilder.group({
       name: ['', Validators.required],
-      capabilities: this.formBuilder.array([])
+      capabilities: this.formBuilder.array([]),
+      platforms: this.formBuilder.array([])
     });
   }
 
@@ -48,10 +49,18 @@ export class ProjectEditViewComponent implements OnInit {
     this.projectEditor.setControl('capabilities', this.formBuilder.array(capabilityGroupsControl));
   }
 
-  ngOnInit() {
-    this.projectService.getCapabilityGroups().subscribe(
-      (groups: ProjectCapabilityGroup[]) => this.updateCapabilityGroups(groups)
+  updatePlatforms(platforms: ProjectPlatform[]) {
+    this.platforms = platforms;
+
+    this.projectEditor.setControl('platforms', this.formBuilder.array(
+        platforms.map((platform) => this.formBuilder.control(false)))
     );
+  }
+
+  ngOnInit() {
+    this.projectService.getCapabilities().subscribe((capabilities) => this.capabilities = capabilities);
+    this.projectService.getCapabilityGroups().subscribe((groups) => this.updateCapabilityGroups(groups));
+    this.projectService.getPlatforms().subscribe((platforms) => this.updatePlatforms(platforms));
 
     // TODO: Temporal solution, later on we should implement project service to load project by id if it's provided.
     this.route.params
