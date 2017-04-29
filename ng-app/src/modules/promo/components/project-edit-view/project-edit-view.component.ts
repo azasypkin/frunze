@@ -29,14 +29,17 @@ export class ProjectEditViewComponent implements OnInit {
     this.projectEditor = this.formBuilder.group({
       name: ['', Validators.required],
       capabilities: this.formBuilder.array([]),
-      platforms: this.formBuilder.array([])
+      platform: ['', Validators.required]
     });
   }
 
   updateProject(project: Project) {
     this.project = project;
 
-    this.projectEditor.patchValue({ name: this.project.name });
+    this.projectEditor.patchValue({
+      name: this.project.name,
+      platform: this.project.platform ? this.project.platform.type : ''
+    });
   }
 
   updateCapabilityGroups(capabilityGroups: ProjectCapabilityGroup[]) {
@@ -51,10 +54,6 @@ export class ProjectEditViewComponent implements OnInit {
 
   updatePlatforms(platforms: ProjectPlatform[]) {
     this.platforms = platforms;
-
-    this.projectEditor.setControl('platforms', this.formBuilder.array(
-        platforms.map((platform) => this.formBuilder.control(false)))
-    );
   }
 
   ngOnInit() {
@@ -81,9 +80,13 @@ export class ProjectEditViewComponent implements OnInit {
       });
     });
 
+    const platformType = this.projectEditor.get('platform').value.toString();
+
     // Update project.
     this.project = new Project(
-        this.projectEditor.get('name').value.toString(), capabilities, this.project.platform
+        this.projectEditor.get('name').value.toString(),
+        capabilities,
+        platformType ? this.platforms.find((platform) => platform.type === platformType) : null
     );
   }
 }

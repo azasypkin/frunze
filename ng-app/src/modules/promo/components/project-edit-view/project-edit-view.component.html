@@ -24,10 +24,10 @@
     </section>
     <section class="frunze-form-field">
       <span class="frunze-form-label">Platforms</span>
-      <ul class="frunze-form-checkbox-group-container" formArrayName="platforms">
-        <li *ngFor="let platform of platforms; let i=index" class="frunze-form-checkbox-group">
+      <ul class="frunze-form-checkbox-group-container">
+        <li *ngFor="let platform of platforms" class="frunze-form-checkbox-group">
           <label class="frunze-form-checkbox-item">
-            <input class="frunze-form-checkbox" type="checkbox" [formControlName]="i" />
+            <input class="frunze-form-checkbox" type="radio" [formControlName]="'platform'" [value]="platform.type" />
             <span class="hint--bottom hint--info" [attr.data-hint]="platform.description">{{platform.name}}</span>
           </label>
         </li>
