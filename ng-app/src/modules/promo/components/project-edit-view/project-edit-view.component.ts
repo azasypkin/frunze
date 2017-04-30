@@ -22,6 +22,7 @@ export class ProjectEditViewComponent implements OnInit {
   capabilities: ProjectCapability[];
   capabilityGroups: ProjectCapabilityGroup[];
   platforms: ProjectPlatform[];
+  notSupportedPlatforms: Set<string>;
 
   projectEditor: FormGroup;
 
@@ -45,15 +46,22 @@ export class ProjectEditViewComponent implements OnInit {
   updateCapabilityGroups(capabilityGroups: ProjectCapabilityGroup[]) {
     this.capabilityGroups = capabilityGroups;
 
-    const capabilityGroupsControl = capabilityGroups.map(
-      (group) => this.formBuilder.array(group.capabilities.map((capability) => this.formBuilder.control(false)))
+    const capabilityGroupsControl = this.formBuilder.array(
+      capabilityGroups.map(
+        (group) => this.formBuilder.array(
+            group.capabilities.map((capability) => this.formBuilder.control(false))
+        )
+      )
     );
 
-    this.projectEditor.setControl('capabilities', this.formBuilder.array(capabilityGroupsControl));
+    capabilityGroupsControl.valueChanges.forEach(() => this.onCapabilityChanged());
+
+    this.projectEditor.setControl('capabilities', capabilityGroupsControl);
   }
 
   updatePlatforms(platforms: ProjectPlatform[]) {
     this.platforms = platforms;
+    this.notSupportedPlatforms = new Set();
   }
 
   ngOnInit() {
@@ -88,5 +96,49 @@ export class ProjectEditViewComponent implements OnInit {
         capabilities,
         platformType ? this.platforms.find((platform) => platform.type === platformType) : null
     );
+  }
+
+  onCapabilityChanged() {
+    this.updateNotSupportedPlatforms();
+
+    const platformEditor = this.projectEditor.get('platform');
+    if (this.notSupportedPlatforms.has(platformEditor.value.toString())) {
+      platformEditor.setValue('');
+    }
+  }
+
+  updateNotSupportedPlatforms() {
+    // TODO: Very ineffective way of handling the use case, migrate to Map's.
+    this.notSupportedPlatforms = new Set();
+    const capabilitiesEditor = this.projectEditor.get('capabilities') as FormArray;
+
+    for (let groupIndex = 0; groupIndex < this.capabilityGroups.length; groupIndex++) {
+      const group = this.capabilityGroups[groupIndex];
+      for (let capabilityIndex = 0; capabilityIndex < group.capabilities.length; capabilityIndex++) {
+        const capabilityEditor = capabilitiesEditor.at(groupIndex) as FormArray;
+        if (!capabilityEditor.at(capabilityIndex).value) {
+          continue;
+        }
+
+        const capability = group.capabilities[capabilityIndex];
+
+        for (const platform of this.platforms) {
+          // If this platform is already not supported, just skip.
+          if (this.notSupportedPlatforms.has(platform.type)) {
+            continue;
+          }
+
+          // If Platform doesn't have selected capability, we can't choose it.
+          if (platform.capabilities.findIndex((c) => c.type === capability.type) < 0) {
+            this.notSupportedPlatforms.add(platform.type);
+
+            // Check if we already marked all platforms as not supported.
+            if (this.notSupportedPlatforms.size === this.platforms.length) {
+              return;
+            }
+          }
+        }
+      }
+    }
   }
 }

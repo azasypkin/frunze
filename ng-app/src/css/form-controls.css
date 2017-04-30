@@ -76,6 +76,10 @@
   margin-right: 3rem;
 }
 
+.frunze-form-checkbox-group--disabled {
+  opacity: 0.3;
+}
+
 .frunze-form-checkbox-item {
   display: block;
 }
