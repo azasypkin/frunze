@@ -22,7 +22,8 @@
         "../node_modules/hint.css/hint.css",
         "css/fonts.css",
         "css/global.css",
-        "css/form-controls.css"
+        "css/form-controls.css",
+        "css/icons.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
