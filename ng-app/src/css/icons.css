@@ -13,6 +13,18 @@
     background-image: url("../assets/images/icons/platforms/raspberry-pi-zero-w.png");
 }
 
+.project-entity-icon-platform-raspberry-pi-3 {
+    background-image: url("../assets/images/icons/platforms/raspberry-pi-3.png");
+}
+
+.project-entity-icon-platform-psf-a85 {
+    background-image: url("../assets/images/icons/platforms/psf-a85.png");
+}
+
+.project-entity-icon-platform-tessel-2 {
+    background-image: url("../assets/images/icons/platforms/tessel-2.png");
+}
+
 /* Capability icons */
 
 /* Capability Connection icons */
