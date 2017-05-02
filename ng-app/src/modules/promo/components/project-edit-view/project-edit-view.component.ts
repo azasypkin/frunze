@@ -141,4 +141,13 @@ export class ProjectEditViewComponent implements OnInit {
       }
     }
   }
+
+  isCapabilitySelected(groupIndex, capabilityIndex) {
+    const capabilityEditor = (this.projectEditor.get('capabilities') as FormArray).at(groupIndex);
+    return (capabilityEditor as FormArray).at(capabilityIndex).value;
+  }
+
+  isPlatformSelected(platformType) {
+    return this.projectEditor.get('platform').value === platformType;
+  }
 }

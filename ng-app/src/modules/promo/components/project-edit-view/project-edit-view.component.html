@@ -15,7 +15,9 @@
           <span class="frunze-form-checkbox-group-header hint--bottom hint--info" [attr.data-hint]="group.description">
             {{group.name}}
           </span>
-          <label class="frunze-form-checkbox-item" *ngFor="let capability of group.capabilities; let j=index;">
+          <label class="frunze-form-checkbox-item"
+                 *ngFor="let capability of group.capabilities; let j=index;"
+                 [class.frunze-form-checkbox-item--active]="isCapabilitySelected(i, j)">
             <img class="frunze-form-checkbox-item-picture project-entity-icon project-entity-icon-capability-{{capability.type}}" />
             <input class="frunze-form-checkbox" type="checkbox" [formControlName]="j"/>
             <span class="frunze-form-checkbox-item-title hint--bottom hint--info"
@@ -29,7 +31,8 @@
       <ul class="frunze-form-radio-group-container">
         <li *ngFor="let platform of platforms" class="frunze-form-radio-group"
             [class.frunze-form-radio-group--disabled]="notSupportedPlatforms.has(platform.type)">
-          <label class="frunze-form-radio-item">
+          <label class="frunze-form-radio-item"
+                 [class.frunze-form-radio-item--active]="isPlatformSelected(platform.type)">
             <img class="frunze-form-radio-item-picture project-entity-icon project-entity-icon-platform-{{platform.type}}" />
             <input class="frunze-form-radio" type="radio" [formControlName]="'platform'"
                    [value]="platform.type"
