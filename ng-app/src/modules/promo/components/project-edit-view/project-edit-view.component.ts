@@ -29,6 +29,7 @@ export class ProjectEditViewComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private projectService: ProjectService) {
     this.projectEditor = this.formBuilder.group({
       name: ['', Validators.required],
+      description: ['', Validators.required],
       capabilities: this.formBuilder.array([]),
       platform: ['', Validators.required]
     });
@@ -39,6 +40,7 @@ export class ProjectEditViewComponent implements OnInit {
 
     this.projectEditor.patchValue({
       name: this.project.name,
+      description: this.project.description,
       platform: this.project.platform ? this.project.platform.type : ''
     });
   }
@@ -71,7 +73,13 @@ export class ProjectEditViewComponent implements OnInit {
 
     // TODO: Temporal solution, later on we should implement project service to load project by id if it's provided.
     this.route.params
-      .switchMap((params: Params) => Observable.of(new Project(params['id'] || 'New Project', [])))
+      .switchMap((params: Params) => {
+        const project = new Project(
+            params['id'] || 'New Project', params['id'] || 'New Project Description', []
+        );
+
+        return Observable.of(project);
+      })
       .subscribe((project: Project) => this.updateProject(project));
   }
 
@@ -93,6 +101,7 @@ export class ProjectEditViewComponent implements OnInit {
     // Update project.
     this.project = new Project(
         this.projectEditor.get('name').value.toString(),
+        this.projectEditor.get('description').value.toString(),
         capabilities,
         platformType ? this.platforms.find((platform) => platform.type === platformType) : null
     );

@@ -8,6 +8,12 @@
       </label>
     </section>
     <section class="frunze-form-field">
+      <label>
+        <span class="frunze-form-label">Description</span>
+        <input formControlName="description" class="frunze-form-control frunze-form-input">
+      </label>
+    </section>
+    <section class="frunze-form-field">
       <span class="frunze-form-label">Capabilities</span>
       <ul class="frunze-form-checkbox-group-container" formArrayName="capabilities">
         <li *ngFor="let group of capabilityGroups; let i=index" [formArrayName]="i"

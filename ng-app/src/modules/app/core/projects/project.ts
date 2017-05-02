@@ -5,7 +5,7 @@ import {ProjectPlatform} from './project-platform';
  * Class that describes the specific project.
  */
 export class Project {
-  constructor(private _name: string = 'New Project', private _capabilities: ProjectCapability[],
+  constructor(private _name: string, private _description: string, private _capabilities: ProjectCapability[],
               private _platform: ProjectPlatform = null) {}
 
   /**
@@ -14,6 +14,14 @@ export class Project {
    */
   get name() {
     return this._name;
+  }
+
+  /**
+   * Name of the description.
+   * @returns {string}
+   */
+  get description() {
+    return this._description;
   }
 
   /**
