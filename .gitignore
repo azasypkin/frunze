@@ -11,6 +11,8 @@ data-files
 # IDEs and editors
 .idea
 *.iml
+.DS_Store
+**/.DS_Store
 
 npm-debug.log
 /typings
