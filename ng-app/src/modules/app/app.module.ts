@@ -10,7 +10,7 @@ import {ProjectService} from './services/project.service';
 
 
 import {BootstrapComponent} from './components/bootstrap/bootstrap.component';
-import {EditorComponent} from './components/editor/editor.component';
+import {SoftwareEditorViewComponent} from './components/software-editor-view/software-editor-view.component';
 import {ExpandableGroupsComponent} from './components/expandable-groups/expandable-groups.component';
 import {WorkspaceComponent} from './components/workspace/workspace.component';
 import {PropertiesComponent} from './components/properties/properties.component';
@@ -21,7 +21,7 @@ import {AppRoutingModule} from './app-routing.module';
 @NgModule({
   declarations: [
     BootstrapComponent,
-    EditorComponent,
+    SoftwareEditorViewComponent,
     ExpandableGroupsComponent,
     PropertiesComponent,
     WorkspaceComponent

@@ -1,0 +1,27 @@
+.frunze-software-editor {
+  display: flex;
+  flex-direction: row;
+
+  height: 100%;
+  width: 100%;
+}
+
+.frunze-software-editor__components,
+.frunze-software-editor__workspace,
+.frunze-software-editor__properties {
+  overflow-y: auto;
+
+  border: 1px solid #ddd;
+}
+
+.frunze-software-editor__components,
+.frunze-software-editor__properties {
+  flex: 1;
+}
+
+.frunze-software-editor__workspace {
+  flex: 3;
+
+  border-left: none;
+  border-right: none;
+}

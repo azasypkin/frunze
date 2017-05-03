@@ -126,3 +126,7 @@
   background-color: #286090;
   font-size: 120%;
 }
+
+.frunze-button:disabled {
+  opacity: 0.1;
+}

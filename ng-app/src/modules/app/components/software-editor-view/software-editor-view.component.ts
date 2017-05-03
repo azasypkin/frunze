@@ -4,10 +4,10 @@ import { ControlGroup } from '../../core/controls/control-group';
 import { ControlsService } from '../../services/controls.service';
 
 @Component({
-  templateUrl: 'editor.component.html',
-  styleUrls: ['editor.component.css']
+  templateUrl: 'software-editor-view.component.html',
+  styleUrls: ['software-editor-view.component.css']
 })
-export class EditorComponent implements OnInit {
+export class SoftwareEditorViewComponent implements OnInit {
   controlGroups: ControlGroup[] = [];
 
   constructor(private controlsService: ControlsService) {}

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
@@ -26,7 +26,8 @@ export class ProjectMetadataViewComponent implements OnInit {
 
   projectEditor: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private projectService: ProjectService) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
+              private projectService: ProjectService) {
     this.projectEditor = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
@@ -105,6 +106,8 @@ export class ProjectMetadataViewComponent implements OnInit {
         capabilities,
         platformType ? this.platforms.find((platform) => platform.type === platformType) : null
     );
+
+    this.router.navigate(['promo/project/software']);
   }
 
   onCapabilityChanged() {
