@@ -14,10 +14,10 @@ import {ProjectCapabilityGroup} from '../../../app/core/projects/project-capabil
 import {ProjectPlatform} from '../../../app/core/projects/project-platform';
 
 @Component({
-  templateUrl: 'project-edit-view.component.html',
-  styleUrls: ['project-edit-view.component.css']
+  templateUrl: 'project-metadata-view.component.html',
+  styleUrls: ['project-metadata-view.component.css']
 })
-export class ProjectEditViewComponent implements OnInit {
+export class ProjectMetadataViewComponent implements OnInit {
   project: Project;
   capabilities: ProjectCapability[];
   capabilityGroups: ProjectCapabilityGroup[];
