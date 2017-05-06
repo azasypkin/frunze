@@ -72,14 +72,13 @@ export class ProjectMetadataViewComponent implements OnInit {
     this.projectService.getCapabilityGroups().subscribe((groups) => this.updateCapabilityGroups(groups));
     this.projectService.getPlatforms().subscribe((platforms) => this.updatePlatforms(platforms));
 
-    // TODO: Temporal solution, later on we should implement project service to load project by id if it's provided.
     this.route.params
       .switchMap((params: Params) => {
-        const project = new Project(
-            params['id'] || 'New Project', params['id'] || 'New Project Description', []
-        );
+        if (params['id']) {
+          return this.projectService.getProject(params['id']);
+        }
 
-        return Observable.of(project);
+        return Observable.of(new Project('', 'New Project', 'New Project Description', []));
       })
       .subscribe((project: Project) => this.updateProject(project));
   }
@@ -101,13 +100,17 @@ export class ProjectMetadataViewComponent implements OnInit {
 
     // Update project.
     this.project = new Project(
+        this.project.id,
         this.projectEditor.get('name').value.toString(),
         this.projectEditor.get('description').value.toString(),
         capabilities,
         platformType ? this.platforms.find((platform) => platform.type === platformType) : null
     );
 
-    this.router.navigate(['promo/project/software']);
+    // Now we should save the project and edit its software part.
+    this.projectService.saveProject(this.project).subscribe((project) => {
+      this.router.navigate([`promo/project/software/${project.id}`]);
+    });
   }
 
   onCapabilityChanged() {

@@ -6,7 +6,7 @@ import {SoftwareEditorViewComponent} from './components/software-editor-view/sof
 export const routes: Routes = [
   {path: '', redirectTo: 'app', pathMatch: 'full'},
   {path: 'app', component: SoftwareEditorViewComponent},
-  {path: 'promo/project/software', component: SoftwareEditorViewComponent},
+  {path: 'promo/project/software/:id', component: SoftwareEditorViewComponent},
   {path: 'promo', loadChildren: 'modules/promo/promo.module#PromoModule'}
 ];
 
