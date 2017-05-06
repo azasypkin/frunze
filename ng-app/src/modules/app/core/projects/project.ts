@@ -5,8 +5,16 @@ import {ProjectPlatform} from './project-platform';
  * Class that describes the specific project.
  */
 export class Project {
-  constructor(private _name: string, private _description: string, private _capabilities: ProjectCapability[],
-              private _platform: ProjectPlatform = null) {}
+  constructor(private _id: string, private _name: string, private _description: string,
+              private _capabilities: ProjectCapability[], private _platform: ProjectPlatform = null) {}
+
+  /**
+   * Identifier of the project.
+   * @returns {string}
+   */
+  get id() {
+    return this._id;
+  }
 
   /**
    * Name of the project.
@@ -17,7 +25,7 @@ export class Project {
   }
 
   /**
-   * Name of the description.
+   * Description of the project.
    * @returns {string}
    */
   get description() {
@@ -25,7 +33,7 @@ export class Project {
   }
 
   /**
-   * Project capabilities.
+   * List of the project capabilities (from the list of supported capabilities).
    * @returns {ProjectCapability[]}
    */
   get capabilities() {
@@ -33,10 +41,24 @@ export class Project {
   }
 
   /**
-   * Project platform (from the supported list of platforms).
+   * Project platform (from the list of supported platforms).
    * @returns {ProjectPlatform}
    */
   get platform() {
     return this._platform;
+  }
+
+  /**
+   * Produces simplified JSON version of the project.
+   * @returns {{id: string, name: string, description: string, platform: string, capabilities: string[]}}
+   */
+  toJSON() {
+    return {
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      platform: this.platform.type,
+      capabilities: this.capabilities.map((capability) => capability.type)
+    };
   }
 }

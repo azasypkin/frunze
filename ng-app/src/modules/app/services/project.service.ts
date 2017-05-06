@@ -9,11 +9,13 @@ import 'rxjs/add/observable/forkJoin';
 
 import {Config} from '../config';
 
+import {Project} from '../core/projects/project';
 import {ProjectCapabilityGroup} from '../core/projects/project-capability-group';
 import {ProjectCapability} from '../core/projects/project-capability';
 import {ProjectPlatform} from '../core/projects/project-platform';
 
 const APIPaths = Object.freeze({
+  project: 'project',
   projectCapabilities: 'project-capabilities',
   projectCapabilityGroups: 'project-capability-groups',
   projectPlatforms: 'project-platforms'
@@ -39,6 +41,39 @@ export class ProjectService {
   }
 
   constructor(private config: Config, private http: Http) {
+  }
+
+  /**
+   * Returns project by its unique identifier.
+   * @param {string} id Unique identifier of the project to load from the server.
+   * @returns {Observable.<Project>}
+   */
+  getProject(id: string): Observable<Project> {
+    return this.platforms = Observable.forkJoin(
+        this.getCapabilities(),
+        this.getPlatforms(),
+        this.http.get(`${this.config.apiDomain}/${APIPaths.project}/${id}`)
+    ).map(([capabilities, platforms, response]) => this.constructProject(capabilities, platforms, response))
+    .catch(ProjectService.handleError);
+  }
+
+  /**
+   * Saves project to the database.
+   * @param {Project} project Project to save.
+   * @returns {Observable<Project>} Project that has been saved.
+   */
+  saveProject(project: Project): Observable<Project> {
+    return this.http.post(`${this.config.apiDomain}/${APIPaths.project}`, project.toJSON())
+        .map((response) => {
+          return new Project(
+              response.text(),
+              project.name,
+              project.description,
+              project.capabilities,
+              project.platform
+          );
+        })
+        .catch(ProjectService.handleError);
   }
 
   /**
@@ -106,6 +141,33 @@ export class ProjectService {
       return platforms;
     })
     .catch(ProjectService.handleError);
+  }
+
+  /**
+   * Converts raw project json to a Project instance.
+   * @param {ProjectCapability[]} capabilities List of already loaded ProjectCapability instances.
+   * @param {ProjectPlatform[]} platforms List of already loaded ProjectPlatform instances.
+   * @param {Response} response Raw response returned from the API.
+   * @returns {Project}
+   * @private
+   */
+  private constructProject(capabilities: ProjectCapability[], platforms: ProjectPlatform[], response: Response) {
+    const rawProject = response.json();
+    if (!rawProject) {
+      return [];
+    }
+
+    return new Project(
+        rawProject.id,
+        rawProject.name,
+        rawProject.description,
+        // FIXME: "find" is very ineffective in this case, here we should use Map.
+        // Should be fixed in https://github.com/azasypkin/frunze/issues/2.
+        rawProject.capabilities.map(
+            (capabilityType) => capabilities.find((capability) => capability.type === capabilityType)
+        ),
+        platforms.find((platform) => platform.type === rawProject.platform)
+    );
   }
 
   /**
