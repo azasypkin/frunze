@@ -1,15 +1,20 @@
 import {TestBed, async} from '@angular/core/testing';
 import {HttpModule, XHRBackend} from '@angular/http';
+import {ActivatedRoute} from '@angular/router';
 import {MockBackend} from '@angular/http/testing';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
+
+import {ActivatedRouteStub} from '../../../../testing/stubs/activated-route';
 
 import {Config} from '../../config';
 
 import {ControlGroup} from '../../core/controls/control-group';
 import {ControlMetadata} from '../../core/controls/control-metadata';
+import {Project} from '../../core/projects/project';
 
 import {ControlsService} from '../../services/controls.service';
+import {ProjectService} from '../../services/project.service';
 
 import {SoftwareEditorViewComponent} from './software-editor-view.component';
 import {
@@ -20,7 +25,7 @@ import {PropertiesComponent} from '../properties/properties.component';
 
 
 describe('Components/SoftwareEditorViewComponent', () => {
-  let fixture, controlsServiceSpy;
+  let fixture, controlsServiceSpy, projectServiceSpy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -33,8 +38,10 @@ describe('Components/SoftwareEditorViewComponent', () => {
       ],
       providers: [
         {provide: XHRBackend, useClass: MockBackend},
+        {provide: ActivatedRoute, useClass: ActivatedRouteStub},
         Config,
-        ControlsService
+        ControlsService,
+        ProjectService
       ]
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(SoftwareEditorViewComponent);
@@ -46,6 +53,10 @@ describe('Components/SoftwareEditorViewComponent', () => {
             new ControlMetadata('type#12', 'Item #12', 'Item #12 Description')
           ])
         ]));
+
+      const projectService = fixture.debugElement.injector.get(ProjectService);
+      projectServiceSpy = spyOn(projectService, 'getProject')
+          .and.returnValue(Observable.of(new Project('', 'New Project', 'New Project Description', [])));
     });
   }));
 
