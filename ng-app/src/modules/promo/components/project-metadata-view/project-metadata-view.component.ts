@@ -39,6 +39,20 @@ export class ProjectMetadataViewComponent implements OnInit {
   updateProject(project: Project) {
     this.project = project;
 
+    // FIXME: Use reverse capability-group index to quickly check needed capabilities.
+    this.project.capabilities.forEach((projectCapability) => {
+      for (let groupIndex = 0; groupIndex < this.capabilityGroups.length; groupIndex++) {
+        const capabilityIndex = this.capabilityGroups[groupIndex].capabilities.findIndex(
+            (capability) => capability.type === projectCapability.type
+        );
+
+        if (capabilityIndex >= 0) {
+          this.getCapabilityEditor(groupIndex, capabilityIndex).setValue(true);
+          break;
+        }
+      }
+    });
+
     this.projectEditor.patchValue({
       name: this.project.name,
       description: this.project.description,
@@ -158,11 +172,15 @@ export class ProjectMetadataViewComponent implements OnInit {
   }
 
   isCapabilitySelected(groupIndex, capabilityIndex) {
-    const capabilityEditor = (this.projectEditor.get('capabilities') as FormArray).at(groupIndex);
-    return (capabilityEditor as FormArray).at(capabilityIndex).value;
+    return this.getCapabilityEditor(groupIndex, capabilityIndex).value;
   }
 
   isPlatformSelected(platformType) {
     return this.projectEditor.get('platform').value === platformType;
+  }
+
+  getCapabilityEditor(groupIndex, capabilityIndex) {
+    const capabilityEditor = (this.projectEditor.get('capabilities') as FormArray).at(groupIndex);
+    return (capabilityEditor as FormArray).at(capabilityIndex);
   }
 }
