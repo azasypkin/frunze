@@ -20,7 +20,6 @@ import {SoftwareEditorViewComponent} from './software-editor-view.component';
 import {
   ExpandableGroupsComponent
 } from '../expandable-groups/expandable-groups.component';
-import {WorkspaceComponent} from '../workspace/workspace.component';
 import {PropertiesComponent} from '../properties/properties.component';
 
 
@@ -33,7 +32,6 @@ describe('Components/SoftwareEditorViewComponent', () => {
       declarations: [
         SoftwareEditorViewComponent,
         ExpandableGroupsComponent,
-        WorkspaceComponent,
         PropertiesComponent
       ],
       providers: [

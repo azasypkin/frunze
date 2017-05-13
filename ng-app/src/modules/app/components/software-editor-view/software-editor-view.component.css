@@ -1,9 +1,12 @@
+.frunze-software-editor-view-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .frunze-software-editor {
   display: flex;
-  flex-direction: row;
-
   height: 100%;
-  width: 100%;
 }
 
 .frunze-software-editor__components,
@@ -24,4 +27,17 @@
 
   border-left: none;
   border-right: none;
+}
+
+.frunze-workspace-editor {
+  height: 100%;
+  box-sizing: border-box;
+  border: 0.1rem dashed #ddd;
+
+  background-color: #eee;
+  padding: 0.5rem;
+}
+
+.frunze-workspace-editor:-moz-drag-over {
+  border-color: #333333;
 }
