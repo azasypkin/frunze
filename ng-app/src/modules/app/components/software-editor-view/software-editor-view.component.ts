@@ -5,9 +5,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
 import {ProjectService} from '../../services/project.service';
-
 import {Project} from '../../core/projects/project';
-
 import {ControlGroup} from '../../core/controls/control-group';
 import {ControlsService} from '../../services/controls.service';
 
