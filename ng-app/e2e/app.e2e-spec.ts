@@ -9,6 +9,11 @@ describe('Frunze ng-app', () => {
 
   it('should display correct control groups in Toolbox', () => {
     page.navigateTo();
-    expect(page.getToolboxGroups()).toEqual(['Group #1', 'Group #2']);
+    expect(page.getToolboxGroups()).toEqual([
+      'Hardware - Connection',
+      'Hardware - Audio',
+      'Hardware - Switches',
+      'Services - Storage'
+    ]);
   });
 });

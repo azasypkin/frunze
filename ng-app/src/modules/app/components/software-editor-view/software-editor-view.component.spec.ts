@@ -71,7 +71,7 @@ describe('Components/SoftwareEditorViewComponent', () => {
 
       const element = fixture.debugElement;
       expect(element.query(By.css('frunze-expandable-groups'))).not.toBeNull();
-      expect(element.query(By.css('frunze-workspace'))).not.toBeNull();
+      expect(element.query(By.css('.frunze-workspace-editor'))).not.toBeNull();
       expect(element.query(By.css('frunze-properties'))).not.toBeNull();
 
       // Check that we have passed groups to ExpandedGroupsComponent correctly.
