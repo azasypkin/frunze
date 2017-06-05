@@ -13,6 +13,7 @@ import {Project} from '../core/projects/project';
 import {ProjectCapabilityGroup} from '../core/projects/project-capability-group';
 import {ProjectCapability} from '../core/projects/project-capability';
 import {ProjectPlatform} from '../core/projects/project-platform';
+import {ProjectComponent} from '../core/projects/project-component';
 
 const APIPaths = Object.freeze({
   project: 'project',
@@ -70,7 +71,8 @@ export class ProjectService {
               project.name,
               project.description,
               project.capabilities,
-              project.platform
+              project.platform,
+              project.components
           );
         })
         .catch(ProjectService.handleError);
@@ -166,7 +168,18 @@ export class ProjectService {
         rawProject.capabilities.map(
             (capabilityType) => capabilities.find((capability) => capability.type === capabilityType)
         ),
-        platforms.find((platform) => platform.type === rawProject.platform)
+        platforms.find((platform) => platform.type === rawProject.platform),
+        rawProject.components.map((component) => {
+          return new ProjectComponent(
+              component.id,
+              component.type,
+              component.name,
+              component.description,
+              new Map(
+                  Object.keys(component.properties).map((key) => [key, component.properties[key]] as [string, string])
+              )
+          );
+        })
     );
   }
 

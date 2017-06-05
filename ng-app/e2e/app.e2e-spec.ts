@@ -7,7 +7,7 @@ describe('Frunze ng-app', () => {
     page = new NgAppPage();
   });
 
-  it('should display correct control groups in Toolbox', () => {
+  it('should display correct component groups in Toolbox', () => {
     page.navigateTo();
     expect(page.getToolboxGroups()).toEqual([
       'Hardware - Connection',

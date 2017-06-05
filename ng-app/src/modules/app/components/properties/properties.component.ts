@@ -6,7 +6,7 @@ import {Component} from '@angular/core';
   styleUrls: ['properties.component.css']
 })
 export class PropertiesComponent {
-  activeControl: any = null;
+  activeComponent: any = null;
 
   groups: {
     info: {
@@ -75,13 +75,13 @@ export class PropertiesComponent {
     };
   }
 
-  removeControl() {
+  removeComponent() {
     // TODO: Implement.
-    if (!this.activeControl) {
+    if (!this.activeComponent) {
       return;
     }
 
-    this.activeControl.remove();
+    this.activeComponent.remove();
   }
 
   addTrigger() {

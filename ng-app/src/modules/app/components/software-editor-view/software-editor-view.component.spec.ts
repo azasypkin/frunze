@@ -9,11 +9,11 @@ import {ActivatedRouteStub} from '../../../../testing/stubs/activated-route';
 
 import {Config} from '../../config';
 
-import {ControlGroup} from '../../core/controls/control-group';
-import {ControlMetadata} from '../../core/controls/control-metadata';
+import {ComponentGroup} from '../../core/components/component-group';
+import {ComponentMetadata} from '../../core/components/component-metadata';
 import {Project} from '../../core/projects/project';
 
-import {ControlsService} from '../../services/controls.service';
+import {ComponentsService} from '../../services/components.service';
 import {ProjectService} from '../../services/project.service';
 
 import {SoftwareEditorViewComponent} from './software-editor-view.component';
@@ -24,7 +24,7 @@ import {PropertiesComponent} from '../properties/properties.component';
 
 
 describe('Components/SoftwareEditorViewComponent', () => {
-  let fixture, controlsServiceSpy, projectServiceSpy;
+  let fixture, componentsServiceSpy, projectServiceSpy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -38,23 +38,23 @@ describe('Components/SoftwareEditorViewComponent', () => {
         {provide: XHRBackend, useClass: MockBackend},
         {provide: ActivatedRoute, useClass: ActivatedRouteStub},
         Config,
-        ControlsService,
+        ComponentsService,
         ProjectService
       ]
     }).compileComponents().then(() => {
       fixture = TestBed.createComponent(SoftwareEditorViewComponent);
-      const controlsService = fixture.debugElement.injector.get(ControlsService);
-      controlsServiceSpy = spyOn(controlsService, 'getGroups')
+      const componentsService = fixture.debugElement.injector.get(ComponentsService);
+      componentsServiceSpy = spyOn(componentsService, 'getGroups')
         .and.returnValue(Observable.of([
-          new ControlGroup('group#1test', 'Group #1 Test', 'Group #1 Description Test', [
-            new ControlMetadata('type#11', 'Item #11', 'Item #11 Description'),
-            new ControlMetadata('type#12', 'Item #12', 'Item #12 Description')
+          new ComponentGroup('group#1test', 'Group #1 Test', 'Group #1 Description Test', [
+            new ComponentMetadata('type#11', 'Item #11', 'Item #11 Description'),
+            new ComponentMetadata('type#12', 'Item #12', 'Item #12 Description')
           ])
         ]));
 
       const projectService = fixture.debugElement.injector.get(ProjectService);
       projectServiceSpy = spyOn(projectService, 'getProject')
-          .and.returnValue(Observable.of(new Project('', 'New Project', 'New Project Description', [])));
+          .and.returnValue(Observable.of(new Project('', 'New Project', 'New Project Description', [], null, [])));
     });
   }));
 

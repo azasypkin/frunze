@@ -6,8 +6,8 @@ import 'rxjs/add/observable/of';
 
 import {ProjectService} from '../../services/project.service';
 import {Project} from '../../core/projects/project';
-import {ControlGroup} from '../../core/controls/control-group';
-import {ControlsService} from '../../services/controls.service';
+import {ComponentGroup} from '../../core/components/component-group';
+import {ComponentsService} from '../../services/components.service';
 
 @Component({
   templateUrl: 'software-editor-view.component.html',
@@ -15,10 +15,10 @@ import {ControlsService} from '../../services/controls.service';
 })
 export class SoftwareEditorViewComponent implements OnInit {
   project: Project;
-  controlGroups: ControlGroup[] = [];
+  componentGroups: ComponentGroup[] = [];
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService,
-              private controlsService: ControlsService) {
+              private componentsService: ComponentsService) {
   }
 
   ngOnInit(): void {
@@ -32,12 +32,12 @@ export class SoftwareEditorViewComponent implements OnInit {
   }
 
   /**
-   * Fetches groups from the ControlsService.
+   * Fetches groups from the ComponentsService.
    */
   private fetchGroups() {
-    this.controlsService.getGroups()
-        .subscribe((groups) => this.controlGroups = groups, (e) => {
-          console.error('Error occurred while retrieving of control groups.', e);
+    this.componentsService.getGroups()
+        .subscribe((groups) => this.componentGroups = groups, (e) => {
+          console.error('Error occurred while retrieving of component groups.', e);
         });
   }
 }

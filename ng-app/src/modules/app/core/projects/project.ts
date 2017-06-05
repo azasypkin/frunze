@@ -1,4 +1,5 @@
 import {ProjectCapability} from './project-capability';
+import {ProjectComponent} from './project-component';
 import {ProjectPlatform} from './project-platform';
 
 /**
@@ -6,7 +7,8 @@ import {ProjectPlatform} from './project-platform';
  */
 export class Project {
   constructor(private _id: string, private _name: string, private _description: string,
-              private _capabilities: ProjectCapability[], private _platform: ProjectPlatform = null) {}
+              private _capabilities: ProjectCapability[], private _platform: ProjectPlatform,
+              private _components: ProjectComponent[]) {}
 
   /**
    * Identifier of the project.
@@ -49,8 +51,17 @@ export class Project {
   }
 
   /**
+   * Project components.
+   * @returns {ProjectComponent[]}
+   */
+  get components() {
+    return this._components;
+  }
+
+  /**
    * Produces simplified JSON version of the project.
-   * @returns {{id: string, name: string, description: string, platform: string, capabilities: string[]}}
+   * @returns {{id: string, name: string, description: string, platform: string, capabilities: string[],
+   *            components: Object[]}}
    */
   toJSON() {
     return {
@@ -58,7 +69,8 @@ export class Project {
       name: this.name,
       description: this.description,
       platform: this.platform.type,
-      capabilities: this.capabilities.map((capability) => capability.type)
+      capabilities: this.capabilities.map((capability) => capability.type),
+      components: this.components.map((component) => component.toJSON())
     };
   }
 }

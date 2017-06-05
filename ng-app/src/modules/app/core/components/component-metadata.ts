@@ -1,4 +1,4 @@
-export class ControlMetadata {
+export class ComponentMetadata {
   private _type: string;
   private _name: string;
   private _description: string;
@@ -10,7 +10,7 @@ export class ControlMetadata {
   }
 
   /**
-   * Type of the control.
+   * Type of the component.
    * @returns {string}
    */
   get type() {
@@ -18,7 +18,7 @@ export class ControlMetadata {
   }
 
   /**
-   * Localizable and human-readable control name.
+   * Localizable and human-readable component name.
    * @returns {string}
    */
   get name() {
@@ -26,7 +26,7 @@ export class ControlMetadata {
   }
 
   /**
-   * Localizable and human-readable control description.
+   * Localizable and human-readable component description.
    * @returns {string}
    */
   get description() {

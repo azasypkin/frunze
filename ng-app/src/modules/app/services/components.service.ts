@@ -7,12 +7,12 @@ import 'rxjs/add/observable/of';
 
 import {Config} from '../config';
 
-import {ControlGroup} from '../core/controls/control-group';
-import {ControlMetadata} from '../core/controls/control-metadata';
+import {ComponentGroup} from '../core/components/component-group';
+import {ComponentMetadata} from '../core/components/component-metadata';
 
 @Injectable()
-export class ControlsService {
-  private controlGroupsAPIPath = 'control-groups';
+export class ComponentsService {
+  private componentGroupsAPIPath = 'component-groups';
 
   private static handleError(error: Response | any) {
     let errorMessage: string;
@@ -30,10 +30,10 @@ export class ControlsService {
   constructor(private config: Config, private http: Http) {
   }
 
-  getGroups(): Observable<ControlGroup[]> {
-    return this.http.get(`${this.config.apiDomain}/${this.controlGroupsAPIPath}`)
+  getGroups(): Observable<ComponentGroup[]> {
+    return this.http.get(`${this.config.apiDomain}/${this.componentGroupsAPIPath}`)
       .map(this.jsonToGroups)
-      .catch(ControlsService.handleError);
+      .catch(ComponentsService.handleError);
   }
 
   private jsonToGroups(response: Response) {
@@ -44,8 +44,8 @@ export class ControlsService {
     }
 
     return rawGroups.map((rawGroup) => {
-      return new ControlGroup(rawGroup.type, rawGroup.name, rawGroup.description, rawGroup.items.map((item) => {
-        return new ControlMetadata(item.type, item.name, item.description);
+      return new ComponentGroup(rawGroup.type, rawGroup.name, rawGroup.description, rawGroup.items.map((item) => {
+        return new ComponentMetadata(item.type, item.name, item.description);
       }));
     });
   }

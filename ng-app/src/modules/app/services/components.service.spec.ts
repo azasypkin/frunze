@@ -4,12 +4,12 @@ import {MockBackend, MockConnection} from '@angular/http/testing';
 
 import {Config} from '../config';
 
-import {ControlGroup} from '../core/controls/control-group';
-import {ControlMetadata} from '../core/controls/control-metadata';
+import {ComponentGroup} from '../core/components/component-group';
+import {ComponentMetadata} from '../core/components/component-metadata';
 
-import {ControlsService} from './controls.service';
+import {ComponentsService} from './components.service';
 
-describe('Services/ControlsService', () => {
+describe('Services/ComponentsService', () => {
   let service, backend;
 
   beforeEach(async(() => {
@@ -18,17 +18,17 @@ describe('Services/ControlsService', () => {
       providers: [
         {provide: XHRBackend, useClass: MockBackend},
         Config,
-        ControlsService
+        ComponentsService
       ]
     });
   }));
 
-  beforeEach(inject([ControlsService, XHRBackend], (controlService, mockBackend) => {
-    service = controlService;
+  beforeEach(inject([ComponentsService, XHRBackend], (componentService, mockBackend) => {
+    service = componentService;
     backend = mockBackend;
   }));
 
-  it('getGroups() correctly calls backend to fetch control groups', async(() => {
+  it('getGroups() correctly calls backend to fetch component groups', async(() => {
     backend.connections.subscribe((connection: MockConnection) => {
       const options = new ResponseOptions({
         body: JSON.stringify([{
@@ -42,23 +42,23 @@ describe('Services/ControlsService', () => {
     });
 
     service.getGroups()
-      .subscribe((groups: ControlGroup[]) => {
+      .subscribe((groups: ComponentGroup[]) => {
         expect(groups.length).toEqual(1);
 
         const group = groups[0];
-        expect(group instanceof ControlGroup).toEqual(true);
+        expect(group instanceof ComponentGroup).toEqual(true);
         expect(group.type).toEqual('test group#1');
         expect(group.name).toEqual('test Group #1');
         expect(group.description).toEqual('test Group #1 Description');
         expect(group.items.length).toEqual(1);
 
         const item = group.items[0];
-        expect(item instanceof ControlMetadata).toEqual(true);
+        expect(item instanceof ComponentMetadata).toEqual(true);
         expect(item.type).toEqual('test type#11');
         expect(item.name).toEqual('test Item #11');
         expect(item.description).toEqual('test Item #11 Description');
       }, (e) => {
-        console.error('Error occurred while retrieving of control groups.', e);
+        console.error('Error occurred while retrieving of component groups.', e);
       });
   }));
 });

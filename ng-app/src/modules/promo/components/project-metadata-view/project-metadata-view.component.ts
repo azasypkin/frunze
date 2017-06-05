@@ -92,7 +92,7 @@ export class ProjectMetadataViewComponent implements OnInit {
           return this.projectService.getProject(params['id']);
         }
 
-        return Observable.of(new Project('', 'New Project', 'New Project Description', []));
+        return Observable.of(new Project('', 'New Project', 'New Project Description', [], null, []));
       })
       .subscribe((project: Project) => this.updateProject(project));
   }
@@ -118,7 +118,8 @@ export class ProjectMetadataViewComponent implements OnInit {
         this.projectEditor.get('name').value.toString(),
         this.projectEditor.get('description').value.toString(),
         capabilities,
-        platformType ? this.platforms.find((platform) => platform.type === platformType) : null
+        platformType ? this.platforms.find((platform) => platform.type === platformType) : null,
+        []
     );
 
     // Now we should save the project and edit its software part.

@@ -56,7 +56,7 @@
   </section>
 
   <section class="expandable-group"
-           *ngIf="!!activeControl"
+           *ngIf="!!activeComponent"
            [attr.aria-expanded]="groups.triggers.expanded">
     <header class="expandable-group__header"
             (click)="groups.triggers.expanded = !groups.triggers.expanded">
@@ -77,11 +77,11 @@
     </ul>
   </section>
 
-  <button class="frunze-properties__remove-control" *ngIf="!!activeControl"
-          (click)="removeControl()">
-    Remove control
+  <button class="frunze-properties__remove-component" *ngIf="!!activeComponent"
+          (click)="removeComponent()">
+    Remove component
   </button>
-  <div class="frunze-properties_empty" *ngIf="!activeControl">
-    (Select control...)
+  <div class="frunze-properties_empty" *ngIf="!activeComponent">
+    (Select component...)
   </div>
 </section>

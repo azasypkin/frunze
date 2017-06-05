@@ -5,7 +5,7 @@ import {HttpModule} from '@angular/http';
 
 import {Config} from './config';
 
-import {ControlsService} from './services/controls.service';
+import {ComponentsService} from './services/components.service';
 import {ProjectService} from './services/project.service';
 
 
@@ -31,7 +31,7 @@ import {AppRoutingModule} from './app-routing.module';
     PromoModule,
     AppRoutingModule
   ],
-  providers: [Config, ControlsService, ProjectService],
+  providers: [Config, ComponentsService, ProjectService],
   bootstrap: [BootstrapComponent]
 })
 export class AppModule {

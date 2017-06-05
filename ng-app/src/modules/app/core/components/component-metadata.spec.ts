@@ -1,8 +1,8 @@
-import { ControlMetadata } from './control-metadata';
+import { ComponentMetadata } from './component-metadata';
 
-describe('Core/ControlMetadata', () => {
+describe('Core/ComponentMetadata', () => {
   it('all properties should be correctly initialized', () => {
-    const metadata = new ControlMetadata('type', 'Name', 'Description');
+    const metadata = new ComponentMetadata('type', 'Name', 'Description');
 
     expect(metadata.type).toEqual('type');
     expect(metadata.name).toEqual('Name');
