@@ -34,6 +34,12 @@ Please, read below if you'd like to have more control over the development setup
 
 ### Database
 
+When you run DB container for the first time you'll have to fill database with the initial data:
+
+```bash
+$ docker-compose run db /data/preloaded/preload.sh
+```
+
 Usually you don't have to deal with the DB itself too much, so you can leverage Docker Compose to run the DB server with
 exposed port:
 

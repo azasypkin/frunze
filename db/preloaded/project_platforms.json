@@ -1,0 +1,108 @@
+[
+  {
+    "type": "attiny",
+    "name": "Atmel ATtiny85",
+    "description": "High Performance, Low Power AVR® 8-Bit Microcontroller.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "raspberry-pi-zero-w",
+    "name": "The Raspberry Pi Zero W",
+    "description": "The Raspberry Pi Zero W Microcomputer.",
+    "capabilities": [
+      "uart",
+      "wifi",
+      "bluetooth",
+      "led",
+      "speaker",
+      "beeper",
+      "mic",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "raspberry-pi-3",
+    "name": "The Raspberry Pi 3",
+    "description": "The Raspberry Pi 3 Microcomputer.",
+    "capabilities": [
+      "uart",
+      "wifi",
+      "bluetooth",
+      "led",
+      "speaker",
+      "beeper",
+      "mic",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "psf-a85",
+    "name": "PSF-A85 WiFi Module",
+    "description": "PSF-A85 Wireless Module from iTEAD.",
+    "capabilities": [
+      "uart",
+      "wifi",
+      "bluetooth",
+      "led",
+      "speaker",
+      "beeper",
+      "mic",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "tessel-2",
+    "name": "Tessel 2",
+    "description": "The Tessel 2 development board.",
+    "capabilities": [
+      "uart",
+      "wifi",
+      "bluetooth",
+      "led",
+      "speaker",
+      "beeper",
+      "mic",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  }
+]

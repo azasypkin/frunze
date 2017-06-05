@@ -1,0 +1,127 @@
+[
+  {
+    "type": "wifi",
+    "name": "WiFi Connection",
+    "description": "Enables WiFi connectivity."
+  },
+  {
+    "type": "ethernet",
+    "name": "Ethernet Connection",
+    "description": "Enables Ethernet connectivity."
+  },
+  {
+    "type": "bluetooth",
+    "name": "Bluetooth Connection",
+    "description": "Enables Bluetooth connectivity."
+  },
+  {
+    "type": "cellular",
+    "name": "Cellular connection",
+    "description": "Enables Cellular connectivity."
+  },
+  {
+    "type": "nfc",
+    "name": "NFC connection",
+    "description": "Enables Near field communication connectivity."
+  },
+  {
+    "type": "lora",
+    "name": "LoRa WAN connection",
+    "description": "Enables LoRa WAN connectivity."
+  },
+  {
+    "type": "uart",
+    "name": "UART connection",
+    "description": "Enables UART connectivity."
+  },
+  {
+    "type": "led",
+    "name": "LED Indicator",
+    "description": "Allows your device to light up LEDs whenever needed."
+  },
+  {
+    "type": "led-display",
+    "name": "LED Display",
+    "description": "Allows your device to use basic LED display."
+  },
+  {
+    "type": "lcd-display",
+    "name": "Display",
+    "description": "Allows your device to use LCD."
+  },
+  {
+    "type": "speaker",
+    "name": "Speaker",
+    "description": "Allows your device to play sounds and music."
+  },
+  {
+    "type": "beeper",
+    "name": "Beeper",
+    "description": "Allows your device to produce very basic sounds or beeps."
+  },
+  {
+    "type": "mic",
+    "name": "Microphone",
+    "description": "Allows your device to listen and record audio."
+  },
+  {
+    "type": "light",
+    "name": "Light Sensor",
+    "description": "Allows your device to react on changes in light conditions."
+  },
+  {
+    "type": "humidity",
+    "name": "Humidity Sensor",
+    "description": "Allows your device to measure humidity level."
+  },
+  {
+    "type": "motion",
+    "name": "Motion Sensor",
+    "description": "Allows your device to detect motion."
+  },
+  {
+    "type": "temperature",
+    "name": "Temperature Sensor",
+    "description": "Allows your device to measure temperature."
+  },
+  {
+    "type": "magnetic",
+    "name": "Magnetic Field Sensor",
+    "description": "Allows your device to detect changes in magnetic field."
+  },
+  {
+    "type": "air-pollution",
+    "name": "Air Pollution Sensor",
+    "description": "Allows your device to measure air pollution level."
+  },
+  {
+    "type": "dc-motor",
+    "name": "DC Motor",
+    "description": "Allows your device to spin a DC motor."
+  },
+  {
+    "type": "servo-motor",
+    "name": "Servo Motor",
+    "description": "Allows your device to control a servo motor."
+  },
+  {
+    "type": "vibration-motor",
+    "name": "Vibration motor",
+    "description": "Allows your device to vibrate."
+  },
+  {
+    "type": "momentary-switch",
+    "name": "Momentary Switch",
+    "description": "Allows your device to have a mechanical momentary switch."
+  },
+  {
+    "type": "maintained-switch",
+    "name": "Maintained Switch",
+    "description": "Allows your device to have a mechanical switch with a maintained state."
+  },
+  {
+    "type": "rotary-switch",
+    "name": "Rotary Switch",
+    "description": "Allows your device to have a rotary switch."
+  }
+]

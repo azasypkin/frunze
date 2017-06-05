@@ -22,4 +22,5 @@ services:
       - "27017:27017"
     # Use for development only if you'd like to store DB files in a known place on your host machine.
     volumes:
-      - ./data-files:/data/db
+      - ./db/data-files:/data/db
+      - ./db/preloaded:/data/preloaded

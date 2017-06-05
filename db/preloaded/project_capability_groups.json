@@ -1,0 +1,61 @@
+[
+  {
+    "type": "connectivity",
+    "name": "Connectivity",
+    "description": "Everything that allows devices to be connected.",
+    "capabilities": [
+      "wifi",
+      "ethernet",
+      "bluetooth",
+      "cellular",
+      "nfc",
+      "lora"
+    ]
+  },
+  {
+    "type": "output",
+    "name": "Indicators and Output",
+    "description": "Items in this group allows your device to talk to the world or indicate something (various audio/visual indicators).",
+    "capabilities": [
+      "led",
+      "led-display",
+      "lcd-display",
+      "speaker",
+      "beeper"
+    ]
+  },
+  {
+    "type": "input",
+    "name": "Sensors and Input",
+    "description": "Items in this group allows your device to get input from the world (various sensors, microphones etc.).",
+    "capabilities": [
+      "mic",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "air-pollution"
+    ]
+  },
+  {
+    "type": "mechanical",
+    "name": "Mechanical",
+    "description": "Items in this group allows your device to perform mechanical actions.",
+    "capabilities": [
+      "dc-motor",
+      "servo-motor",
+      "vibration-motor"
+    ]
+  },
+  {
+    "type": "switches",
+    "name": "Switches",
+    "description": "Items in this group allows your device to have various switches.",
+    "capabilities": [
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  }
+]
