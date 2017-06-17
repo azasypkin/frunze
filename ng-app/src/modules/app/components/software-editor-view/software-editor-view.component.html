@@ -6,7 +6,12 @@
       </frunze-expandable-groups>
     </section>
     <section class="frunze-software-editor__workspace">
-      <section class="frunze-workspace-editor">
+      <section class="frunze-workspace-editor"
+               [class.frunze-workspace-editor--drop-target]="dragEnterCounter > 0"
+               (dragover)="onDragOver($event)"
+               (dragenter)="onDragEnter($event)"
+               (dragleave)="onDragLeave($event)"
+               (drop)="onDrop($event)">
       </section>
     </section>
     <section class="frunze-software-editor__properties">

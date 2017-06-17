@@ -38,6 +38,6 @@
   padding: 0.5rem;
 }
 
-.frunze-workspace-editor:-moz-drag-over {
-  border-color: #333333;
+.frunze-workspace-editor--drop-target {
+  border: 0.2rem dashed #ababab;
 }

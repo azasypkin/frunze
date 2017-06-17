@@ -24,9 +24,7 @@ export class ExpandableGroupsComponent {
     group.expanded = !group.expanded;
   }
 
-  onDragStart(e: DragEvent,
-              group: IExpandableGroup,
-              item: IExpandableGroupItem) {
+  onDragStart(e: DragEvent, group: IExpandableGroup, item: IExpandableGroupItem) {
     e.dataTransfer.setData(`text/${group.type}`, item.type);
   }
 }
