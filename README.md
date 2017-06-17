@@ -134,8 +134,22 @@ to use [`rustup`](https://rustup.rs) to deal with several Rust versions simultan
 just run:
 
 ```bash
-$ RUSTUP_TOOLCHAIN=nightly cargo test --features stainless
+$ cargo +nightly test --features stainless
 ```
+
+To run [Clippy](https://github.com/Manishearth/rust-clippy) checks:
+
+```bash
+$ cargo +nightly clippy
+```
+
+To format project with [RustFmt](https://github.com/rust-lang-nursery/rustfmt):
+
+```bash
+$ cargo +nightly fmt
+```
+
+http://localhost:63342/api/markdown-preview/scripts/scrollToElement.js?_ijt=is291l2tflrg50uck6liuhsjt9
 
 ### Client
 
