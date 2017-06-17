@@ -30,6 +30,9 @@
 }
 
 .frunze-workspace-editor {
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
   height: 100%;
   box-sizing: border-box;
   border: 0.1rem dashed #ddd;
@@ -40,4 +43,14 @@
 
 .frunze-workspace-editor--drop-target {
   border: 0.2rem dashed #ababab;
+}
+
+.frunze-software-component {
+  max-height: 3rem;
+  min-height: 3rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+
+  border: 0.1rem dashed rgb(74, 95, 119);
 }
