@@ -11,9 +11,9 @@ describe('Frunze ng-app', () => {
     page.navigateTo();
     expect(page.getToolboxGroups()).toEqual([
       'Hardware - Connection',
-      'Hardware - Audio',
       'Hardware - Switches',
-      'Services - Storage'
+      'Services - Storage',
+      'Hardware - Audio'
     ]);
   });
 });

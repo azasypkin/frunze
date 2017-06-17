@@ -15,7 +15,7 @@ describe('Components/ExpandableGroupsComponent', () => {
     expect(expandableGroups).toBeTruthy();
   }));
 
-  it(`should render every group`, async(() => {
+  it('should render every group', async(() => {
     const fixture = TestBed.createComponent(ExpandableGroupsComponent);
     fixture.detectChanges();
 
@@ -58,7 +58,7 @@ describe('Components/ExpandableGroupsComponent', () => {
     expect(element.querySelectorAll('.expandable-group').length).toEqual(1);
   }));
 
-  it(`should render group content correctly`, async(() => {
+  it('should render group content correctly', async(() => {
     const fixture = TestBed.createComponent(ExpandableGroupsComponent);
     const element = fixture.debugElement.nativeElement;
     const component = fixture.debugElement.componentInstance;

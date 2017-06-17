@@ -55,6 +55,9 @@ describe('Components/SoftwareEditorViewComponent', () => {
       const projectService = fixture.debugElement.injector.get(ProjectService);
       projectServiceSpy = spyOn(projectService, 'getProject')
           .and.returnValue(Observable.of(new Project('', 'New Project', 'New Project Description', [], null, [])));
+
+      const activatedRoute = fixture.debugElement.injector.get(ActivatedRoute) as ActivatedRouteStub;
+      activatedRoute.setParameters({ id: '' });
     });
   }));
 
@@ -63,7 +66,7 @@ describe('Components/SoftwareEditorViewComponent', () => {
     expect(app).toBeTruthy();
   }));
 
-  it(`should render all main editor components`, async(() => {
+  it('should render all main editor components', async(() => {
     fixture.detectChanges();
 
     fixture.whenStable().then(() => {
