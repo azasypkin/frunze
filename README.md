@@ -1,5 +1,8 @@
 # Frunze
 
+[![Build Status](https://travis-ci.org/azasypkin/frunze.svg?branch=master)](https://travis-ci.org/azasypkin/frunze)
+[![License](https://img.shields.io/github/license/mashape/apistatus.svg)](https://raw.githubusercontent.com/azasypkin/frunze/master/LICENSE)
+
 __Frunze__ is easy but powerful Web IDE that allows to model your own IoT device based on widely known component architecture. You don't 
 have to be developer to get started as modeling is as simple as just adding functional pieces via drag&drop from available list of 
 components (button, LED, ADC, DAC, Bluetooth, WiFi, sensors etc.) components.

@@ -1,0 +1,30 @@
+dist: trusty
+
+language: node_js
+node_js: "7.9.0"
+
+addons:
+  chrome: stable
+
+branches:
+  only:
+    - master
+
+before_install:
+  - cd ng-app
+
+install:
+  - npm install -g @angular/cli
+  - npm install
+
+script:
+  - ng test --watch false
+  - ng e2e
+
+cache:
+  directories: ng-app/node_modules
+
+notifications:
+  email:
+    on_failure: change
+    on_success: change
