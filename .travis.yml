@@ -19,7 +19,6 @@ install:
 
 script:
   - ng test --watch false
-  - ng e2e
 
 cache:
   directories: ng-app/node_modules
