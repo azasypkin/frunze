@@ -18,7 +18,7 @@ import {ComponentsService} from '../../services/components.service';
 export class SoftwareEditorViewComponent implements OnInit {
   project: Project;
   componentGroups: ComponentGroup[] = [];
-  private dragEnterCounter = 0;
+  dragEnterCounter = 0;
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService,
               private componentsService: ComponentsService) {
