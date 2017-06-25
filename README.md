@@ -63,34 +63,7 @@ Checkout `docker-compose.yml` for default settings that you can modify if you wa
 
 ### API Server
 
-Run development API server with (localhost:8009 by default):
-
-```bash
-$ cd api
-$ cargo run
-```
-
-or if you'd like to use custom IP address or/and port (don't forget to re-configure client part as well):
-
-```bash
-$ cd api
-$ cargo run -- --ip 127.0.0.2 --port 8008
-```
-
-For custom MongoDB instance use the following parameters:
-
-```bash
-$ cd api
-$ cargo run -- ... --db-ip 127.0.0.3 --db-port 27018 --db-name my-own-db-name
-```
-
-There is also option to run the API server in a dedicated Docker container if you just want to check it out:
-
-```bash
-$ cd api
-$ docker build -t frunze-api:dev .
-$ docker run -d --name frunze-api -p 8009:8009 frunze-api:dev
-```
+To setup API server please follow the instructions from [Frunze API repository](https://github.com/azasypkin/frunze-api/blob/master/README.md).
 
 ### Client
 
@@ -121,8 +94,7 @@ $ docker stop frunze-ng-app
 
 ### API Server
 
-Run `cargo build` from the appropriate directory. The build artifacts will be stored in the `api/target/` directory. Use `--release` flag 
-for a production build.
+To build API server please follow the instructions from [Frunze API repository](https://github.com/azasypkin/frunze-api/blob/master/README.md#build-server).
 
 ### Client
 Run `ng build` from the `ng-app` folder. The build artifacts will be stored in the `ng-app/dist/` directory. Use the `-prod` flag for a 
@@ -132,27 +104,7 @@ production build.
 
 ### API Server
 
-Server part unit tests rely on `stainless` crate and hence require Rust Nightly (the server itself works fine with Rust Stable). It's recommended
-to use [`rustup`](https://rustup.rs) to deal with several Rust versions simultaneously. Let's say you use `rustup`, then to run unit tests
-just run:
-
-```bash
-$ cargo +nightly test --features stainless
-```
-
-To run [Clippy](https://github.com/Manishearth/rust-clippy) checks:
-
-```bash
-$ cargo +nightly clippy
-```
-
-To format project with [RustFmt](https://github.com/rust-lang-nursery/rustfmt):
-
-```bash
-$ cargo +nightly fmt
-```
-
-http://localhost:63342/api/markdown-preview/scripts/scrollToElement.js?_ijt=is291l2tflrg50uck6liuhsjt9
+To run API server unit-tests please follow the instructions from [Frunze API repository](https://github.com/azasypkin/frunze-api/blob/master/README.md#run-unit-tests).
 
 ### Client
 
