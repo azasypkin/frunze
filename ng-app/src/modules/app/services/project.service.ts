@@ -17,6 +17,7 @@ import {ProjectComponent} from '../core/projects/project-component';
 
 const APIPaths = Object.freeze({
   project: 'project',
+  projects: 'projects',
   projectCapabilities: 'project-capabilities',
   projectCapabilityGroups: 'project-capability-groups',
   projectPlatforms: 'project-platforms'
@@ -50,11 +51,18 @@ export class ProjectService {
    * @returns {Observable.<Project>}
    */
   getProject(id: string): Observable<Project> {
-    return this.platforms = Observable.forkJoin(
-        this.getCapabilities(),
-        this.getPlatforms(),
-        this.http.get(`${this.config.apiDomain}/${APIPaths.project}/${id}`)
-    ).map(([capabilities, platforms, response]) => this.constructProject(capabilities, platforms, response))
+    return Observable.forkJoin(
+      this.getCapabilities(),
+      this.getPlatforms(),
+      this.http.get(`${this.config.apiDomain}/${APIPaths.project}/${id}`)
+    ).map(([capabilities, platforms, response]) => {
+      const jsonResponse = response.json();
+      if (!jsonResponse) {
+        return null;
+      }
+
+      return this.constructProject(capabilities, platforms, jsonResponse);
+    })
     .catch(ProjectService.handleError);
   }
 
@@ -65,17 +73,35 @@ export class ProjectService {
    */
   saveProject(project: Project): Observable<Project> {
     return this.http.post(`${this.config.apiDomain}/${APIPaths.project}`, project.toJSON())
-        .map((response) => {
-          return new Project(
-              response.text(),
-              project.name,
-              project.description,
-              project.capabilities,
-              project.platform,
-              project.components
-          );
-        })
-        .catch(ProjectService.handleError);
+      .map((response) => {
+        return new Project(
+          response.text(),
+          project.name,
+          project.description,
+          project.capabilities,
+          project.platform,
+          project.components
+        );
+      })
+      .catch(ProjectService.handleError);
+  }
+
+  /**
+   * Returns an array of projects saved on the back-end.
+   * @returns {Observable.<Project[]>}
+   */
+  getProjects(): Observable<Project[]> {
+    return Observable.forkJoin(
+      this.getCapabilities(),
+      this.getPlatforms(),
+      this.http.get(`${this.config.apiDomain}/${APIPaths.projects}`)
+    ).map(([capabilities, platforms, response]) => {
+      return this.constructCollection(
+        response,
+        (rawProject) => this.constructProject(capabilities, platforms, rawProject)
+      );
+    })
+    .catch(ProjectService.handleError);
   }
 
   /**
@@ -88,15 +114,15 @@ export class ProjectService {
     }
 
     return this.capabilities = this.http.get(`${this.config.apiDomain}/${APIPaths.projectCapabilities}`)
-        .map((response: Response) => {
-          const capabilities = this.constructCapabilities(response);
+      .map((response: Response) => {
+        const capabilities = this.constructCollection(response, this.constructCapability.bind(this));
 
-          // Copy an array to avoid side modifications.
-          this.capabilities = Observable.of(capabilities).map((c) => [...c]);
+        // Copy an array to avoid side modifications.
+        this.capabilities = Observable.of(capabilities).map((c) => [...c]);
 
-          return capabilities;
-        })
-        .catch(ProjectService.handleError);
+        return capabilities;
+      })
+      .catch(ProjectService.handleError);
   }
 
   /**
@@ -109,10 +135,13 @@ export class ProjectService {
     }
 
     return this.capabilityGroups = Observable.forkJoin(
-        this.getCapabilities(),
-        this.http.get(`${this.config.apiDomain}/${APIPaths.projectCapabilityGroups}`)
+      this.getCapabilities(),
+      this.http.get(`${this.config.apiDomain}/${APIPaths.projectCapabilityGroups}`)
     ).map(([capabilities, response]) => {
-      const capabilityGroups = this.constructCapabilityGroups(capabilities, response);
+      const capabilityGroups = this.constructCollection(
+        response,
+        (rawCapabilityGroup) => this.constructCapabilityGroup(capabilities, rawCapabilityGroup)
+      );
 
       // Copy an array to avoid side modifications.
       this.capabilityGroups = Observable.of(capabilityGroups).map((c) => [...c]);
@@ -132,10 +161,13 @@ export class ProjectService {
     }
 
     return this.platforms = Observable.forkJoin(
-        this.getCapabilities(),
-        this.http.get(`${this.config.apiDomain}/${APIPaths.projectPlatforms}`)
+      this.getCapabilities(),
+      this.http.get(`${this.config.apiDomain}/${APIPaths.projectPlatforms}`)
     ).map(([capabilities, response]) => {
-      const platforms = this.constructPlatforms(capabilities, response);
+      const platforms = this.constructCollection(
+        response,
+        (rawPlatform) => this.constructPlatform(capabilities, rawPlatform)
+      );
 
       // Copy an array to avoid side modifications.
       this.platforms = Observable.of(platforms).map((c) => [...c]);
@@ -149,98 +181,96 @@ export class ProjectService {
    * Converts raw project json to a Project instance.
    * @param {ProjectCapability[]} capabilities List of already loaded ProjectCapability instances.
    * @param {ProjectPlatform[]} platforms List of already loaded ProjectPlatform instances.
-   * @param {Response} response Raw response returned from the API.
+   * @param {Object} rawProject Raw project JSON returned from the API.
    * @returns {Project}
    * @private
    */
-  private constructProject(capabilities: ProjectCapability[], platforms: ProjectPlatform[], response: Response) {
-    const rawProject = response.json();
-    if (!rawProject) {
-      return [];
-    }
-
+  private constructProject(capabilities: ProjectCapability[], platforms: ProjectPlatform[], rawProject: any) {
     return new Project(
-        rawProject.id,
-        rawProject.name,
-        rawProject.description,
-        // FIXME: "find" is very ineffective in this case, here we should use Map.
-        // Should be fixed in https://github.com/azasypkin/frunze/issues/2.
-        rawProject.capabilities.map(
-            (capabilityType) => capabilities.find((capability) => capability.type === capabilityType)
-        ),
-        platforms.find((platform) => platform.type === rawProject.platform),
-        rawProject.components.map((component) => {
-          return new ProjectComponent(
-              component.id,
-              component.type,
-              component.name,
-              component.description,
-              new Map(
-                  Object.keys(component.properties).map((key) => [key, component.properties[key]] as [string, string])
-              )
-          );
-        })
+      rawProject.id,
+      rawProject.name,
+      rawProject.description,
+      // FIXME: "find" is very ineffective in this case, here we should use Map.
+      // Should be fixed in https://github.com/azasypkin/frunze/issues/2.
+      rawProject.capabilities.map(
+        (capabilityType) => capabilities.find((capability) => capability.type === capabilityType)
+      ),
+      platforms.find((platform) => platform.type === rawProject.platform),
+      rawProject.components.map((component) => {
+        return new ProjectComponent(
+          component.id,
+          component.type,
+          component.name,
+          component.description,
+          new Map(
+            Object.keys(component.properties).map((key) => [key, component.properties[key]] as [string, string])
+          )
+        );
+      })
     );
   }
 
   /**
-   * Converts raw project capability json to an array of ProjectCapability instances.
-   * @param {Response} response Raw response returned from the API.
-   * @returns {ProjectCapability[]}
+   * Converts raw project capability json to a ProjectCapability instance.
+   * @param {Object} rawCapability Raw capability JSON returned from the API.
+   * @returns {ProjectCapability}
    * @private
    */
-  private constructCapabilities(response: Response) {
-    const jsonResponse = response.json();
-    if (!jsonResponse) {
-      return [];
-    }
-
-    return jsonResponse.map((rawData) => new ProjectCapability(rawData.type, rawData.name, rawData.description));
+  private constructCapability(rawCapability: any) {
+    return new ProjectCapability(rawCapability.type, rawCapability.name, rawCapability.description);
   }
 
   /**
-   * Converts raw project capability group json to an array of ProjectCapabilityGroup instances.
+   * Converts raw project capability group json to a ProjectCapabilityGroup instance.
    * @param {ProjectCapability[]} capabilities List of already loaded ProjectCapability instances.
-   * @param {Response} response Raw response returned from the API.
-   * @returns {ProjectCapabilityGroup[]}
+   * @param {Object} rawCapabilityGroup Raw ProjectCapabilityGroup JSON returned from the API.
+   * @returns {ProjectCapabilityGroup}
    * @private
    */
-  private constructCapabilityGroups(capabilities: ProjectCapability[], response: Response) {
-    const jsonResponse = response.json();
-    if (!jsonResponse) {
-      return [];
-    }
-
-    return jsonResponse.map((rawData) => {
-      return new ProjectCapabilityGroup(rawData.type, rawData.name, rawData.description,
-          // FIXME: "find" is very ineffective in this case, here we should use Map.
-          rawData.capabilities.map(
-              (capabilityType) => capabilities.find((capability) => capability.type === capabilityType)
-          )
-      );
-    });
+  private constructCapabilityGroup(capabilities: ProjectCapability[], rawCapabilityGroup: any) {
+    return new ProjectCapabilityGroup(
+      rawCapabilityGroup.type,
+      rawCapabilityGroup.name,
+      rawCapabilityGroup.description,
+      // FIXME: "find" is very ineffective in this case, here we should use Map.
+      rawCapabilityGroup.capabilities.map(
+        (capabilityType) => capabilities.find((capability) => capability.type === capabilityType)
+      )
+    );
   }
 
   /**
-   * Converts raw project platform json to an array of ProjectPlatform instances.
+   * Converts raw project platform json to a ProjectPlatform instance.
    * @param {ProjectCapability[]} capabilities List of already loaded ProjectCapability instances.
-   * @param {Response} response Raw response returned from the API.
-   * @returns {ProjectPlatform[]}
+   * @param {Object} rawPlatform Raw platform JSON returned from the API.
+   * @returns {ProjectPlatform}
    * @private
    */
-  private constructPlatforms(capabilities: ProjectCapability[], response: Response) {
-    const jsonResponse = response.json();
-    if (!jsonResponse) {
+  private constructPlatform(capabilities: ProjectCapability[], rawPlatform: any) {
+    return new ProjectPlatform(
+      rawPlatform.type,
+      rawPlatform.name,
+      rawPlatform.description,
+      // FIXME: "find" is very ineffective in this case, here we should use Map.
+      rawPlatform.capabilities.map(
+        (capabilityType) => capabilities.find((capability) => capability.type === capabilityType)
+      )
+    );
+  }
+
+  /**
+   * Constructs collection of objects from JSON HTTP response using generic constructor function.
+   * @param response {Response} HTTP Response object returned from the API.
+   * @param constructor {Function(rawItem: Object) -> T} Function that can construct object from raw JSON.
+   * @returns {Array.<T>}
+   * @private
+   */
+  private constructCollection<T>(response: Response, constructor: (rawItem: any) => T): T[] {
+    const jsonRawValue = response.json();
+    if (!jsonRawValue) {
       return [];
     }
 
-    return jsonResponse.map((rawData) => {
-      return new ProjectPlatform(rawData.type, rawData.name, rawData.description,
-          // FIXME: "find" is very ineffective in this case, here we should use Map.
-          rawData.capabilities.map(
-              (capabilityType) => capabilities.find((capability) => capability.type === capabilityType)
-          )
-      );
-    });
+    return jsonRawValue.map((rawItem) => constructor(rawItem));
   }
 }
