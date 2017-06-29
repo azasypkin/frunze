@@ -87,6 +87,16 @@ export class ProjectService {
   }
 
   /**
+   * Delete project by its unique identifier.
+   * @param {string} id Unique identifier of the project to delete.
+   * @returns {Observable}
+   */
+  deleteProject(id: string): Observable<void> {
+    return this.http.delete(`${this.config.apiDomain}/${APIPaths.project}/${id}`)
+      .catch(ProjectService.handleError);
+  }
+
+  /**
    * Returns an array of projects saved on the back-end.
    * @returns {Observable.<Project[]>}
    */
