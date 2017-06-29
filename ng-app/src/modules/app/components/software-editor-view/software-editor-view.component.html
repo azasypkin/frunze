@@ -12,7 +12,8 @@
                (dragenter)="onDragEnter($event)"
                (dragleave)="onDragLeave($event)"
                (drop)="onDrop($event)">
-        <div class="frunze-software-component" *ngFor="let component of project?.components">
+        <div class="frunze-software-component frunze-software-component-{{component.type}}"
+             *ngFor="let component of project?.components">
           {{component.name}}
         </div>
       </section>
