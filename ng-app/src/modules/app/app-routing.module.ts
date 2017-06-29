@@ -4,7 +4,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {SoftwareEditorViewComponent} from './components/software-editor-view/software-editor-view.component';
 
 export const routes: Routes = [
-  {path: '', redirectTo: 'app', pathMatch: 'full'},
+  {path: '', redirectTo: 'promo/projects', pathMatch: 'full'},
   {path: 'app', component: SoftwareEditorViewComponent},
   {path: 'promo/project/software/:id', component: SoftwareEditorViewComponent},
   {path: 'promo', loadChildren: 'modules/promo/promo.module#PromoModule'}

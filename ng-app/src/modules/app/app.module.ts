@@ -8,7 +8,6 @@ import {Config} from './config';
 import {ComponentsService} from './services/components.service';
 import {ProjectService} from './services/project.service';
 
-
 import {BootstrapComponent} from './components/bootstrap/bootstrap.component';
 import {SoftwareEditorViewComponent} from './components/software-editor-view/software-editor-view.component';
 import {ExpandableGroupsComponent} from './components/expandable-groups/expandable-groups.component';
