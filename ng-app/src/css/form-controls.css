@@ -92,13 +92,13 @@
   margin-bottom: 1rem;
   padding: 0.5rem;
 
-  border: 0.1rem solid rgba(0,0,0,.15);
+  background-color: #fff;
+  box-shadow: 0 -1px 1px 0 rgba(0,0,0,.05), 0 1px 2px 0 rgba(0,0,0,.2);
 }
 
 .frunze-form-checkbox-item--active,
 .frunze-form-radio-item--active {
-  border: 0.3rem solid #5cb3fd;
-  padding: 0.3rem;
+  box-shadow: 0 -1px 1px 0 rgb(65, 156, 206), 0 1px 5px 4px rgb(67, 160, 211);
 }
 
 .frunze-form-checkbox-item-picture,
