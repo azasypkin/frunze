@@ -10,23 +10,76 @@
 }
 
 .frunze-projects-view-empty {
-  font-size: 150%;
   text-align: center;
 }
 
 .frunze-projects-view-empty-sign {
+  display: block;
   width: 10rem;
+  padding: 0 2rem;
 }
 
 .frunze-projects-view-create {
-  display: block;
+  display: inline-block;
   margin-top: 1rem;
   padding: 0.5rem 2rem;
 
-  border: 0.1rem solid;
   border-radius: 1rem;
 
-  color: #1f2532;
-  font-size: 60%;
+  background-color: #fff;
+  box-shadow: 0 -1px 1px 0 rgba(0,0,0,.05), 0 1px 2px 0 rgba(0,0,0,.2);
   text-decoration: none;
+}
+
+.frunze-projects-view-create-container {
+  text-align: center;
+}
+
+.frunze-projects-view-list {
+  display: flex;
+  margin: 1rem 0 0;
+  padding: 0;
+}
+
+.frunze-projects-view-item {
+  display: inline;
+  position: relative;
+  width: 15rem;
+  height: 15rem;
+  margin: 1rem;
+  box-sizing: border-box;
+
+  background-color: #fff;
+  box-shadow: 0 -1px 1px 0 rgba(0,0,0,.05), 0 1px 2px 0 rgba(0,0,0,.2);
+}
+
+.frunze-projects-view-item-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+
+  color: #333;
+  text-decoration: none;
+}
+
+.frunze-projects-view-item-thumbnail {
+  flex: 6;
+
+  background: url("../../../../assets/images/project-blank-thumbnail.png") no-repeat center center;
+  background-size: 4rem;
+}
+
+.frunze-projects-view-item-description {
+  flex: 1;
+  padding-top: 0.3rem;
+
+  border-top: 1px solid #E9E9EB;
+}
+
+.frunze-projects-view-delete {
+  position: absolute;
+  bottom: 0.3rem;
+  right: 0.3rem;
 }
