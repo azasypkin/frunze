@@ -119,7 +119,7 @@ export class ProjectMetadataViewComponent implements OnInit {
         this.projectEditor.get('description').value.toString(),
         capabilities,
         platformType ? this.platforms.find((platform) => platform.type === platformType) : null,
-        []
+        this.project.components
     );
 
     // Now we should save the project and edit its software part.

@@ -36,7 +36,10 @@ export class ProjectComponent extends TypedEntity {
       type: this.type,
       name: this.name,
       description: this.description,
-      properties: Array.from(this._properties.entries())
+      properties: Array.from(this._properties.entries()).reduce((map, [key, value]) => {
+        map[key] = value;
+        return map;
+      }, {})
     };
   }
 }

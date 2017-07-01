@@ -113,4 +113,10 @@ export class SoftwareEditorViewComponent implements OnInit {
       throw new Error(`Unknown component type '${componentType}'.`);
     }
   }
+
+  onNext() {
+    this.projectService.saveProject(this.project).subscribe(() => {
+      console.log('Project successfully saved.');
+    });
+  }
 }
