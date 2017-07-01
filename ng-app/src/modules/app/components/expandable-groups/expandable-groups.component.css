@@ -8,14 +8,10 @@
 
 .expandable-group__header {
   background-color: #eee;
-  border-bottom: 0.1rem solid #ddd;
+  box-shadow: 0 -1px 1px 0 rgba(0,0,0,.05), 0 1px 2px 0 rgba(0,0,0,.2);
   cursor: pointer;
 
   padding: 0.5rem;
-}
-
-.expandable-group__header:hover {
-  background-color: #ddd;
 }
 
 .expandable-group__header::before {

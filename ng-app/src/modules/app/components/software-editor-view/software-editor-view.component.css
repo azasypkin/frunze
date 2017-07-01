@@ -7,6 +7,8 @@
 .frunze-software-editor {
   display: flex;
   height: 100%;
+
+  box-shadow: 0 -1px 1px 0 rgba(0,0,0,.05), 0 1px 2px 0 rgba(0,0,0,.2);
 }
 
 .frunze-software-editor__components,
@@ -14,7 +16,7 @@
 .frunze-software-editor__properties {
   overflow-y: auto;
 
-  border: 1px solid #ddd;
+  background-color: #fff;
 }
 
 .frunze-software-editor__components,
@@ -35,22 +37,25 @@
   flex-wrap: wrap;
   height: 100%;
   box-sizing: border-box;
-  border: 0.1rem dashed #ddd;
-
-  background-color: #eee;
+  border-left: 0.1rem dashed #ddd;
+  border-right: 0.1rem dashed #ddd;
   padding: 0.5rem;
 }
 
 .frunze-workspace-editor--drop-target {
-  border: 0.2rem dashed #ababab;
+  opacity: 0.5;
 }
 
 .frunze-software-component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   max-height: 3rem;
   min-height: 3rem;
   margin: 0.5rem;
   padding: 0.5rem;
   box-sizing: border-box;
 
-  border: 0.1rem dashed rgb(74, 95, 119);
+  box-shadow: 0 -1px 1px 0 rgba(0,0,0,.05), 0 1px 2px 0 rgba(0,0,0,.2);
+  background-color: #eee;
 }
