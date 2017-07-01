@@ -19,6 +19,7 @@ export class SoftwareEditorViewComponent implements OnInit {
   project: Project;
   componentGroups: ComponentGroup[] = [];
   dragEnterCounter = 0;
+  activeComponent: ProjectComponent = null;
 
   constructor(private route: ActivatedRoute, private projectService: ProjectService,
               private componentsService: ComponentsService) {
@@ -118,5 +119,9 @@ export class SoftwareEditorViewComponent implements OnInit {
     this.projectService.saveProject(this.project).subscribe(() => {
       console.log('Project successfully saved.');
     });
+  }
+
+  setActiveComponent(component: ProjectComponent) {
+    this.activeComponent = component;
   }
 }

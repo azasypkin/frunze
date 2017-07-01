@@ -1,4 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
+
+import {ProjectComponent} from '../../core/projects/project-component';
 
 @Component({
   selector: 'frunze-properties',
@@ -6,7 +8,7 @@ import {Component} from '@angular/core';
   styleUrls: ['properties.component.css']
 })
 export class PropertiesComponent {
-  activeComponent: any = null;
+  @Input() component: ProjectComponent = null;
 
   groups: {
     info: {
@@ -15,11 +17,6 @@ export class PropertiesComponent {
       items: any[]
     },
     properties: {
-      name: string,
-      expanded: boolean,
-      items: any[]
-    },
-    styles: {
       name: string,
       expanded: boolean,
       items: any[]
@@ -37,7 +34,6 @@ export class PropertiesComponent {
   } = {
     info: null,
     properties: null,
-    styles: null,
     events: null,
     triggers: null
   };
@@ -52,12 +48,6 @@ export class PropertiesComponent {
 
     this.groups.properties = {
       name: 'Common Properties',
-      expanded: false,
-      items: []
-    };
-
-    this.groups.styles = {
-      name: 'Appearance',
       expanded: false,
       items: []
     };
@@ -77,11 +67,11 @@ export class PropertiesComponent {
 
   removeComponent() {
     // TODO: Implement.
-    if (!this.activeComponent) {
+    if (!this.component) {
       return;
     }
 
-    this.activeComponent.remove();
+    // this.activeComponent.remove();
   }
 
   addTrigger() {

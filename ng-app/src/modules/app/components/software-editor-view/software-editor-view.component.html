@@ -11,15 +11,17 @@
                (dragover)="onDragOver($event)"
                (dragenter)="onDragEnter($event)"
                (dragleave)="onDragLeave($event)"
-               (drop)="onDrop($event)">
+               (drop)="onDrop($event)"
+               (click)="setActiveComponent(null)">
         <div class="frunze-software-component frunze-software-component-{{component.type}}"
-             *ngFor="let component of project?.components">
+             *ngFor="let component of project?.components"
+             (click)="setActiveComponent(component);$event.stopPropagation()">
           {{component.name}}
         </div>
       </section>
     </section>
     <section class="frunze-software-editor__properties">
-      <frunze-properties></frunze-properties>
+      <frunze-properties [component]="activeComponent"></frunze-properties>
     </section>
   </section>
   <div>

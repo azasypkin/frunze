@@ -28,20 +28,6 @@
   </section>
 
   <section class="expandable-group"
-           *ngIf="!!groups.styles.items.length"
-           [attr.aria-expanded]="groups.styles.expanded">
-    <header class="expandable-group__header"
-            (click)="groups.styles.expanded = !groups.styles.expanded">
-      {{ groups.styles.name }}
-    </header>
-    <ul class="expandable-group__list">
-      <li class="expandable-group__item" *ngFor="let property of groups.styles.items">
-        <div>{{property.name}}</div>
-      </li>
-    </ul>
-  </section>
-
-  <section class="expandable-group"
            *ngIf="!!groups.events.items.length"
            [attr.aria-expanded]="groups.events.expanded">
     <header class="expandable-group__header"
@@ -56,7 +42,7 @@
   </section>
 
   <section class="expandable-group"
-           *ngIf="!!activeComponent"
+           *ngIf="!!component"
            [attr.aria-expanded]="groups.triggers.expanded">
     <header class="expandable-group__header"
             (click)="groups.triggers.expanded = !groups.triggers.expanded">
@@ -77,11 +63,11 @@
     </ul>
   </section>
 
-  <button class="frunze-properties__remove-component" *ngIf="!!activeComponent"
+  <button class="frunze-properties__remove-component" *ngIf="!!component"
           (click)="removeComponent()">
     Remove component
   </button>
-  <div class="frunze-properties_empty" *ngIf="!activeComponent">
+  <div class="frunze-properties_empty" *ngIf="!component">
     (Select component...)
   </div>
 </section>
