@@ -118,15 +118,19 @@
 }
 
 .frunze-button {
-  padding: 0.7rem;
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 2rem;
 
   border: none;
+  border-radius: 0.2rem;
 
-  color: #fff;
-  background-color: #286090;
-  font-size: 120%;
+  background-color: #fff;
+  box-shadow: 0 -1px 1px 0 rgba(0,0,0,.05), 0 1px 2px 0 rgba(0,0,0,.2);
+  text-decoration: none;
+  font-size: 100%;
 }
 
 .frunze-button:disabled {
-  opacity: 0.1;
+  opacity: 0.5;
 }

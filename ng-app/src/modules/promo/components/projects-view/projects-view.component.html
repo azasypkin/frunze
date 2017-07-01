@@ -2,7 +2,7 @@
          [class.frunze-projects-view-content--empty]="projects.length === 0">
   <div class="frunze-projects-view-empty" *ngIf="projects.length === 0">
     <img class="frunze-projects-view-empty-sign" src="assets/images/pcb.svg" />
-    <a class="frunze-projects-view-create" routerLink="/promo/project/metadata/new">Create a new project</a>
+    <a class="frunze-button" routerLink="/promo/project/metadata/new">Create a new project</a>
   </div>
   <div *ngIf="projects.length > 0">
     <ul class="frunze-projects-view-list">
@@ -14,11 +14,11 @@
           </div>
         </a>
         <button type="button" (click)="deleteProject(project, i)"
-                class="frunze-projects-view-delete">Delete</button>
+                class="frunze-button frunze-projects-view-delete">Delete</button>
       </li>
     </ul>
     <div class="frunze-projects-view-create-container">
-      <a class="frunze-projects-view-create"
+      <a class="frunze-button"
          routerLink="/promo/project/metadata/new">Create a new project</a>
     </div>
   </div>
