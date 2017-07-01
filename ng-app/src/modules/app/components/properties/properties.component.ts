@@ -66,15 +66,11 @@ export class PropertiesComponent {
   }
 
   removeComponent() {
-    // TODO: Implement.
     if (!this.component) {
       return;
     }
-
-    // this.activeComponent.remove();
   }
 
   addTrigger() {
-    // TODO: Implement.
   }
 }
