@@ -128,6 +128,10 @@ export class ProjectMetadataViewComponent implements OnInit {
     });
   }
 
+  onGoToProjects() {
+    this.router.navigate(['promo/projects']);
+  }
+
   onCapabilityChanged() {
     this.updateNotSupportedPlatforms();
 

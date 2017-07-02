@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
@@ -21,7 +21,8 @@ export class SoftwareEditorViewComponent implements OnInit {
   dragEnterCounter = 0;
   activeComponent: ProjectComponent = null;
 
-  constructor(private route: ActivatedRoute, private projectService: ProjectService,
+  constructor(private route: ActivatedRoute, private router: Router,
+              private projectService: ProjectService,
               private componentsService: ComponentsService) {
   }
 
@@ -119,6 +120,10 @@ export class SoftwareEditorViewComponent implements OnInit {
     this.projectService.saveProject(this.project).subscribe(() => {
       console.log('Project successfully saved.');
     });
+  }
+
+  onGoToProjectMetadata() {
+    this.router.navigate([`promo/project/metadata/${this.project.id}`]);
   }
 
   setActiveComponent(component: ProjectComponent) {
