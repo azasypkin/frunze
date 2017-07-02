@@ -3,68 +3,24 @@
     "type": "hardware-connection",
     "name": "Hardware - Connection",
     "description": "All applicable connection related hardware components.",
-    "items": [
-      {
-        "type": "hardware-connection-wifi",
-        "name": "WiFi Connection",
-        "description": "Enables WiFi connectivity."
-      },
-      {
-        "type": "hardware-connection-uart",
-        "name": "UART Connection",
-        "description": "Enables UART connectivity."
-      }
-    ]
+    "items": ["hardware-connection-wifi", "hardware-connection-uart"]
   },
   {
     "type": "hardware-audio",
     "name": "Hardware - Audio",
     "description": "All applicable audio related hardware components.",
-    "items": [
-      {
-        "type": "hardware-audio-speaker",
-        "name": "Speaker",
-        "description": "Allows your device to play sounds and music."
-      },
-      {
-        "type": "hardware-audio-microphone",
-        "name": "Microphone",
-        "description": "Allows your device to listen and record audio."
-      }
-    ]
+    "items": ["hardware-audio-speaker", "hardware-audio-microphone"]
   },
   {
     "type": "hardware-switches",
     "name": "Hardware - Switches",
     "description": "Various hardware switches.",
-    "items": [
-      {
-        "type": "hardware-momentary-switch",
-        "name": "Momentary Switch",
-        "description": "Allows your device to have a mechanical momentary switch."
-      },
-      {
-        "type": "hardware-maintained-switch",
-        "name": "Maintained Switch",
-        "description": "Allows your device to have a mechanical switch with a maintained state."
-      }
-    ]
+    "items": ["hardware-momentary-switch", "hardware-maintained-switch"]
   },
   {
     "type": "services-storage",
     "name": "Services - Storage",
     "description": "Various storage related services.",
-    "items": [
-      {
-        "type": "services-cloud-storage",
-        "name": "Cloud Storage",
-        "description": "Allows your device to have access to a cloud storage."
-      },
-      {
-        "type": "services-storage-adapter",
-        "name": "Storage Adapter",
-        "description": "Allows device to do various transformation on the data retrieved from particular storage."
-      }
-    ]
+    "items": ["services-cloud-storage", "services-storage-adapter"]
   }
 ]

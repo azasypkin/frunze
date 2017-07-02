@@ -12,11 +12,8 @@
       {
         "id": "8d5a105f-6e61-46d1-a160-2962547bdaea",
         "type": "hardware-momentary-switch",
-        "name": "Momentary Switch",
-        "description": "Allows your device to have a mechanical momentary switch.",
         "properties": {
-          "throttle": "true",
-          "delay": "1000"
+          "name": "Red Switch"
         }
       }
     ]
