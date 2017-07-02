@@ -16,12 +16,16 @@
         <div class="frunze-software-component frunze-software-component-{{component.type}}"
              *ngFor="let component of project?.components"
              (click)="setActiveComponent(component);$event.stopPropagation()">
-          {{component.name}}
+          {{componentSchemas.get(component.type).name}}
         </div>
       </section>
     </section>
     <section class="frunze-software-editor__properties">
-      <frunze-properties [component]="activeComponent"></frunze-properties>
+      <div class="frunze-software-editor__properties-empty" *ngIf="!activeComponent">
+        (Select component...)
+      </div>
+      <frunze-expandable-groups *ngIf="!activeComponent" [groups]="[]">
+      </frunze-expandable-groups>
     </section>
   </section>
   <div>

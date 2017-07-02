@@ -7,13 +7,8 @@ describe('Frunze ng-app', () => {
     page = new NgAppPage();
   });
 
-  it('should display correct component groups in Toolbox', () => {
+  it('should display correct project names.', () => {
     page.navigateTo();
-    expect(page.getToolboxGroups()).toEqual([
-      'Hardware - Connection',
-      'Hardware - Switches',
-      'Services - Storage',
-      'Hardware - Audio'
-    ]);
+    expect(page.getProjects()).toEqual(['Frunze Project']);
   });
 });

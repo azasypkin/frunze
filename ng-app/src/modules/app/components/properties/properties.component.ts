@@ -11,11 +11,6 @@ export class PropertiesComponent {
   @Input() component: ProjectComponent = null;
 
   groups: {
-    info: {
-      name: string,
-      expanded: boolean,
-      items: any[]
-    },
     properties: {
       name: string,
       expanded: boolean,
@@ -25,41 +20,21 @@ export class PropertiesComponent {
       name: string,
       expanded: boolean,
       items: any[]
-    },
-    triggers: {
-      name: string,
-      expanded: boolean,
-      items: any[]
     }
   } = {
-    info: null,
     properties: null,
-    events: null,
-    triggers: null
+    events: null
   };
 
   constructor() {
-    // TODO: Implement.
-    this.groups.info = {
-      name: 'Info',
-      expanded: false,
-      items: []
-    };
-
     this.groups.properties = {
-      name: 'Common Properties',
+      name: 'Properties',
       expanded: false,
       items: []
     };
 
     this.groups.events = {
-      name: 'Actions',
-      expanded: false,
-      items: []
-    };
-
-    this.groups.triggers = {
-      name: 'Triggers',
+      name: 'Events',
       expanded: false,
       items: []
     };
@@ -69,8 +44,5 @@ export class PropertiesComponent {
     if (!this.component) {
       return;
     }
-  }
-
-  addTrigger() {
   }
 }

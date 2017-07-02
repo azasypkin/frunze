@@ -8,6 +8,7 @@ import {ProjectService} from '../../services/project.service';
 import {Project} from '../../core/projects/project';
 import {ProjectComponent} from '../../core/projects/project-component';
 import {ComponentGroup} from '../../core/components/component-group';
+import {ComponentSchema} from '../../core/components/component-schema';
 import {Guid} from '../../core/utils/guid';
 import {ComponentsService} from '../../services/components.service';
 
@@ -18,8 +19,24 @@ import {ComponentsService} from '../../services/components.service';
 export class SoftwareEditorViewComponent implements OnInit {
   project: Project;
   componentGroups: ComponentGroup[] = [];
+  componentSchemas: Map<string, ComponentSchema>;
   dragEnterCounter = 0;
   activeComponent: ProjectComponent = null;
+  componentProperties: {
+    properties: {
+      name: string,
+      expanded: boolean,
+      items: any[]
+    },
+    events: {
+      name: string,
+      expanded: boolean,
+      items: any[]
+    }
+  } = {
+    properties: null,
+    events: null
+  };
 
   constructor(private route: ActivatedRoute, private router: Router,
               private projectService: ProjectService,
@@ -27,6 +44,7 @@ export class SoftwareEditorViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fetchSchemas();
     this.fetchGroups();
 
     this.route.params
@@ -47,21 +65,13 @@ export class SoftwareEditorViewComponent implements OnInit {
   }
 
   /**
-   * Finds component instance by its type.
-   * @param {string} componentType Type of the component to find.
-   * @returns {ComponentMetadata}
-   * @private
+   * Fetches component schemas from the ComponentsService.
    */
-  private findComponentDescription(componentType) {
-    for (const componentGroup of this.componentGroups) {
-      for (const component of componentGroup.items) {
-        if (component.type === componentType) {
-          return component;
-        }
-      }
-    }
-
-    return null;
+  private fetchSchemas() {
+    this.componentsService.getSchemas()
+      .subscribe((schemas) => this.componentSchemas = schemas, (e) => {
+        console.error('Error occurred while retrieving of component schemas.', e);
+      });
   }
 
   /**
@@ -104,13 +114,8 @@ export class SoftwareEditorViewComponent implements OnInit {
     this.dragEnterCounter = 0;
 
     const componentType = e.dataTransfer.getData(e.dataTransfer.types[0]);
-    const component = this.findComponentDescription(componentType);
-    if (component !== null) {
-      this.project.components.push(
-          new ProjectComponent(Guid.generate(), component.type, component.name, component.description,
-              new Map()
-          )
-      );
+    if (this.componentSchemas.has(componentType)) {
+      this.project.components.push(new ProjectComponent(Guid.generate(), componentType, new Map()));
     } else {
       throw new Error(`Unknown component type '${componentType}'.`);
     }

@@ -5,7 +5,7 @@ import {MockBackend, MockConnection} from '@angular/http/testing';
 import {Config} from '../config';
 
 import {ComponentGroup} from '../core/components/component-group';
-import {ComponentMetadata} from '../core/components/component-metadata';
+import {ComponentSchema} from '../core/components/component-schema';
 
 import {ComponentsService} from './components.service';
 
@@ -53,7 +53,7 @@ describe('Services/ComponentsService', () => {
         expect(group.items.length).toEqual(1);
 
         const item = group.items[0];
-        expect(item instanceof ComponentMetadata).toEqual(true);
+        expect(item instanceof ComponentSchema).toEqual(true);
         expect(item.type).toEqual('test type#11');
         expect(item.name).toEqual('test Item #11');
         expect(item.description).toEqual('test Item #11 Description');

@@ -210,8 +210,6 @@ export class ProjectService {
         return new ProjectComponent(
           component.id,
           component.type,
-          component.name,
-          component.description,
           new Map(
             Object.keys(component.properties).map((key) => [key, component.properties[key]] as [string, string])
           )

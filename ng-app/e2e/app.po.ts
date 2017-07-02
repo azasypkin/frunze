@@ -8,4 +8,8 @@ export class NgAppPage {
   getToolboxGroups(): any {
     return element.all(by.css('.expandable-group__header')).getText();
   }
+
+  getProjects(): any {
+    return element.all(by.css('.frunze-projects-view-item-description')).getText();
+  }
 }
