@@ -1,0 +1,106 @@
+[
+  {
+    "type": "hardware-connection-wifi",
+    "name": "WiFi Connection",
+    "description": "Enables WiFi connectivity.",
+    "properties": {
+      "name": {
+        "type": "name",
+        "name": "Name",
+        "description": "Unique name of the component.",
+        "default": "WiFi Connection 1"
+      }
+    }
+  },
+  {
+    "type": "hardware-connection-uart",
+    "name": "UART Connection",
+    "description": "Enables UART connectivity.",
+    "properties": {
+      "name": {
+        "type": "name",
+        "name": "Name",
+        "description": "Unique name of the component.",
+        "default": "UART Connection 1"
+      }
+    }
+  },
+  {
+    "type": "hardware-audio-speaker",
+    "name": "Speaker",
+    "description": "Allows your device to play sounds and music.",
+    "properties": {
+      "name": {
+        "type": "name",
+        "name": "Name",
+        "description": "Unique name of the component.",
+        "default": "Speaker 1"
+      }
+    }
+  },
+  {
+    "type": "hardware-audio-microphone",
+    "name": "Microphone",
+    "description": "Allows your device to listen and record audio.",
+    "properties": {
+      "name": {
+        "type": "name",
+        "name": "Name",
+        "description": "Unique name of the component.",
+        "default": "Microphone 1"
+      }
+    }
+  },
+  {
+    "type": "hardware-momentary-switch",
+    "name": "Momentary Switch",
+    "description": "Allows your device to have a mechanical momentary switch.",
+    "properties": {
+      "name": {
+        "type": "name",
+        "name": "Name",
+        "description": "Unique name of the component.",
+        "default": "Momentary Switch 1"
+      }
+    }
+  },
+  {
+    "type": "hardware-maintained-switch",
+    "name": "Maintained Switch",
+    "description": "Allows your device to have a mechanical switch with a maintained state.",
+    "properties": {
+      "name": {
+        "type": "name",
+        "name": "Name",
+        "description": "Unique name of the component.",
+        "default": "Maintained Switch 1"
+      }
+    }
+  },
+  {
+    "type": "services-cloud-storage",
+    "name": "Cloud Storage",
+    "description": "Allows your device to have access to a cloud storage.",
+    "properties": {
+      "name": {
+        "type": "name",
+        "name": "Name",
+        "description": "Unique name of the component.",
+        "default": "Cloud Storage 1"
+      }
+    }
+  },
+  {
+    "type": "services-storage-adapter",
+    "name": "Storage Adapter",
+    "description": "Allows device to do various transformation on the data retrieved from particular storage.",
+    "properties": {
+      "name": {
+        "type": "name",
+        "name": "Name",
+        "description": "Unique name of the component.",
+        "default": "Storage Adapter 1"
+      }
+    }
+  }
+]
