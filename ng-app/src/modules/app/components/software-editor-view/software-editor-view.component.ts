@@ -74,6 +74,10 @@ export class SoftwareEditorViewComponent implements OnInit {
       });
   }
 
+  onDragStart(e: DragEvent, item: ComponentSchema) {
+    e.dataTransfer.setData(`text/${item.type}`, item.type);
+  }
+
   /**
    * Fires once anything draggable drags over the workspace.
    * @param {DragEvent} e Drag event instance.

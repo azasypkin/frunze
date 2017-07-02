@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, TemplateRef, ContentChild} from '@angular/core';
 
 interface IExpandableGroupItem {
   name: string;
@@ -20,11 +20,6 @@ export interface IExpandableGroup {
 export class ExpandableGroupsComponent {
   @Input() groups: IExpandableGroup[] = [];
 
-  toggleGroupState(group: IExpandableGroup) {
-    group.expanded = !group.expanded;
-  }
-
-  onDragStart(e: DragEvent, group: IExpandableGroup, item: IExpandableGroupItem) {
-    e.dataTransfer.setData(`text/${group.type}`, item.type);
-  }
+  @ContentChild(TemplateRef)
+  public itemTemplate: TemplateRef<any>;
 }

@@ -3,6 +3,9 @@
   <section class="frunze-software-editor">
     <section class="frunze-software-editor__components">
       <frunze-expandable-groups [groups]="componentGroups">
+        <ng-template let-item>
+          <div draggable="true" (dragstart)="onDragStart($event, item)">{{ item.name }}</div>
+        </ng-template>
       </frunze-expandable-groups>
     </section>
     <section class="frunze-software-editor__workspace">
