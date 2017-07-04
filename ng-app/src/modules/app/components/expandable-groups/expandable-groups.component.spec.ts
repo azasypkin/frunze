@@ -29,12 +29,10 @@ describe('Components/ExpandableGroupsComponent', () => {
     // Let's set two groups.
     component.groups = [{
       name: 'Group#1',
-      type: 'group#1',
       expanded: false,
       items: []
     }, {
       name: 'Group#2',
-      type: 'group#2',
       expanded: false,
       items: []
     }];
@@ -45,7 +43,6 @@ describe('Components/ExpandableGroupsComponent', () => {
     // Add one more.
     component.groups.push({
       name: 'Group#3',
-      type: 'group#3',
       expanded: false,
       items: []
     });
@@ -65,15 +62,8 @@ describe('Components/ExpandableGroupsComponent', () => {
 
     component.groups = [{
       name: 'Group#1',
-      type: 'group#1',
       expanded: false,
-      items: [{
-        name: 'Item #1',
-        type: 'type#1'
-      }, {
-        name: 'Item #2',
-        type: 'type#2'
-      }]
+      items: ['Item #1', 'Item #2']
     }];
     fixture.detectChanges();
 

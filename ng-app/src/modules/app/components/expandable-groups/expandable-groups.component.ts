@@ -1,15 +1,9 @@
 import {Component, Input, TemplateRef, ContentChild} from '@angular/core';
 
-interface IExpandableGroupItem {
-  name: string;
-  type: string;
-}
-
 export interface IExpandableGroup {
   name: string;
-  type: string;
   expanded: boolean;
-  items: IExpandableGroupItem[];
+  items: any[];
 }
 
 @Component({

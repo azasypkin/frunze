@@ -9,9 +9,7 @@
         <ng-container *ngIf="itemTemplate; else defaultItemTemplate">
           <ng-container *ngTemplateOutlet="itemTemplate; context: {$implicit:item}"></ng-container>
         </ng-container>
-        <ng-template #defaultItemTemplate>
-          <div>{{ item.name }}</div>
-        </ng-template>
+        <ng-template #defaultItemTemplate>{{ item }}</ng-template>
       </li>
     </ul>
   </section>

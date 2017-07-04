@@ -11,6 +11,7 @@ import {ComponentGroup} from '../../core/components/component-group';
 import {ComponentSchema} from '../../core/components/component-schema';
 import {Guid} from '../../core/utils/guid';
 import {ComponentsService} from '../../services/components.service';
+import {IExpandableGroup} from '../expandable-groups/expandable-groups.component';
 
 @Component({
   templateUrl: 'software-editor-view.component.html',
@@ -22,20 +23,11 @@ export class SoftwareEditorViewComponent implements OnInit {
   componentSchemas: Map<string, ComponentSchema>;
   dragEnterCounter = 0;
   activeComponent: ProjectComponent = null;
-  componentProperties: {
-    properties: {
-      name: string,
-      expanded: boolean,
-      items: any[]
-    },
-    events: {
-      name: string,
-      expanded: boolean,
-      items: any[]
-    }
-  } = {
-    properties: null,
-    events: null
+
+  propertiesGroup: IExpandableGroup = {
+    name: 'Properties',
+    expanded: false,
+    items: []
   };
 
   constructor(private route: ActivatedRoute, private router: Router,
@@ -136,6 +128,19 @@ export class SoftwareEditorViewComponent implements OnInit {
   }
 
   setActiveComponent(component: ProjectComponent) {
+    if (component === this.activeComponent) {
+      return;
+    }
+
     this.activeComponent = component;
+    if (this.activeComponent === null) {
+      return
+    }
+
+    this.propertiesGroup.items = Array.from(
+      this.componentSchemas.get(component.type).properties.entries()
+    ).map(([type, schema]) => {
+      return { schema, storage: this.activeComponent.properties };
+    });
   }
 }

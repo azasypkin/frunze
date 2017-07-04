@@ -27,7 +27,10 @@
       <div class="frunze-software-editor__properties-empty" *ngIf="!activeComponent">
         (Select component...)
       </div>
-      <frunze-expandable-groups *ngIf="!activeComponent" [groups]="[]">
+      <frunze-expandable-groups *ngIf="activeComponent" [groups]="[this.propertiesGroup]">
+        <ng-template let-item>
+          <frunze-property-editor [property]="item"></frunze-property-editor>
+        </ng-template>
       </frunze-expandable-groups>
     </section>
   </section>
