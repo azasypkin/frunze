@@ -125,7 +125,10 @@ export class ProjectService {
 
     return this.capabilities = this.http.get(`${this.config.apiDomain}/${APIPaths.projectCapabilities}`)
       .map((response: Response) => {
-        const capabilities = this.constructCollection(response, this.constructCapability.bind(this));
+        const capabilities = this.constructCollection<ProjectCapability>(
+          response,
+          this.constructCapability.bind(this)
+        );
 
         // Copy an array to avoid side modifications.
         this.capabilities = Observable.of(capabilities).map((c) => [...c]);

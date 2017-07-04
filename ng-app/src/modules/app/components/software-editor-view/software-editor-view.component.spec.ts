@@ -21,8 +21,6 @@ import {SoftwareEditorViewComponent} from './software-editor-view.component';
 import {
   ExpandableGroupsComponent
 } from '../expandable-groups/expandable-groups.component';
-import {PropertiesComponent} from '../properties/properties.component';
-
 
 describe('Components/SoftwareEditorViewComponent', () => {
   let fixture, componentsServiceSpy, projectServiceSpy;
@@ -32,8 +30,7 @@ describe('Components/SoftwareEditorViewComponent', () => {
       imports: [HttpModule],
       declarations: [
         SoftwareEditorViewComponent,
-        ExpandableGroupsComponent,
-        PropertiesComponent
+        ExpandableGroupsComponent
       ],
       providers: [
         {provide: XHRBackend, useClass: MockBackend},

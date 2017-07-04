@@ -81,7 +81,7 @@ describe('Components/ExpandableGroupsComponent', () => {
 
     const groupNode = element.querySelector('.expandable-group');
     expect(groupNode).toBeTruthy();
-    expect(groupNode.querySelector('.expandable-group__header').textContent).toEqual('Group#1');
+    expect(groupNode.querySelector('.expandable-group__header').textContent.trim()).toEqual('Group#1');
 
     // Check number of group item nodes.
     const groupItemNodes = groupNode.querySelectorAll('.expandable-group__item');
