@@ -17,15 +17,18 @@
                (drop)="onDrop($event)"
                (click)="setActiveComponent(null)">
         <div class="frunze-software-component frunze-software-component-{{component.type}}"
+             [class.frunze-software-component--active]="activeComponent === component"
              *ngFor="let component of project?.components"
              (click)="setActiveComponent(component);$event.stopPropagation()">
-          {{componentSchemas.get(component.type).name}}
+          {{getComponentName(component)}}
         </div>
       </section>
     </section>
     <section class="frunze-software-editor__properties">
       <div class="frunze-software-editor__properties-empty" *ngIf="!activeComponent">
-        (Select component...)
+        <img src="assets/images/select-component.png" />
+        <p class="frunze-software-editor__empty-title">Select & Change</p>
+        <div class="frunze-software-editor__empty-sub-title">component properties</div>
       </div>
       <frunze-expandable-groups *ngIf="activeComponent" [groups]="[this.propertiesGroup]">
         <ng-template let-item>

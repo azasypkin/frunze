@@ -143,4 +143,9 @@ export class SoftwareEditorViewComponent implements OnInit {
       return { schema, storage: this.activeComponent.properties };
     });
   }
+
+  getComponentName(component: ProjectComponent) {
+    return component.properties.get('name') ||
+      this.componentSchemas.get(component.type).name;
+  }
 }

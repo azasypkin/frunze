@@ -11,6 +11,24 @@
   box-shadow: 0 -1px 1px 0 rgba(0,0,0,.05), 0 1px 2px 0 rgba(0,0,0,.2);
 }
 
+.frunze-software-editor__properties-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.frunze-software-editor__empty-title {
+  color: #3a4975;
+  font-weight: 500;
+  margin: 0.1rem;
+}
+
+.frunze-software-editor__empty-sub-title {
+  color: #9bb2de;
+}
+
 .frunze-software-editor__components,
 .frunze-software-editor__workspace,
 .frunze-software-editor__properties {
@@ -37,8 +55,8 @@
   flex-wrap: wrap;
   height: 100%;
   box-sizing: border-box;
-  border-left: 0.1rem dashed #ddd;
-  border-right: 0.1rem dashed #ddd;
+  border-left: 0.05rem dashed #ddd;
+  border-right: 0.05rem dashed #ddd;
   padding: 0.5rem;
 }
 
@@ -58,4 +76,8 @@
 
   box-shadow: 0 -1px 1px 0 rgba(0,0,0,.05), 0 1px 2px 0 rgba(0,0,0,.2);
   background-color: #eee;
+}
+
+.frunze-software-component--active {
+  outline: 0.15rem solid #50a6df;
 }
