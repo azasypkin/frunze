@@ -65,6 +65,8 @@
 }
 
 .frunze-software-component {
+  position: relative;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,5 +81,21 @@
 }
 
 .frunze-software-component--active {
-  outline: 0.15rem solid #50a6df;
+  box-shadow: 0 -1px 1px 0 rgb(65, 156, 206), 0 1px 5px 4px rgb(67, 160, 211);
+}
+
+.frunze-software-component--remove {
+  position: absolute;
+  top: -0.7rem;
+  right: -0.7rem;
+
+  display: none;
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.frunze-software-component:hover .frunze-software-component--remove {
+  display: unset;
 }

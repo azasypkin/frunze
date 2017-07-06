@@ -18,9 +18,10 @@
                (click)="setActiveComponent(null)">
         <div class="frunze-software-component frunze-software-component-{{component.type}}"
              [class.frunze-software-component--active]="activeComponent === component"
-             *ngFor="let component of project?.components"
+             *ngFor="let component of project?.components; let i = index"
              (click)="setActiveComponent(component);$event.stopPropagation()">
           {{getComponentName(component)}}
+          <button class="frunze-software-component--remove" (click)="removeComponent(i)">❌</button>
         </div>
       </section>
     </section>

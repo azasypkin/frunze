@@ -148,4 +148,8 @@ export class SoftwareEditorViewComponent implements OnInit {
     return component.properties.get('name') ||
       this.componentSchemas.get(component.type).name;
   }
+
+  removeComponent(index: number) {
+    this.project.components.splice(index, 1);
+  }
 }
