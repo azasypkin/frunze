@@ -1,0 +1,17 @@
+.frunze-property-editor {
+  display: flex;
+  align-content: space-between;
+}
+
+.frunze-property-editor__editor {
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.frunze-property-editor__label {
+  flex: 1;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

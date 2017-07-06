@@ -1,3 +1,4 @@
-<label>
-  {{property?.schema.name}} <input [formControl]="valueEditor" />
+<label class="frunze-property-editor">
+  <span class="frunze-property-editor__label">{{property?.schema.name}}</span>
+  <input class="frunze-property-editor__editor" [formControl]="valueEditor" />
 </label>
