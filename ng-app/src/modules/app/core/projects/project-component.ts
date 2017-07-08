@@ -2,31 +2,28 @@
  * Class that describes the specific project component.
  */
 export class ProjectComponent {
-  constructor(private _id: string, private _type: string, private _properties: Map<string, string>) {
-  }
-
   /**
    * Identifier of the project component.
-   * @returns {string}
+   * @type {string}
    */
-  get id() {
-    return this._id;
-  }
+  readonly id: string;
 
   /**
    * Type of the project component.
-   * @returns {string}
+   * @type {string}
    */
-  get type() {
-    return this._type;
-  }
+  readonly type: string;
 
   /**
    * Project component properties map.
-   * @returns {Map<string, string>}
+   * @type {Map<string, string>}
    */
-  get properties() {
-    return this._properties;
+  readonly properties: Map<string, string>;
+
+  constructor(id: string, type: string, properties: Map<string, string>) {
+    this.id = id;
+    this.type = type;
+    this.properties = properties;
   }
 
   /**
@@ -35,9 +32,9 @@ export class ProjectComponent {
    */
   toJSON() {
     return {
-      id: this._id,
+      id: this.id,
       type: this.type,
-      properties: Array.from(this._properties.entries()).reduce((map, [key, value]) => {
+      properties: Array.from(this.properties.entries()).reduce((map, [key, value]) => {
         map[key] = value;
         return map;
       }, {})

@@ -2,22 +2,20 @@
  * Class that describes firmware action handler.
  */
 export class FirmwareActionHandler {
-  constructor(private _type: string, private _properties: Map<string, string>) {
-  }
-
   /**
    * Returns firmware action handler type.
-   * @returns {string}
+   * @type {string}
    */
-  get type() {
-    return this._type;
-  }
+  readonly type: string;
 
   /**
    * Returns firmware action handler properties.
-   * @returns {Map<string, string>}
+   * @type {Map<string, string>}
    */
-  get properties() {
-    return this._properties;
+  readonly properties: Map<string, string>;
+
+  constructor(type: string, properties: Map<string, string>) {
+    this.type = type;
+    this.properties = properties;
   }
 }

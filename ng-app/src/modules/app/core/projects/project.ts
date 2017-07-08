@@ -6,56 +6,50 @@ import {ProjectPlatform} from './project-platform';
  * Class that describes the specific project.
  */
 export class Project {
-  constructor(private _id: string, private _name: string, private _description: string,
-              private _capabilities: ProjectCapability[], private _platform: ProjectPlatform,
-              private _components: ProjectComponent[]) {}
-
   /**
    * Identifier of the project.
-   * @returns {string}
+   * @type {string}
    */
-  get id() {
-    return this._id;
-  }
+  readonly id: string;
 
   /**
    * Name of the project.
-   * @returns {string}
+   * @type {string}
    */
-  get name() {
-    return this._name;
-  }
+  readonly name: string;
 
   /**
    * Description of the project.
-   * @returns {string}
+   * @type {string}
    */
-  get description() {
-    return this._description;
-  }
+  readonly description: string;
 
   /**
    * List of the project capabilities (from the list of supported capabilities).
-   * @returns {ProjectCapability[]}
+   * @type {ProjectCapability[]}
    */
-  get capabilities() {
-    return this._capabilities;
-  }
+  readonly capabilities: ProjectCapability[];
 
   /**
    * Project platform (from the list of supported platforms).
-   * @returns {ProjectPlatform}
+   * @type {ProjectPlatform}
    */
-  get platform() {
-    return this._platform;
-  }
+  readonly platform: ProjectPlatform;
 
   /**
    * Project components.
-   * @returns {ProjectComponent[]}
+   * @type {ProjectComponent[]}
    */
-  get components() {
-    return this._components;
+  readonly components: ProjectComponent[];
+
+  constructor(id: string, name: string, description: string, capabilities: ProjectCapability[],
+              platform: ProjectPlatform, components: ProjectComponent[]) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.capabilities = capabilities;
+    this.platform = platform;
+    this.components = components;
   }
 
   /**
