@@ -45,7 +45,7 @@ export class ComponentsService {
       rawPropertySchema.type,
       rawPropertySchema.name,
       rawPropertySchema.description,
-      rawPropertySchema.default
+      rawPropertySchema.defaultValue
     );
   }
 

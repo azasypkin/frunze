@@ -1,15 +1,15 @@
 import {TypedEntity} from '../typed-entity';
 
 export class ComponentPropertySchema extends TypedEntity {
-  constructor(_type: string, _name: string, _description: string, private _default: string) {
-    super(_type, _name, _description);
-  }
-
   /**
    * Default value of the property.
-   * @returns {String}
+   * @type {string}
    */
-  get default() {
-    return this._default;
+  readonly defaultValue: string;
+
+  constructor(type: string, name: string, description: string, defaultValue: string) {
+    super(type, name, description);
+
+    this.defaultValue = defaultValue;
   }
 }

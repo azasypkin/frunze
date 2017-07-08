@@ -8,13 +8,13 @@
         "type": "name",
         "name": "Name",
         "description": "Unique name of the component.",
-        "default": "WiFi Connection 1"
+        "defaultValue": "WiFi Connection 1"
       },
       "ssid": {
         "type": "ssid",
         "name": "Network Name",
-        "description": "Service set identifier (SSID) of the network",
-        "default": ""
+        "description": "Service set identifier (SSID) of the network.",
+        "defaultValue": ""
       }
     }
   },
@@ -27,7 +27,7 @@
         "type": "name",
         "name": "Name",
         "description": "Unique name of the component.",
-        "default": "UART Connection 1"
+        "defaultValue": "UART Connection 1"
       }
     }
   },
@@ -40,7 +40,7 @@
         "type": "name",
         "name": "Name",
         "description": "Unique name of the component.",
-        "default": "Speaker 1"
+        "defaultValue": "Speaker 1"
       }
     }
   },
@@ -53,7 +53,7 @@
         "type": "name",
         "name": "Name",
         "description": "Unique name of the component.",
-        "default": "Microphone 1"
+        "defaultValue": "Microphone 1"
       }
     }
   },
@@ -66,7 +66,7 @@
         "type": "name",
         "name": "Name",
         "description": "Unique name of the component.",
-        "default": "Momentary Switch 1"
+        "defaultValue": "Momentary Switch 1"
       }
     }
   },
@@ -79,7 +79,7 @@
         "type": "name",
         "name": "Name",
         "description": "Unique name of the component.",
-        "default": "Maintained Switch 1"
+        "defaultValue": "Maintained Switch 1"
       }
     }
   },
@@ -92,7 +92,7 @@
         "type": "name",
         "name": "Name",
         "description": "Unique name of the component.",
-        "default": "Cloud Storage 1"
+        "defaultValue": "Cloud Storage 1"
       }
     }
   },
@@ -105,7 +105,7 @@
         "type": "name",
         "name": "Name",
         "description": "Unique name of the component.",
-        "default": "Storage Adapter 1"
+        "defaultValue": "Storage Adapter 1"
       }
     }
   }

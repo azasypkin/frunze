@@ -20,7 +20,7 @@ export class PropertyEditorComponent implements OnChanges, OnDestroy {
   ngOnChanges() {
     const value = !this.property ?
       '' :
-      this.property.storage.get(this.property.schema.type) || this.property.schema.default;
+      this.property.storage.get(this.property.schema.type) || this.property.schema.defaultValue;
     this.valueEditor.setValue(value)
   }
 
