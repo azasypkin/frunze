@@ -6,12 +6,14 @@
     "properties": {
       "name": {
         "type": "name",
+        "kind": "string",
         "name": "Name",
         "description": "Unique name of the component.",
         "defaultValue": "WiFi Connection 1"
       },
       "ssid": {
         "type": "ssid",
+        "kind": "string",
         "name": "Network Name",
         "description": "Service set identifier (SSID) of the network.",
         "defaultValue": ""
@@ -25,6 +27,7 @@
     "properties": {
       "name": {
         "type": "name",
+        "kind": "string",
         "name": "Name",
         "description": "Unique name of the component.",
         "defaultValue": "UART Connection 1"
@@ -38,6 +41,7 @@
     "properties": {
       "name": {
         "type": "name",
+        "kind": "string",
         "name": "Name",
         "description": "Unique name of the component.",
         "defaultValue": "Speaker 1"
@@ -51,9 +55,46 @@
     "properties": {
       "name": {
         "type": "name",
+        "kind": "string",
         "name": "Name",
         "description": "Unique name of the component.",
         "defaultValue": "Microphone 1"
+      },
+      "quality": {
+        "type": "quality",
+        "kind": "options",
+        "name": "Quality",
+        "description": "Quality of the recorded audio.",
+        "defaultValue": "medium",
+        "options": [{
+          "type": "low",
+          "name": "Low",
+          "description": "Audio will be reduced in the quality."
+        }, {
+          "type": "medium",
+          "name": "Medium",
+          "description": "Audio will have reasonably good quality."
+        }, {
+          "type": "high",
+          "name": "High",
+          "description": "Audio will have the best possible quality."
+        }]
+      },
+      "format": {
+        "type": "format",
+        "kind": "options",
+        "name": "Format",
+        "description": "Audio format that will be used to save audio.",
+        "defaultValue": "wav",
+        "options": [{
+          "type": "wav",
+          "name": "WAV",
+          "description": "Plain audio WAV format."
+        }, {
+          "type": "mp3",
+          "name": "MP3",
+          "description": "Compressed MP3 audio."
+        }]
       }
     }
   },
@@ -64,6 +105,7 @@
     "properties": {
       "name": {
         "type": "name",
+        "kind": "string",
         "name": "Name",
         "description": "Unique name of the component.",
         "defaultValue": "Momentary Switch 1"
@@ -77,6 +119,7 @@
     "properties": {
       "name": {
         "type": "name",
+        "kind": "string",
         "name": "Name",
         "description": "Unique name of the component.",
         "defaultValue": "Maintained Switch 1"
@@ -90,6 +133,7 @@
     "properties": {
       "name": {
         "type": "name",
+        "kind": "string",
         "name": "Name",
         "description": "Unique name of the component.",
         "defaultValue": "Cloud Storage 1"
@@ -103,6 +147,7 @@
     "properties": {
       "name": {
         "type": "name",
+        "kind": "string",
         "name": "Name",
         "description": "Unique name of the component.",
         "defaultValue": "Storage Adapter 1"

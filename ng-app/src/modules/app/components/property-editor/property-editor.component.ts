@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges, OnDestroy} from '@angular/core';
 import {FormControl} from '@angular/forms'
 
-import {ComponentPropertySchema} from '../../core/components/component-property-schema';
+import {ComponentPropertySchema, ComponentPropertyValueKind} from '../../core/components/component-property-schema';
 
 interface IProperty {
   schema: ComponentPropertySchema;
@@ -26,5 +26,13 @@ export class PropertyEditorComponent implements OnChanges, OnDestroy {
 
   ngOnDestroy() {
     this.property.storage.set(this.property.schema.type, this.valueEditor.value);
+  }
+
+  isStringValue() {
+    return this.property.schema.kind === ComponentPropertyValueKind.String;
+  }
+
+  isOptionsValue() {
+    return this.property.schema.kind === ComponentPropertyValueKind.Options;
   }
 }

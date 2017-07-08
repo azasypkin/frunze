@@ -8,6 +8,7 @@ import 'rxjs/add/observable/forkJoin';
 
 import {Config} from '../config';
 
+import {TypedEntity} from '../core/typed-entity';
 import {ComponentGroup} from '../core/components/component-group';
 import {ComponentSchema} from '../core/components/component-schema';
 import {ComponentPropertySchema} from '../core/components/component-property-schema';
@@ -45,7 +46,15 @@ export class ComponentsService {
       rawPropertySchema.type,
       rawPropertySchema.name,
       rawPropertySchema.description,
-      rawPropertySchema.defaultValue
+      rawPropertySchema.defaultValue,
+      rawPropertySchema.kind,
+      (rawPropertySchema.options || []).map((rawValueOption) => {
+        return new TypedEntity(
+          rawValueOption.type,
+          rawValueOption.name,
+          rawValueOption.description
+        );
+      })
     );
   }
 
