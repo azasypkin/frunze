@@ -1,11 +1,8 @@
 import {Component, Input} from '@angular/core';
 
 import {ComponentTriggerSchema} from '../../core/components/component-trigger-schema';
-
-interface ITrigger {
-  schema: ComponentTriggerSchema;
-  storage: Map<string, string>;
-}
+import {Project} from '../../core/projects/project';
+import {ProjectComponent} from '../../core/projects/project-component';
 
 @Component({
   selector: 'frunze-trigger-editor',
@@ -13,5 +10,7 @@ interface ITrigger {
   styleUrls: ['trigger-editor.component.css']
 })
 export class TriggerEditorComponent {
-  @Input() trigger: ITrigger;
+  @Input() project: Project;
+  @Input() component: ProjectComponent;
+  @Input() schema: ComponentTriggerSchema;
 }

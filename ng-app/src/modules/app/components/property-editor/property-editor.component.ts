@@ -2,11 +2,7 @@ import {Component, Input, OnChanges} from '@angular/core';
 import {FormControl} from '@angular/forms'
 
 import {ComponentPropertySchema, ComponentPropertyValueKind} from '../../core/components/component-property-schema';
-
-interface IProperty {
-  schema: ComponentPropertySchema;
-  storage: Map<string, string>;
-}
+import {ProjectComponent} from '../../core/projects/project-component';
 
 @Component({
   selector: 'frunze-property-editor',
@@ -14,27 +10,29 @@ interface IProperty {
   styleUrls: ['property-editor.component.css']
 })
 export class PropertyEditorComponent implements OnChanges {
-  @Input() property: IProperty;
+  @Input() component: ProjectComponent;
+  @Input() schema: ComponentPropertySchema;
+
   valueEditor = new FormControl();
 
   constructor() {
     this.valueEditor.valueChanges.subscribe(() => {
-      this.property.storage.set(this.property.schema.type, this.valueEditor.value);
+      this.component.properties.set(this.schema.type, this.valueEditor.value);
     });
   }
 
   ngOnChanges() {
-    const value = !this.property ?
+    const value = !this.component ?
       '' :
-      this.property.storage.get(this.property.schema.type) || this.property.schema.defaultValue;
+      this.component.properties.get(this.schema.type) || this.schema.defaultValue;
     this.valueEditor.setValue(value)
   }
 
   isStringValue() {
-    return this.property.schema.kind === ComponentPropertyValueKind.String;
+    return !!this.schema && this.schema.kind === ComponentPropertyValueKind.String;
   }
 
   isOptionsValue() {
-    return this.property.schema.kind === ComponentPropertyValueKind.Options;
+    return !!this.schema && this.schema.kind === ComponentPropertyValueKind.Options;
   }
 }

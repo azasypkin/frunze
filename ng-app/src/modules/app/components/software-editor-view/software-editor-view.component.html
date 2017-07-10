@@ -34,13 +34,14 @@
       <frunze-expandable-groups *ngIf="activeComponent && propertiesGroup.items.length > 0"
                                 [groups]="[propertiesGroup]">
         <ng-template let-item>
-          <frunze-property-editor [property]="item"></frunze-property-editor>
+          <frunze-property-editor [component]="activeComponent" [schema]="item"></frunze-property-editor>
         </ng-template>
       </frunze-expandable-groups>
       <frunze-expandable-groups *ngIf="activeComponent && triggersGroup.items.length > 0"
                                 [groups]="[triggersGroup]">
         <ng-template let-item>
-          <frunze-trigger-editor [trigger]="item"></frunze-trigger-editor>
+          <frunze-trigger-editor [project]="project" [component]="activeComponent"
+                                 [schema]="item"></frunze-trigger-editor>
         </ng-template>
       </frunze-expandable-groups>
     </section>
