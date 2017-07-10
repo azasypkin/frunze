@@ -12,6 +12,9 @@ import {ProjectService} from './services/project.service';
 import {BootstrapComponent} from './components/bootstrap/bootstrap.component';
 import {ModalDialogComponent} from './components/modal-dialog/modal-dialog.component';
 import {SoftwareEditorViewComponent} from './components/software-editor-view/software-editor-view.component';
+import {
+  TriggersEditorDialogComponent
+} from './components/dialogs/triggers-editor-dialog/triggers-editor-dialog.component';
 import {ExpandableGroupsComponent} from './components/expandable-groups/expandable-groups.component';
 import {PropertyEditorComponent} from './components/property-editor/property-editor.component'
 import {TriggerEditorComponent} from './components/trigger-editor/trigger-editor.component'
@@ -26,7 +29,8 @@ import {AppRoutingModule} from './app-routing.module';
     SoftwareEditorViewComponent,
     ExpandableGroupsComponent,
     PropertyEditorComponent,
-    TriggerEditorComponent
+    TriggerEditorComponent,
+    TriggersEditorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,8 @@ import {AppRoutingModule} from './app-routing.module';
     AppRoutingModule
   ],
   providers: [Config, ComponentsService, ModalDialogService, ProjectService],
-  bootstrap: [BootstrapComponent]
+  bootstrap: [BootstrapComponent],
+  entryComponents: [TriggersEditorDialogComponent]
 })
 export class AppModule {
 }
