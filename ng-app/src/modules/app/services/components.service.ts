@@ -12,6 +12,8 @@ import {TypedEntity} from '../core/typed-entity';
 import {ComponentGroup} from '../core/components/component-group';
 import {ComponentSchema} from '../core/components/component-schema';
 import {ComponentPropertySchema} from '../core/components/component-property-schema';
+import {ComponentActionSchema} from '../core/components/component-action-schema';
+import {ComponentTriggerSchema} from '../core/components/component-trigger-schema';
 
 const APIPaths = Object.freeze({
   groups: 'component-groups',
@@ -59,6 +61,34 @@ export class ComponentsService {
   }
 
   /**
+   * Converts raw component action schema json to a ComponentActionSchema instance.
+   * @param {Object} rawActionSchema Raw component action schema JSON returned from the API.
+   * @returns {ComponentActionSchema}
+   * @private
+   */
+  private static constructActionSchema(rawActionSchema: any) {
+    return new ComponentActionSchema(
+      rawActionSchema.type,
+      rawActionSchema.name,
+      rawActionSchema.description
+    );
+  }
+
+  /**
+   * Converts raw component trigger schema json to a ComponentTriggerSchema instance.
+   * @param {Object} rawTriggerSchema Raw component trigger schema JSON returned from the API.
+   * @returns {ComponentTriggerSchema}
+   * @private
+   */
+  private static constructTriggerSchema(rawTriggerSchema: any) {
+    return new ComponentTriggerSchema(
+      rawTriggerSchema.type,
+      rawTriggerSchema.name,
+      rawTriggerSchema.description
+    );
+  }
+
+  /**
    * Converts raw project component schema json to a ComponentSchema instance.
    * @param {Object} rawComponentSchema Raw component schema JSON returned from the API.
    * @returns {ComponentSchema}
@@ -75,6 +105,22 @@ export class ComponentsService {
             key,
             ComponentsService.constructPropertySchema(rawComponentSchema.properties[key])
           ] as [string, ComponentPropertySchema]
+        })
+      ),
+      new Map(
+        Object.keys(rawComponentSchema.actions).map((key) => {
+          return [
+            key,
+            ComponentsService.constructActionSchema(rawComponentSchema.actions[key])
+          ] as [string, ComponentActionSchema]
+        })
+      ),
+      new Map(
+        Object.keys(rawComponentSchema.triggers).map((key) => {
+          return [
+            key,
+            ComponentsService.constructTriggerSchema(rawComponentSchema.triggers[key])
+          ] as [string, ComponentTriggerSchema]
         })
       )
     );

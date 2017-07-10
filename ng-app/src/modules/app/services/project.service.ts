@@ -13,6 +13,7 @@ import {Project} from '../core/projects/project';
 import {ProjectCapabilityGroup} from '../core/projects/project-capability-group';
 import {ProjectCapability} from '../core/projects/project-capability';
 import {ProjectPlatform} from '../core/projects/project-platform';
+import {ProjectComponentTriggerAction} from '../core/projects/project-component-trigger-action';
 import {ProjectComponent} from '../core/projects/project-component';
 
 const APIPaths = Object.freeze({
@@ -215,6 +216,14 @@ export class ProjectService {
           component.type,
           new Map(
             Object.keys(component.properties).map((key) => [key, component.properties[key]] as [string, string])
+          ),
+          new Map(
+            Object.keys(component.triggers).map((key) => {
+              const triggerActions = component.triggers[key].map(
+                (rawTriggerAction) => this.constructComponentTriggerAction(rawTriggerAction)
+              )
+              return [key, triggerActions] as [string, ProjectComponentTriggerAction[]];
+            })
           )
         );
       })
@@ -229,6 +238,16 @@ export class ProjectService {
    */
   private constructCapability(rawCapability: any) {
     return new ProjectCapability(rawCapability.type, rawCapability.name, rawCapability.description);
+  }
+
+  /**
+   * Converts raw project trigger action json to a ProjectComponentTriggerAction instance.
+   * @param {Object} rawTriggerAction Raw component trigger action JSON returned from the API.
+   * @returns {ProjectComponentTriggerAction}
+   * @private
+   */
+  private constructComponentTriggerAction(rawTriggerAction: any) {
+    return new ProjectComponentTriggerAction(rawTriggerAction.component, rawTriggerAction.action);
   }
 
   /**

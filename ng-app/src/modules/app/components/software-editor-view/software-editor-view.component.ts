@@ -111,7 +111,9 @@ export class SoftwareEditorViewComponent implements OnInit {
 
     const componentType = e.dataTransfer.getData(e.dataTransfer.types[0]);
     if (this.componentSchemas.has(componentType)) {
-      this.project.components.push(new ProjectComponent(Guid.generate(), componentType, new Map()));
+      this.project.components.push(
+        new ProjectComponent(Guid.generate(), componentType, new Map(), new Map())
+      );
     } else {
       throw new Error(`Unknown component type '${componentType}'.`);
     }
