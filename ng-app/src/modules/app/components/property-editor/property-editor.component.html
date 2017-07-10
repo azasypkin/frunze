@@ -1,4 +1,4 @@
-<label class="frunze-property-editor">
+<label class="frunze-property-editor" [title]="property?.schema.description">
   <span class="frunze-property-editor__label">{{property?.schema.name}}</span>
   <input *ngIf="property && isStringValue()" class="frunze-property-editor__editor"
          [formControl]="valueEditor" />
