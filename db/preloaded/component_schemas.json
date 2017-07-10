@@ -18,7 +18,9 @@
         "description": "Service set identifier (SSID) of the network.",
         "defaultValue": ""
       }
-    }
+    },
+    "actions": {},
+    "triggers": {}
   },
   {
     "type": "hardware-connection-uart",
@@ -32,7 +34,9 @@
         "description": "Unique name of the component.",
         "defaultValue": "UART Connection 1"
       }
-    }
+    },
+    "actions": {},
+    "triggers": {}
   },
   {
     "type": "hardware-audio-speaker",
@@ -46,7 +50,9 @@
         "description": "Unique name of the component.",
         "defaultValue": "Speaker 1"
       }
-    }
+    },
+    "actions": {},
+    "triggers": {}
   },
   {
     "type": "hardware-audio-microphone",
@@ -96,7 +102,20 @@
           "description": "Compressed MP3 audio."
         }]
       }
-    }
+    },
+    "actions": {
+      "start": {
+        "type": "start",
+        "name": "Start recording",
+        "description": "Starts audio recording."
+      },
+      "stop": {
+        "type": "stop",
+        "name": "Stop recording",
+        "description": "Stops audio recording."
+      }
+    },
+    "triggers": {}
   },
   {
     "type": "hardware-momentary-switch",
@@ -109,6 +128,24 @@
         "name": "Name",
         "description": "Unique name of the component.",
         "defaultValue": "Momentary Switch 1"
+      }
+    },
+    "actions": {},
+    "triggers": {
+      "click": {
+        "type": "click",
+        "name": "Click",
+        "description": "Occurs whenever button is pushed and quickly released."
+      },
+      "down": {
+        "type": "down",
+        "name": "Down",
+        "description": "Occurs whenever button is pushed and not released yet."
+      },
+      "up": {
+        "type": "up",
+        "name": "Up",
+        "description": "Occurs whenever button is released."
       }
     }
   },
@@ -124,6 +161,14 @@
         "description": "Unique name of the component.",
         "defaultValue": "Maintained Switch 1"
       }
+    },
+    "actions": {},
+    "triggers": {
+      "toggle": {
+        "type": "toggle",
+        "name": "Toggle",
+        "description": "Occurs whenever button state (on/off) is changed."
+      }
     }
   },
   {
@@ -138,7 +183,9 @@
         "description": "Unique name of the component.",
         "defaultValue": "Cloud Storage 1"
       }
-    }
+    },
+    "actions": {},
+    "triggers": {}
   },
   {
     "type": "services-storage-adapter",
@@ -152,6 +199,8 @@
         "description": "Unique name of the component.",
         "defaultValue": "Storage Adapter 1"
       }
-    }
+    },
+    "actions": {},
+    "triggers": {}
   }
 ]

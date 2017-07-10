@@ -14,7 +14,21 @@
         "type": "hardware-momentary-switch",
         "properties": {
           "name": "Red Switch"
+        },
+        "triggers": {
+          "click": [{
+            "action": "start",
+            "component": "8d5a105f-6e62-46d1-a160-2962547bdaea"
+          }]
         }
+      },
+      {
+        "id": "8d5a105f-6e62-46d1-a160-2962547bdaea",
+        "type": "hardware-audio-microphone",
+        "properties": {
+          "name": "My Mic"
+        },
+        "triggers": {}
       }
     ]
   }
