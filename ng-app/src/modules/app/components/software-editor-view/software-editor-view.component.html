@@ -31,9 +31,16 @@
         <p class="frunze-software-editor__empty-title">Select & Change</p>
         <div class="frunze-software-editor__empty-sub-title">component properties</div>
       </div>
-      <frunze-expandable-groups *ngIf="activeComponent" [groups]="[this.propertiesGroup]">
+      <frunze-expandable-groups *ngIf="activeComponent && propertiesGroup.items.length > 0"
+                                [groups]="[propertiesGroup]">
         <ng-template let-item>
           <frunze-property-editor [property]="item"></frunze-property-editor>
+        </ng-template>
+      </frunze-expandable-groups>
+      <frunze-expandable-groups *ngIf="activeComponent && triggersGroup.items.length > 0"
+                                [groups]="[triggersGroup]">
+        <ng-template let-item>
+          <frunze-trigger-editor [trigger]="item"></frunze-trigger-editor>
         </ng-template>
       </frunze-expandable-groups>
     </section>

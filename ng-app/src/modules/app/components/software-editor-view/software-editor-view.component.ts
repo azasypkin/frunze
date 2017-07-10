@@ -30,6 +30,12 @@ export class SoftwareEditorViewComponent implements OnInit {
     items: []
   };
 
+  triggersGroup: IExpandableGroup = {
+    name: 'Triggers',
+    expanded: false,
+    items: []
+  };
+
   constructor(private route: ActivatedRoute, private router: Router,
               private projectService: ProjectService,
               private componentsService: ComponentsService) {
@@ -139,11 +145,15 @@ export class SoftwareEditorViewComponent implements OnInit {
       return
     }
 
-    this.propertiesGroup.items = Array.from(
-      this.componentSchemas.get(component.type).properties.entries()
-    ).map(([type, schema]) => {
-      return { schema, storage: this.activeComponent.properties };
-    });
+    const componentSchema = this.componentSchemas.get(component.type);
+
+    this.propertiesGroup.items = Array.from(componentSchema.properties.entries()).map(
+      ([type, schema]) => ({ schema, storage: this.activeComponent.properties })
+    );
+
+    this.triggersGroup.items = Array.from(componentSchema.triggers.entries()).map(
+      ([type, schema]) => ({ schema, storage: this.activeComponent.triggers })
+    );
   }
 
   getComponentName(component: ProjectComponent) {

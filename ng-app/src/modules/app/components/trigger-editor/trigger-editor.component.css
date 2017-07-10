@@ -1,0 +1,17 @@
+.frunze-trigger-editor {
+  display: flex;
+  align-content: space-between;
+}
+
+.frunze-trigger-editor__editor {
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.frunze-trigger-editor__label {
+  flex: 1;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

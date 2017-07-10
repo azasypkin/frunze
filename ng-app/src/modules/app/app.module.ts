@@ -12,6 +12,7 @@ import {BootstrapComponent} from './components/bootstrap/bootstrap.component';
 import {SoftwareEditorViewComponent} from './components/software-editor-view/software-editor-view.component';
 import {ExpandableGroupsComponent} from './components/expandable-groups/expandable-groups.component';
 import {PropertyEditorComponent} from './components/property-editor/property-editor.component'
+import {TriggerEditorComponent} from './components/trigger-editor/trigger-editor.component'
 
 import {PromoModule} from '../promo/promo.module';
 import {AppRoutingModule} from './app-routing.module';
@@ -21,7 +22,8 @@ import {AppRoutingModule} from './app-routing.module';
     BootstrapComponent,
     SoftwareEditorViewComponent,
     ExpandableGroupsComponent,
-    PropertyEditorComponent
+    PropertyEditorComponent,
+    TriggerEditorComponent
   ],
   imports: [
     BrowserModule,
