@@ -22,9 +22,8 @@ import {SoftwareEditorViewComponent} from './software-editor-view.component';
 import {
   ExpandableGroupsComponent
 } from '../expandable-groups/expandable-groups.component';
-import {
-  PropertyEditorComponent
-} from '../property-editor/property-editor.component';
+import {PropertyEditorComponent} from '../property-editor/property-editor.component';
+import {TriggerEditorComponent} from '../trigger-editor/trigger-editor.component';
 
 describe('Components/SoftwareEditorViewComponent', () => {
   let fixture, componentsServiceSpy, projectServiceSpy;
@@ -35,7 +34,8 @@ describe('Components/SoftwareEditorViewComponent', () => {
       declarations: [
         SoftwareEditorViewComponent,
         ExpandableGroupsComponent,
-        PropertyEditorComponent
+        PropertyEditorComponent,
+        TriggerEditorComponent
       ],
       providers: [
         {provide: XHRBackend, useClass: MockBackend},
@@ -51,8 +51,8 @@ describe('Components/SoftwareEditorViewComponent', () => {
       componentsServiceSpy = spyOn(componentsService, 'getGroups')
         .and.returnValue(Observable.of([
           new ComponentGroup('group#1test', 'Group #1 Test', 'Group #1 Description Test', [
-            new ComponentSchema('type#11', 'Item #11', 'Item #11 Description', new Map()),
-            new ComponentSchema('type#12', 'Item #12', 'Item #12 Description', new Map())
+            new ComponentSchema('type#11', 'Item #11', 'Item #11 Description', new Map(), new Map(), new Map()),
+            new ComponentSchema('type#12', 'Item #12', 'Item #12 Description', new Map(), new Map(), new Map())
           ])
         ]));
 
