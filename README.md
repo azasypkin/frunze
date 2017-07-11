@@ -47,6 +47,7 @@ Usually you don't have to deal with the DB itself too much, so you can leverage 
 exposed port:
 
 ```bash
+$ docker-compose create db
 $ docker-compose start db
 ``` 
 
