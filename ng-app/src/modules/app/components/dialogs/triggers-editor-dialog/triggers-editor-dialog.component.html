@@ -1,21 +1,23 @@
 <section>
     <header>{{inputs.title}}</header>
-    <div>Here goes content...</div>
     <div>
-        <label>Choose component: <select>
-            <option *ngFor="let component of inputs?.project.components">
-                {{component.type}}
+        <label>Choose component: <select [formControl]="componentEditor">
+            <option value="">Choose component...</option>
+            <option *ngFor="let component of inputs?.project.components" [value]="component.id">
+                {{getComponentName(component)}}
             </option>
         </select></label>
     </div>
-    <div *ngIf="activeComponent">
-        <label>Choose actions: <select>
-            <option *ngFor="let component of inputs?.project.components">
-                {{component.type}}
+    <div *ngIf="componentEditor.value">
+        <label>Choose actions: <select [formControl]="actionEditor">
+            <option value="">Choose action...</option>
+            <option *ngFor="let action of getActions()">
+                {{action.name}}
             </option>
         </select></label>
     </div>
     <div>
-        <button class="frunze-button" (click)="addAction()">Add action</button>
+        <button [attr.disabled]="!componentEditor.value || !actionEditor.value ? '' : null"
+                class="frunze-button" (click)="addAction()">Add action</button>
     </div>
 </section>

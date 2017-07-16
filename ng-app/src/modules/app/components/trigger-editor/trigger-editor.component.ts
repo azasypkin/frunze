@@ -1,5 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
+import {ComponentsService} from '../../services/components.service';
 import {ModalDialogService} from '../../services/modal-dialog.service';
 
 import {ComponentTriggerSchema} from '../../core/components/component-trigger-schema';
@@ -15,14 +16,21 @@ import {
   templateUrl: 'trigger-editor.component.html',
   styleUrls: ['trigger-editor.component.css']
 })
-export class TriggerEditorComponent {
-  // TODO: TOOOOOOOO MUCH INPUT PARAMETERS!!!!!
+export class TriggerEditorComponent implements OnInit {
   @Input() project: Project;
   @Input() component: ProjectComponent;
-  @Input() schema: ComponentTriggerSchema;
-  @Input() key: string;
 
-  constructor(private dialogService: ModalDialogService) {
+  @Input() type: string;
+  schema: ComponentTriggerSchema;
+
+  constructor(private componentsService: ComponentsService,
+              private dialogService: ModalDialogService) {
+  }
+
+  ngOnInit() {
+    this.componentsService.getSchemas().subscribe((schemas) => {
+      this.schema = schemas.get(this.component.type).triggers.get(this.type);
+    });
   }
 
   launchActionsEditor() {
@@ -30,10 +38,10 @@ export class TriggerEditorComponent {
       title: `Edit "${this.schema.name}" trigger actions`,
       project: this.project,
       addAction: (action: ProjectComponentTriggerAction) => {
-        let actions = this.component.triggers.get(this.key);
+        let actions = this.component.triggers.get(this.type);
         if (!actions) {
           actions = [];
-          this.component.triggers.set(this.key, actions);
+          this.component.triggers.set(this.type, actions);
         }
 
         actions.push(action);

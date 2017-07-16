@@ -148,9 +148,7 @@ export class SoftwareEditorViewComponent implements OnInit {
     const componentSchema = this.componentSchemas.get(component.type);
 
     this.propertiesGroup.items = Array.from(componentSchema.properties.values());
-    this.triggersGroup.items = Array.from(componentSchema.triggers).map(
-      ([key, schema]) => ({ key, schema })
-    );
+    this.triggersGroup.items = Array.from(componentSchema.triggers.keys());
   }
 
   getComponentName(component: ProjectComponent) {
