@@ -6,7 +6,6 @@ import {ModalDialogService} from '../../services/modal-dialog.service';
 import {ComponentTriggerSchema} from '../../core/components/component-trigger-schema';
 import {Project} from '../../core/projects/project';
 import {ProjectComponent} from '../../core/projects/project-component';
-import {ProjectComponentTriggerAction} from '../../core/projects/project-component-trigger-action';
 import {
   TriggersEditorDialogComponent, IDialogInputs
 } from '../dialogs/triggers-editor-dialog/triggers-editor-dialog.component';
@@ -37,17 +36,8 @@ export class TriggerEditorComponent implements OnInit {
     this.dialogService.show(TriggersEditorDialogComponent, <IDialogInputs>{
       title: `Edit "${this.schema.name}" trigger actions`,
       project: this.project,
-      addAction: (action: ProjectComponentTriggerAction) => {
-        let actions = this.component.triggers.get(this.type);
-        if (!actions) {
-          actions = [];
-          this.component.triggers.set(this.type, actions);
-        }
-
-        actions.push(action);
-
-        console.log(`New action has been added ${action.action}!`);
-      }
+      component: this.component,
+      type: this.type
     });
   }
 }

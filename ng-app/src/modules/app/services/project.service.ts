@@ -221,7 +221,7 @@ export class ProjectService {
             Object.keys(component.triggers).map((key) => {
               const triggerActions = component.triggers[key].map(
                 (rawTriggerAction) => this.constructComponentTriggerAction(rawTriggerAction)
-              )
+              );
               return [key, triggerActions] as [string, ProjectComponentTriggerAction[]];
             })
           )

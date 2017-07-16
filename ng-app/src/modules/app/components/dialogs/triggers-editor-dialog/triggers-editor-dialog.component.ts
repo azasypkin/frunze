@@ -13,7 +13,8 @@ import {MODAL_DIALOG_PARAMETERS} from '../../modal-dialog/modal-dialog.component
 export interface IDialogInputs {
   title: string;
   project: Project;
-  addAction: (action: ProjectComponentTriggerAction) => void;
+  component: ProjectComponent;
+  type: string;
 }
 
 @Component({
@@ -26,11 +27,20 @@ export class TriggersEditorDialogComponent implements OnInit {
 
   componentEditor = new FormControl();
   actionEditor = new FormControl();
+  triggerActions: ProjectComponentTriggerAction[];
 
   constructor(@Inject(MODAL_DIALOG_PARAMETERS) readonly inputs: IDialogInputs,
               private componentsService: ComponentsService) {
     this.componentEditor.setValue('');
     this.actionEditor.setValue('');
+
+    let actions = this.inputs.component.triggers.get(this.inputs.type);
+    if (!actions) {
+      actions = [];
+      this.inputs.component.triggers.set(this.inputs.type, actions);
+    }
+
+    this.triggerActions = actions;
   }
 
   ngOnInit() {
@@ -38,7 +48,7 @@ export class TriggersEditorDialogComponent implements OnInit {
   }
 
   addAction() {
-    this.inputs.addAction(
+    this.triggerActions.push(
       new ProjectComponentTriggerAction(this.componentEditor.value, this.actionEditor.value)
     );
   }
@@ -48,15 +58,27 @@ export class TriggersEditorDialogComponent implements OnInit {
       this.schemas.get(component.type).name;
   }
 
-  getActions() {
-    const component = this.inputs.project.components.find(
-      (c) => c.id === this.componentEditor.value
-    );
+  getTriggerComponentName(triggerAction: ProjectComponentTriggerAction) {
+    return this.getComponentName(this.findComponentById(triggerAction.component));
+  }
 
+  getTriggerActionName(triggerAction: ProjectComponentTriggerAction) {
+    const component = this.findComponentById(triggerAction.component);
+    return this.schemas.get(component.type).actions.get(triggerAction.action).name;
+  }
+
+  getActions() {
+    const component = this.findComponentById(this.componentEditor.value);
     if (!component) {
       return [];
     }
 
     return Array.from(this.schemas.get(component.type).actions.values());
+  }
+
+  private findComponentById(componentId: string) {
+    return this.inputs.project.components.find(
+      (component) => component.id === componentId
+    );
   }
 }
