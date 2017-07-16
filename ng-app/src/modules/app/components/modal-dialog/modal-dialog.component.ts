@@ -1,6 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, InjectionToken, Injector, ReflectiveInjector} from '@angular/core';
 
 import {ModalDialogService, IDialog} from '../../services/modal-dialog.service';
+
+export const MODAL_DIALOG_PARAMETERS = new InjectionToken('modal.dialog.parameters');
 
 @Component({
   selector: 'frunze-modal-dialog',
@@ -9,10 +11,20 @@ import {ModalDialogService, IDialog} from '../../services/modal-dialog.service';
 })
 export class ModalDialogComponent {
   public dialogContent: any;
+  public dialogInjector: Injector;
 
-  constructor(private dialogService: ModalDialogService) {
+  constructor(private dialogService: ModalDialogService, private injector: Injector) {
     this.dialogService.events$.subscribe((dialog: IDialog) => {
-      this.dialogContent = dialog && dialog.componentType;
+      if (!dialog) {
+        this.dialogInjector = this.dialogContent = null;
+        return;
+      }
+
+      this.dialogInjector = ReflectiveInjector.resolveAndCreate(
+        [{ provide: MODAL_DIALOG_PARAMETERS, useValue: dialog.inputs }],
+        injector
+      );
+      this.dialogContent = dialog.componentType;
     });
   }
 

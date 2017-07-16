@@ -1,1 +1,21 @@
-<div>Triggers Dialog {{content}}</div>
+<section>
+    <header>{{inputs.title}}</header>
+    <div>Here goes content...</div>
+    <div>
+        <label>Choose component: <select>
+            <option *ngFor="let component of inputs?.project.components">
+                {{component.type}}
+            </option>
+        </select></label>
+    </div>
+    <div *ngIf="activeComponent">
+        <label>Choose actions: <select>
+            <option *ngFor="let component of inputs?.project.components">
+                {{component.type}}
+            </option>
+        </select></label>
+    </div>
+    <div>
+        <button class="frunze-button" (click)="addAction()">Add action</button>
+    </div>
+</section>

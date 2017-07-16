@@ -19,9 +19,9 @@ export class ModalDialogService {
    * @param {*?} inputs Optional dialog arguments.
    */
   show(componentType: any, inputs?: any) {
-    const dialog: IDialog = { componentType, inputs };
-    this.dialogs.push(dialog);
-    this.subject.next(dialog);
+    this.dialogs.push({ componentType, inputs });
+
+    this.onUpdate();
   }
 
   /**
@@ -29,28 +29,16 @@ export class ModalDialogService {
    * another one then it will be shown as soon as current dialog is hidden.
    */
   hide() {
-    if (this.dialogs.length > 0) {
-      this.dialogs.pop();
-    }
+    this.dialogs.pop();
 
-    this.subject.next(this.getCurrentDialog())
+    this.onUpdate();
   }
 
-  /**
-   * Returns `inputs` that were supplied for currently opened dialog.
-   * @returns {T}
-   */
-  getInputs<T>() {
-    const dialog = this.getCurrentDialog();
-
-    return dialog !== null ? <T>dialog.inputs : null;
-  }
-
-  private getCurrentDialog() {
-    if (this.dialogs.length > 0) {
-      return this.dialogs[this.dialogs.length - 1];
-    }
-
-    return null;
+  private onUpdate() {
+    this.subject.next(
+      this.dialogs.length > 0 ?
+        this.dialogs[this.dialogs.length - 1] :
+        null
+    );
   }
 }

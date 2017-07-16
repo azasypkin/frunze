@@ -41,7 +41,7 @@
                                 [groups]="[triggersGroup]">
         <ng-template let-item>
           <frunze-trigger-editor [project]="project" [component]="activeComponent"
-                                 [schema]="item"></frunze-trigger-editor>
+                                 [schema]="item.schema" [key]="item.key"></frunze-trigger-editor>
         </ng-template>
       </frunze-expandable-groups>
     </section>
