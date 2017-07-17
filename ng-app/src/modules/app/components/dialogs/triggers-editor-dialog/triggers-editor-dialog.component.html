@@ -1,28 +1,20 @@
 <section>
-  <header>{{inputs.title}}</header>
-  <ul>
-    <li *ngFor="let triggerAction of triggerActions">
+  <ul *ngIf="triggerActions.length > 0" class="frunze-trigger-actions-list">
+    <li class="frunze-trigger-actions-list__item" *ngFor="let triggerAction of triggerActions; let i = index">
       <b>{{getTriggerActionName(triggerAction)}}</b> on <b>{{getTriggerComponentName(triggerAction)}}</b>
+      <button class="frunze-trigger-actions-list__item-remove" (click)="removeAction(i)">❌</button>
     </li>
   </ul>
-  <div>
-    <select title="Choose component..." [formControl]="componentEditor">
-      <option value="">Choose component...</option>
-      <option *ngFor="let component of inputs?.project.components" [value]="component.id">
-        {{getComponentName(component)}}
-      </option>
-    </select>
-  </div>
-  <div *ngIf="componentEditor.value">
-    <select title="Choose action..." [formControl]="actionEditor">
-      <option value="">Choose action...</option>
-      <option *ngFor="let action of getActions()" [value]="action.type">
-        {{action.name}}
-      </option>
-    </select>
-  </div>
-  <div>
-    <button [attr.disabled]="!componentEditor.value || !actionEditor.value ? '' : null"
-            class="frunze-button" (click)="addAction()">Add new action</button>
-  </div>
+  <select class="frunze-trigger-actions-list__component-selector" title="Choose component..." [formControl]="componentEditor">
+    <option value="">New action on...</option>
+    <option *ngFor="let component of inputs?.project.components" [value]="component.id">
+      {{getComponentName(component)}}
+    </option>
+  </select>
+  <select *ngIf="componentEditor.value" title="Choose action..." [formControl]="actionEditor">
+    <option value="">Choose action...</option>
+    <option *ngFor="let action of getActions()" [value]="action.type">
+      {{action.name}}
+    </option>
+  </select>
 </section>

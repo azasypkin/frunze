@@ -84,7 +84,7 @@
   box-shadow: 0 -1px 1px 0 rgb(65, 156, 206), 0 1px 5px 4px rgb(67, 160, 211);
 }
 
-.frunze-software-component--remove {
+.frunze-software-component__remove {
   position: absolute;
   top: -0.7rem;
   right: -0.7rem;
@@ -96,6 +96,6 @@
   cursor: pointer;
 }
 
-.frunze-software-component:hover .frunze-software-component--remove {
+.frunze-software-component:hover .frunze-software-component__remove {
   display: unset;
 }

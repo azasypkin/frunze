@@ -33,11 +33,14 @@ export class TriggerEditorComponent implements OnInit {
   }
 
   launchActionsEditor() {
-    this.dialogService.show(TriggersEditorDialogComponent, <IDialogInputs>{
-      title: `Edit "${this.schema.name}" trigger actions`,
-      project: this.project,
-      component: this.component,
-      type: this.type
-    });
+    this.dialogService.show(
+      TriggersEditorDialogComponent,
+      `Actions to perform on "${this.schema.name}"`,
+      <IDialogInputs>{
+        project: this.project,
+        component: this.component,
+        type: this.type
+      }
+    );
   }
 }

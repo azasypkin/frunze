@@ -1,5 +1,6 @@
 <article *ngIf="dialogContent" class="modal-dialog__container" (click)="hide()">
   <section class="modal-dialog__content" (click)="$event.stopPropagation()">
+    <header class="modal-dialog__header">{{title}}</header>
     <ng-container *ngComponentOutlet="dialogContent; injector: dialogInjector"></ng-container>
   </section>
 </article>

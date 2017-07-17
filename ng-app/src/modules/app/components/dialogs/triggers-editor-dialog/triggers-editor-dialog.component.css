@@ -1,0 +1,24 @@
+.frunze-trigger-actions-list {
+  padding: 0;
+}
+
+.frunze-trigger-actions-list__item {
+  position: relative;
+  margin: 0.5rem 0;
+
+  list-style: none;
+}
+
+.frunze-trigger-actions-list__item-remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.frunze-trigger-actions-list__component-selector {
+  margin-top: 0.5rem;
+}

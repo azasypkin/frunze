@@ -11,7 +11,6 @@ import {ComponentsService} from '../../../services/components.service';
 import {MODAL_DIALOG_PARAMETERS} from '../../modal-dialog/modal-dialog.component';
 
 export interface IDialogInputs {
-  title: string;
   project: Project;
   component: ProjectComponent;
   type: string;
@@ -41,16 +40,23 @@ export class TriggersEditorDialogComponent implements OnInit {
     }
 
     this.triggerActions = actions;
+
+    this.actionEditor.valueChanges.subscribe(() => {
+      if (!this.actionEditor.value) {
+        return;
+      }
+
+      this.triggerActions.push(
+        new ProjectComponentTriggerAction(this.componentEditor.value, this.actionEditor.value)
+      );
+
+      this.componentEditor.setValue('');
+      this.actionEditor.setValue('');
+    });
   }
 
   ngOnInit() {
     this.componentsService.getSchemas().subscribe((schemas) => this.schemas = schemas);
-  }
-
-  addAction() {
-    this.triggerActions.push(
-      new ProjectComponentTriggerAction(this.componentEditor.value, this.actionEditor.value)
-    );
   }
 
   getComponentName(component: ProjectComponent) {
@@ -74,6 +80,10 @@ export class TriggersEditorDialogComponent implements OnInit {
     }
 
     return Array.from(this.schemas.get(component.type).actions.values());
+  }
+
+  removeAction(index: number) {
+    this.triggerActions.splice(index, 1);
   }
 
   private findComponentById(componentId: string) {

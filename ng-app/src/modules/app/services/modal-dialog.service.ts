@@ -3,23 +3,25 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 export interface IDialog {
   componentType: any,
+  title: string,
   inputs?: any
 }
 
 @Injectable()
 export class ModalDialogService {
   private dialogs: IDialog[] = [];
-  private subject = new BehaviorSubject<IDialog>({ componentType: null });
+  private subject = new BehaviorSubject<IDialog>({ componentType: null, title: null });
 
   readonly events$ = this.subject.asObservable();
 
   /**
    * Displays dialog of specified type.
    * @param {Function} componentType Type of the component to use as dialog.
+   * @param {string} title Dialog title.
    * @param {*?} inputs Optional dialog arguments.
    */
-  show(componentType: any, inputs?: any) {
-    this.dialogs.push({ componentType, inputs });
+  show(componentType: any, title: string, inputs?: any) {
+    this.dialogs.push({ componentType, title, inputs });
 
     this.onUpdate();
   }

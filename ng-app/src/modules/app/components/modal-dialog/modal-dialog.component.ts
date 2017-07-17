@@ -10,8 +10,10 @@ export const MODAL_DIALOG_PARAMETERS = new InjectionToken('modal.dialog.paramete
   styleUrls: ['modal-dialog.component.css']
 })
 export class ModalDialogComponent {
-  public dialogContent: any;
-  public dialogInjector: Injector;
+  title: string;
+  dialogContent: any;
+  dialogInjector: Injector;
+
 
   constructor(private dialogService: ModalDialogService, private injector: Injector) {
     this.dialogService.events$.subscribe((dialog: IDialog) => {
@@ -19,6 +21,8 @@ export class ModalDialogComponent {
         this.dialogInjector = this.dialogContent = null;
         return;
       }
+
+      this.title = dialog.title;
 
       this.dialogInjector = ReflectiveInjector.resolveAndCreate(
         [{ provide: MODAL_DIALOG_PARAMETERS, useValue: dialog.inputs }],
