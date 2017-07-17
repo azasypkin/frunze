@@ -27,6 +27,7 @@ export class TriggersEditorDialogComponent implements OnInit {
   componentEditor = new FormControl();
   actionEditor = new FormControl();
   triggerActions: ProjectComponentTriggerAction[];
+  componentsWithActions: ProjectComponent[] = [];
 
   constructor(@Inject(MODAL_DIALOG_PARAMETERS) readonly inputs: IDialogInputs,
               private componentsService: ComponentsService) {
@@ -56,7 +57,13 @@ export class TriggersEditorDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.componentsService.getSchemas().subscribe((schemas) => this.schemas = schemas);
+    this.componentsService.getSchemas().subscribe((schemas) => {
+      this.schemas = schemas;
+
+      this.componentsWithActions = this.inputs.project.components.filter((component) => {
+        return this.schemas.get(component.type).actions.size > 0;
+      });
+    });
   }
 
   getComponentName(component: ProjectComponent) {

@@ -7,7 +7,7 @@
   </ul>
   <select class="frunze-trigger-actions-list__component-selector" title="Choose component..." [formControl]="componentEditor">
     <option value="">New action on...</option>
-    <option *ngFor="let component of inputs?.project.components" [value]="component.id">
+    <option *ngFor="let component of componentsWithActions" [value]="component.id">
       {{getComponentName(component)}}
     </option>
   </select>
