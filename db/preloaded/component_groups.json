@@ -1,5 +1,11 @@
 [
   {
+    "type": "hardware-platform",
+    "name": "Hardware - Platform",
+    "description": "Main platform hardware components.",
+    "items": ["hardware-platform-psf-a85"]
+  },
+  {
     "type": "hardware-connection",
     "name": "Hardware - Connection",
     "description": "All applicable connection related hardware components.",

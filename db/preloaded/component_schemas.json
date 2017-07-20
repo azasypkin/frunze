@@ -1,5 +1,32 @@
 [
   {
+    "type": "hardware-platform-psf-a85",
+    "name": "PSF-A85 WiFi Module",
+    "description": "PSF-A85 Wireless Module from iTEAD.",
+    "properties": {
+      "name": {
+        "type": "name",
+        "kind": "string",
+        "name": "Name",
+        "description": "Unique name of the main platform component.",
+        "defaultValue": "Platform"
+      }
+    },
+    "actions": {
+      "on": {
+        "type": "on",
+        "name": "Turn on",
+        "description": "Turns on the PSF-A85 module."
+      },
+      "off": {
+        "type": "off",
+        "name": "Turn off",
+        "description": "Turns off the PSF-A85 module."
+      }
+    },
+    "triggers": {}
+  },
+  {
     "type": "hardware-connection-wifi",
     "name": "WiFi Connection",
     "description": "Enables WiFi connectivity.",
@@ -164,10 +191,15 @@
     },
     "actions": {},
     "triggers": {
-      "toggle": {
-        "type": "toggle",
-        "name": "Toggle",
-        "description": "Occurs whenever button state (on/off) is changed."
+      "on": {
+        "type": "on",
+        "name": "On",
+        "description": "Occurs whenever button is transitioned into `On` state."
+      },
+      "off": {
+        "type": "off",
+        "name": "Off",
+        "description": "Occurs whenever button is transitioned into `Off` state."
       }
     }
   },
