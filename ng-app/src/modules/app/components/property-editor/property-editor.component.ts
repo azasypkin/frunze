@@ -27,7 +27,6 @@ export class PropertyEditorComponent implements OnChanges, OnInit {
 
   constructor(private componentsService: ComponentsService) {
     this.valueEditor.valueChanges.subscribe(() => {
-      console.log(`New value ${this.valueEditor.value}`);
       this.component.properties.set(this.schema.type, this.valueEditor.value);
     });
   }
