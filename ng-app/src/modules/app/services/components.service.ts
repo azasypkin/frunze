@@ -11,7 +11,11 @@ import {Config} from '../config';
 import {TypedEntity} from '../core/typed-entity';
 import {ComponentGroup} from '../core/components/component-group';
 import {ComponentSchema} from '../core/components/component-schema';
-import {ComponentPropertySchema} from '../core/components/component-property-schema';
+import {
+  PropertySchema,
+  PredefinedPropertySchema,
+  ComponentPropertySchema
+} from '../core/components/component-property-schema';
 import {ComponentActionSchema} from '../core/components/component-action-schema';
 import {ComponentTriggerSchema} from '../core/components/component-trigger-schema';
 
@@ -20,16 +24,42 @@ const APIPaths = Object.freeze({
   schemas: 'component-schemas'
 });
 
+interface RawPredefinedPropertyKind {
+  predefined: TypedEntity[]
+}
+
+interface RawComponentPropertyKind {
+  component: string[]
+}
+
+type PropertyKind = 'custom' | RawPredefinedPropertyKind | RawComponentPropertyKind;
+
+function isPredefinedPropertyKind(propertyKind: PropertyKind): propertyKind is RawPredefinedPropertyKind {
+  return (<RawPredefinedPropertyKind>propertyKind).predefined !== undefined;
+}
+
+function isComponentPropertyKind(propertyKind: PropertyKind): propertyKind is RawComponentPropertyKind {
+  return (<RawComponentPropertyKind>propertyKind).component !== undefined;
+}
+
+interface RawPropertySchema {
+  type: string,
+  name: string
+  description: string,
+  defaultValue: string,
+  kind: PropertyKind
+}
+
 @Injectable()
 export class ComponentsService {
   private schemas: Observable<Map<string, ComponentSchema>> = null;
 
-  private static handleError(error: Response | any) {
+  private static handleError(error: Response | Error) {
     let errorMessage: string;
     if (error instanceof Response) {
       const body = error.json() || '';
       errorMessage = `${error.status} - ${error.statusText || ''} ${body.error || JSON.stringify(body)}`;
-    } else {
+    } else if (error instanceof Error) {
       errorMessage = error.message ? error.message : error.toString();
     }
 
@@ -40,24 +70,40 @@ export class ComponentsService {
   /**
    * Converts raw component property schema json to a ComponentPropertySchema instance.
    * @param {Object} rawPropertySchema Raw component property schema JSON returned from the API.
-   * @returns {ComponentPropertySchema}
+   * @returns {PropertySchema}
    * @private
    */
-  private static constructPropertySchema(rawPropertySchema: any) {
-    return new ComponentPropertySchema(
-      rawPropertySchema.type,
-      rawPropertySchema.name,
-      rawPropertySchema.description,
-      rawPropertySchema.defaultValue,
-      rawPropertySchema.kind,
-      (rawPropertySchema.options || []).map((rawValueOption) => {
-        return new TypedEntity(
-          rawValueOption.type,
-          rawValueOption.name,
-          rawValueOption.description
-        );
-      })
-    );
+  private static constructPropertySchema(rawPropertySchema: RawPropertySchema): PropertySchema {
+    if (rawPropertySchema.kind === 'custom') {
+      return new PropertySchema(
+        rawPropertySchema.type,
+        rawPropertySchema.name,
+        rawPropertySchema.description,
+        rawPropertySchema.defaultValue
+      );
+    }
+
+    if (isPredefinedPropertyKind(rawPropertySchema.kind)) {
+      return new PredefinedPropertySchema(
+        rawPropertySchema.type,
+        rawPropertySchema.name,
+        rawPropertySchema.description,
+        rawPropertySchema.defaultValue,
+        (<RawPredefinedPropertyKind>rawPropertySchema.kind).predefined
+      );
+    }
+
+    if (isComponentPropertyKind(rawPropertySchema.kind)) {
+      return new ComponentPropertySchema(
+        rawPropertySchema.type,
+        rawPropertySchema.name,
+        rawPropertySchema.description,
+        rawPropertySchema.defaultValue,
+        (<RawComponentPropertyKind>rawPropertySchema.kind).component
+      );
+    }
+
+    throw new Error('Unknown property kind!');
   }
 
   /**
@@ -104,7 +150,7 @@ export class ComponentsService {
           return [
             key,
             ComponentsService.constructPropertySchema(rawComponentSchema.properties[key])
-          ] as [string, ComponentPropertySchema]
+          ] as [string, PropertySchema]
         })
       ),
       new Map(

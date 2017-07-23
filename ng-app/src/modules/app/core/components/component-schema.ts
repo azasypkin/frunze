@@ -1,14 +1,14 @@
 import {TypedEntity} from '../typed-entity';
-import {ComponentPropertySchema} from './component-property-schema';
+import {PropertySchema} from './component-property-schema';
 import {ComponentActionSchema} from './component-action-schema';
 import {ComponentTriggerSchema} from './component-trigger-schema';
 
 export class ComponentSchema extends TypedEntity {
   /**
    * Component property type <-> property schema map.
-   * @type {Map<string, ComponentPropertySchema>}
+   * @type {Map<string, PropertySchema>}
    */
-  readonly properties: Map<string, ComponentPropertySchema>;
+  readonly properties: Map<string, PropertySchema>;
 
   /**
    * Component action type <-> action schema map.
@@ -23,7 +23,7 @@ export class ComponentSchema extends TypedEntity {
   readonly triggers: Map<string, ComponentTriggerSchema>;
 
   constructor(type: string, name: string, description: string,
-              properties: Map<string, ComponentPropertySchema>,
+              properties: Map<string, PropertySchema>,
               actions: Map<string, ComponentActionSchema>,
               triggers: Map<string, ComponentTriggerSchema>) {
     super(type, name, description);

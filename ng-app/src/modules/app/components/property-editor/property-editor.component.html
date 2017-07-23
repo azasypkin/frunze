@@ -1,10 +1,10 @@
 <label class="frunze-property-editor" [title]="schema?.description">
   <span class="frunze-property-editor__label">{{schema?.name}}</span>
-  <input *ngIf="isStringValue()" class="frunze-property-editor__editor"
+  <input *ngIf="isCustomValue()" class="frunze-property-editor__editor"
          [formControl]="valueEditor" />
-  <select *ngIf="isOptionsValue()" class="frunze-property-editor__editor"
+  <select *ngIf="isPredefinedValue()" class="frunze-property-editor__editor"
           [formControl]="valueEditor">
-    <option *ngFor="let option of schema.options" [value]="option.type">
+    <option *ngFor="let option of getPredefinedValues()" [value]="option.type">
       {{option.name}}
     </option>
   </select>

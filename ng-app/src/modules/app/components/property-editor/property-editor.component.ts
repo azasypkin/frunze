@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import {FormControl} from '@angular/forms'
 
-import {ComponentPropertySchema, ComponentPropertyValueKind} from '../../core/components/component-property-schema';
+import {PropertySchema, PredefinedPropertySchema} from '../../core/components/component-property-schema';
 import {ProjectComponent} from '../../core/projects/project-component';
 
 @Component({
@@ -11,7 +11,7 @@ import {ProjectComponent} from '../../core/projects/project-component';
 })
 export class PropertyEditorComponent implements OnChanges {
   @Input() component: ProjectComponent;
-  @Input() schema: ComponentPropertySchema;
+  @Input() schema: PropertySchema;
 
   valueEditor = new FormControl();
 
@@ -28,11 +28,17 @@ export class PropertyEditorComponent implements OnChanges {
     this.valueEditor.setValue(value)
   }
 
-  isStringValue() {
-    return !!this.schema && this.schema.kind === ComponentPropertyValueKind.String;
+  isCustomValue() {
+    return !this.isPredefinedValue();
   }
 
-  isOptionsValue() {
-    return !!this.schema && this.schema.kind === ComponentPropertyValueKind.Options;
+  isPredefinedValue() {
+    return !!this.schema && this.schema instanceof PredefinedPropertySchema;
+  }
+
+  getPredefinedValues() {
+    if (this.isPredefinedValue()) {
+      return (<PredefinedPropertySchema>this.schema).options;
+    }
   }
 }
