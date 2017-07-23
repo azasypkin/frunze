@@ -86,14 +86,17 @@
 
 .frunze-software-component__remove {
   position: absolute;
-  top: -0.7rem;
-  right: -0.7rem;
+  top: -0.5rem;
+  right: -0.5rem;
+  width: 1rem;
+  height: 1rem;
 
   display: none;
 
   border: none;
-  background: transparent;
   cursor: pointer;
+
+  background: url("../../../../assets/images/icons/remove.svg") no-repeat center center;
 }
 
 .frunze-software-component:hover .frunze-software-component__remove {

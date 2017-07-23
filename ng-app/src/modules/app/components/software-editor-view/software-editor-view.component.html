@@ -21,7 +21,7 @@
              *ngFor="let component of project?.components; let i = index"
              (click)="setActiveComponent(component);$event.stopPropagation()">
           {{getComponentName(component)}}
-          <button class="frunze-software-component__remove" (click)="removeComponent(i)">❌</button>
+          <button class="frunze-software-component__remove" (click)="removeComponent(i)"></button>
         </div>
       </section>
     </section>

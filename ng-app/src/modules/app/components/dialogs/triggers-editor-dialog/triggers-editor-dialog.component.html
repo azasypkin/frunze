@@ -2,7 +2,7 @@
   <ul *ngIf="triggerActions.length > 0" class="frunze-trigger-actions-list">
     <li class="frunze-trigger-actions-list__item" *ngFor="let triggerAction of triggerActions; let i = index">
       <b>{{getTriggerActionName(triggerAction)}}</b> on <b>{{getTriggerComponentName(triggerAction)}}</b>
-      <button class="frunze-trigger-actions-list__item-remove" (click)="removeAction(i)">❌</button>
+      <button class="frunze-trigger-actions-list__item-remove" (click)="removeAction(i)"></button>
     </li>
   </ul>
   <select class="frunze-trigger-actions-list__component-selector" title="Choose component..." [formControl]="componentEditor">

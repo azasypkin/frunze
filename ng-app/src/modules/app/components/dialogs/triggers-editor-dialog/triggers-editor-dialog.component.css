@@ -13,9 +13,11 @@
   position: absolute;
   top: 0;
   right: 0;
+  width: 1rem;
+  height: 1rem;
 
   border: none;
-  background: transparent;
+  background: url("../../../../../assets/images/icons/remove.svg") no-repeat center center;
   cursor: pointer;
 }
 
