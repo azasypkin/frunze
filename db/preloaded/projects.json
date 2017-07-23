@@ -37,10 +37,64 @@
         }
       },
       {
-        "id": "8d5a105f-6e62-46d1-a160-2962547bdaea",
+        "id": "8d5a105f-6e61-46d1-c160-2962547bdaea",
+        "type": "hardware-momentary-switch",
+        "properties": {
+          "name": "Toggle Recording Switch"
+        },
+        "triggers": {
+          "down": [{
+            "action": "start",
+            "component": "8d5a105f-6e62-46d1-a170-2962547bdaea"
+          }],
+          "up": [{
+            "action": "stop",
+            "component": "8d5a105f-6e62-46d1-a170-2962547bdaea"
+          }]
+        }
+      },
+      {
+        "id": "8d5a105f-6e61-64d1-c160-2962547bdaea",
+        "type": "hardware-momentary-switch",
+        "properties": {
+          "name": "Toggle Playback Switch"
+        },
+        "triggers": {
+          "click": [{
+            "action": "play",
+            "component": "8d5a105f-6a72-46d1-a170-2962547bdaea"
+          }]
+        }
+      },
+      {
+        "id": "8d5a105f-6e62-46d1-a170-2962547bdaea",
         "type": "hardware-audio-microphone",
         "properties": {
-          "name": "Rear Mic"
+          "name": "Rear Mic",
+          "storage": "8d5a105f-6e62-46d1-b160-2962547bdaea"
+        },
+        "triggers": {
+          "on-stop": [{
+            "action": "store",
+            "component": "8d5a105f-6e62-46d1-a170-2962547bdaea"
+          }]
+        }
+      },
+      {
+        "id": "8d5a105f-6a72-46d1-a170-2962547bdaea",
+        "type": "hardware-audio-speaker",
+        "properties": {
+          "name": "Rear Speaker",
+          "storage": "8d5a105f-6e62-46d1-b160-2962547bdaea"
+        },
+        "triggers": {}
+      },
+      {
+        "id": "8d5a105f-6e62-46d1-b160-2962547bdaea",
+        "type": "services-cloud-storage",
+        "properties": {
+          "name": "Frunze Cloud Storage",
+          "url": "https://frunze.com/user-storage/2962547bdaea"
         },
         "triggers": {}
       }

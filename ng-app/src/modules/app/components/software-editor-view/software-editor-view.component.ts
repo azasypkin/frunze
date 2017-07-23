@@ -56,10 +56,21 @@ export class SoftwareEditorViewComponent implements OnInit {
    * Fetches groups from the ComponentsService.
    */
   private fetchGroups() {
-    this.componentsService.getGroups()
-        .subscribe((groups) => this.componentGroups = groups, (e) => {
-          console.error('Error occurred while retrieving of component groups.', e);
-        });
+    this.componentsService.getGroups().subscribe((groups) => {
+      this.componentGroups = groups.sort((a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        }
+
+        if (a.name > b.name) {
+          return 1;
+        }
+
+        return 0;
+      });
+    }, (e) => {
+      console.error('Error occurred while retrieving of component groups.', e);
+    });
   }
 
   /**

@@ -76,9 +76,63 @@
         "name": "Name",
         "description": "Unique name of the component.",
         "defaultValue": "Speaker 1"
+      },
+      "format": {
+        "type": "format",
+        "kind": {
+          "predefined": [{
+            "type": "wav",
+            "name": "WAV",
+            "description": "Plain audio WAV format."
+          }, {
+            "type": "mp3",
+            "name": "MP3",
+            "description": "Compressed MP3 audio."
+          }]
+        },
+        "name": "Format",
+        "description": "Audio format that will be used for the audio to play.",
+        "defaultValue": "wav"
+      },
+      "volume": {
+        "type": "volume",
+        "kind": "custom",
+        "name": "Volume",
+        "description": "Volume of the audio to play (in %).",
+        "defaultValue": "50"
+      },
+      "storage": {
+        "type": "storage",
+        "kind": {
+          "component": ["services-cloud-storage", "services-storage-adapter", "services-built-in-storage"]
+        },
+        "name": "Storage",
+        "description": "Storage component that will be used to load audio to play.",
+        "defaultValue": ""
       }
     },
-    "actions": {},
+    "actions": {
+      "play": {
+        "type": "play",
+        "name": "Start playback",
+        "description": "Starts audio playback from configured storage."
+      },
+      "pause": {
+        "type": "pause",
+        "name": "Pause playback",
+        "description": "Pauses currently playing audio."
+      },
+      "resume": {
+        "type": "resume",
+        "name": "Resume playback",
+        "description": "Resumes currently paused audio if any."
+      },
+      "stop": {
+        "type": "stop",
+        "name": "Stop playback",
+        "description": "Stops currently playing audio."
+      }
+    },
     "triggers": {}
   },
   {
@@ -139,6 +193,13 @@
         "name": "Storage",
         "description": "Storage component that will be used to store captured audio.",
         "defaultValue": ""
+      },
+      "sensitivity": {
+        "type": "sensitivity",
+        "kind": "custom",
+        "name": "Sensitivity",
+        "description": "Sensitivity of the microphone (in %).",
+        "defaultValue": "50"
       }
     },
     "actions": {
@@ -150,7 +211,12 @@
       "stop": {
         "type": "stop",
         "name": "Stop recording",
-        "description": "Stops audio recording and stores result to specified storage."
+        "description": "Stops audio recording and temporarily keeps audio recording."
+      },
+      "store": {
+        "type": "store",
+        "name": "Store recording",
+        "description": "Stores audio recording to specified storage."
       },
       "cancel": {
         "type": "cancel",
@@ -236,9 +302,37 @@
         "name": "Name",
         "description": "Unique name of the component.",
         "defaultValue": "Cloud Storage 1"
+      },
+      "url": {
+        "type": "url",
+        "kind": "custom",
+        "name": "Storage URL",
+        "description": "Storage URL depending on the provider (Google, OneDrive, Dropbox etc.).",
+        "defaultValue": ""
       }
     },
-    "actions": {},
+    "actions": {
+      "store": {
+        "type": "store",
+        "name": "Store data",
+        "description": "Stores data to the configured cloud storage."
+      },
+      "load": {
+        "type": "load",
+        "name": "Loads data",
+        "description": "Loads data from the configured cloud storage."
+      },
+      "delete": {
+        "type": "delete",
+        "name": "Delete data",
+        "description": "Deletes data from the storage.."
+      },
+      "wipe": {
+        "type": "wipes",
+        "name": "Wipe storage",
+        "description": "Wipes out storage."
+      }
+    },
     "triggers": {}
   },
   {
@@ -254,7 +348,23 @@
         "defaultValue": "Built-in Storage 1"
       }
     },
-    "actions": {},
+    "actions": {
+      "store": {
+        "type": "store",
+        "name": "Store data",
+        "description": "Stores data to the built-in storage."
+      },
+      "delete": {
+        "type": "delete",
+        "name": "Delete data",
+        "description": "Deletes data from the storage.."
+      },
+      "wipe": {
+        "type": "wipes",
+        "name": "Wipe storage",
+        "description": "Wipes out storage."
+      }
+    },
     "triggers": {}
   },
   {
