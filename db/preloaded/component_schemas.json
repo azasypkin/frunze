@@ -130,6 +130,15 @@
         "name": "Format",
         "description": "Audio format that will be used to save audio.",
         "defaultValue": "wav"
+      },
+      "storage": {
+        "type": "storage",
+        "kind": {
+          "component": ["services-cloud-storage", "services-storage-adapter", "services-built-in-storage"]
+        },
+        "name": "Storage",
+        "description": "Storage component that will be used to store captured audio.",
+        "defaultValue": ""
       }
     },
     "actions": {
@@ -227,6 +236,22 @@
         "name": "Name",
         "description": "Unique name of the component.",
         "defaultValue": "Cloud Storage 1"
+      }
+    },
+    "actions": {},
+    "triggers": {}
+  },
+  {
+    "type": "services-built-in-storage",
+    "name": "Built-in Storage",
+    "description": "Allows your device to access built-in storage.",
+    "properties": {
+      "name": {
+        "type": "name",
+        "kind": "custom",
+        "name": "Name",
+        "description": "Unique name of the component.",
+        "defaultValue": "Built-in Storage 1"
       }
     },
     "actions": {},

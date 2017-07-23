@@ -27,6 +27,6 @@
     "type": "services-storage",
     "name": "Services - Storage",
     "description": "Various storage related services.",
-    "items": ["services-cloud-storage", "services-storage-adapter"]
+    "items": ["services-cloud-storage", "services-built-in-storage", "services-storage-adapter"]
   }
 ]
