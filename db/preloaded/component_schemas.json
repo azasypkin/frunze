@@ -139,10 +139,21 @@
       "stop": {
         "type": "stop",
         "name": "Stop recording",
-        "description": "Stops audio recording."
+        "description": "Stops audio recording and stores result to specified storage."
+      },
+      "cancel": {
+        "type": "cancel",
+        "name": "Cancel recording",
+        "description": "Cancels audio recording and discards audio record."
       }
     },
-    "triggers": {}
+    "triggers": {
+      "on-stop": {
+        "type": "on-stop",
+        "name": "On Stop",
+        "description": "Occurs whenever microphone stops recording and has audio record ready."
+      },
+    }
   },
   {
     "type": "hardware-momentary-switch",
