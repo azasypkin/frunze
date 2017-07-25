@@ -138,12 +138,12 @@ export class SoftwareEditorViewComponent implements OnInit {
 
   onNext() {
     this.projectService.saveProject(this.project).subscribe(() => {
-      console.log('Project successfully saved.');
+      this.router.navigate([`promo/project/bom/${this.project.id}`]);
     });
   }
 
-  onGoToProjectMetadata() {
-    this.router.navigate([`promo/project/metadata/${this.project.id}`]);
+  async onGoToProjectMetadata() {
+    await this.router.navigate([`promo/project/metadata/${this.project.id}`]);
   }
 
   setActiveComponent(component: ProjectComponent) {

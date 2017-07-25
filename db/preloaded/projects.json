@@ -7,7 +7,8 @@
       "wifi",
       "maintained-switch",
       "momentary-switch",
-      "mic"
+      "mic",
+      "speaker"
     ],
     "platform": "psf-a85",
     "components": [

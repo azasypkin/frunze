@@ -12,6 +12,7 @@ import {ProjectService} from './services/project.service';
 import {BootstrapComponent} from './components/bootstrap/bootstrap.component';
 import {ModalDialogComponent} from './components/modal-dialog/modal-dialog.component';
 import {SoftwareEditorViewComponent} from './components/software-editor-view/software-editor-view.component';
+import {BomCalculationViewComponent} from './components/bom-calculation-view/bom-calculation-view.component';
 import {
   TriggersEditorDialogComponent
 } from './components/dialogs/triggers-editor-dialog/triggers-editor-dialog.component';
@@ -27,6 +28,7 @@ import {AppRoutingModule} from './app-routing.module';
     BootstrapComponent,
     ModalDialogComponent,
     SoftwareEditorViewComponent,
+    BomCalculationViewComponent,
     ExpandableGroupsComponent,
     PropertyEditorComponent,
     TriggerEditorComponent,
