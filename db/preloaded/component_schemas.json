@@ -3,6 +3,7 @@
     "type": "hardware-platform-psf-a85",
     "name": "PSF-A85 WiFi Module",
     "description": "PSF-A85 Wireless Module from iTEAD.",
+    "mpn": "2821",
     "properties": {
       "name": {
         "type": "name",
@@ -69,6 +70,7 @@
     "type": "hardware-audio-speaker",
     "name": "Speaker",
     "description": "Allows your device to play sounds and music.",
+    "mpn": "AS02008MR-5-R",
     "properties": {
       "name": {
         "type": "name",
@@ -139,6 +141,7 @@
     "type": "hardware-audio-microphone",
     "name": "Microphone",
     "description": "Allows your device to listen and record audio.",
+    "mpn": "CMA-4544PF-W",
     "properties": {
       "name": {
         "type": "name",
@@ -236,6 +239,7 @@
     "type": "hardware-momentary-switch",
     "name": "Momentary Switch",
     "description": "Allows your device to have a mechanical momentary switch.",
+    "mpn": "7914H-1-000",
     "properties": {
       "name": {
         "type": "name",
@@ -268,6 +272,7 @@
     "type": "hardware-maintained-switch",
     "name": "Maintained Switch",
     "description": "Allows your device to have a mechanical switch with a maintained state.",
+    "mpn": "D6R90 F1 LFS",
     "properties": {
       "name": {
         "type": "name",

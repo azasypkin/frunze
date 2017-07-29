@@ -145,6 +145,7 @@ export class ComponentsService {
       rawComponentSchema.type,
       rawComponentSchema.name,
       rawComponentSchema.description,
+      rawComponentSchema.mpn || '',
       new Map(
         Object.keys(rawComponentSchema.properties).map((key) => {
           return [
