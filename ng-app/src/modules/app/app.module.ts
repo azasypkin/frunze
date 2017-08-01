@@ -5,6 +5,7 @@ import {HttpModule} from '@angular/http';
 
 import {Config} from './config';
 
+import {BomService} from './services/bom.service';
 import {ComponentsService} from './services/components.service';
 import {ModalDialogService} from './services/modal-dialog.service';
 import {ProjectService} from './services/project.service';
@@ -41,7 +42,7 @@ import {AppRoutingModule} from './app-routing.module';
     PromoModule,
     AppRoutingModule
   ],
-  providers: [Config, ComponentsService, ModalDialogService, ProjectService],
+  providers: [Config, BomService, ComponentsService, ModalDialogService, ProjectService],
   bootstrap: [BootstrapComponent],
   entryComponents: [TriggersEditorDialogComponent]
 })
