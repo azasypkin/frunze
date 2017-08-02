@@ -23,7 +23,8 @@
         "css/fonts.css",
         "css/global.css",
         "css/form-controls.css",
-        "css/icons.css"
+        "css/icons.css",
+        "css/tables.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

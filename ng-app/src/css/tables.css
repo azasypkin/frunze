@@ -1,0 +1,27 @@
+.frunze-table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+
+  border: 0.1rem solid #eceeef;
+  border-collapse: collapse;
+  font-size: 120%;
+}
+
+.frunze-table-header-row {
+  text-align: left;
+}
+
+.frunze-table th, .frunze-table td {
+  padding: 0.75rem;
+  border: 0.1rem solid #eceeef;
+  text-align: left;
+}
+
+.frunze-table-footer-row {
+  text-align: right;
+}
+
+.frunze-table-data-row {
+
+}
