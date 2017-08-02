@@ -127,9 +127,21 @@ export class SoftwareEditorViewComponent implements OnInit {
     this.dragEnterCounter = 0;
 
     const componentType = e.dataTransfer.getData(e.dataTransfer.types[0]);
-    if (this.componentSchemas.has(componentType)) {
+    const componentSchema = this.componentSchemas.get(componentType);
+    if (componentSchema) {
+      const defaultComponentProperties = new Map(
+        Array.from(componentSchema.properties).map(([propertyKey, propertySchema]) => {
+          return [propertyKey, propertySchema.defaultValue] as [string, string]
+        })
+      );
+
       this.project.components.push(
-        new ProjectComponent(Guid.generate(), componentType, new Map(), new Map())
+        new ProjectComponent(
+          Guid.generate(),
+          componentType,
+          defaultComponentProperties,
+          new Map()
+        )
       );
     } else {
       throw new Error(`Unknown component type '${componentType}'.`);
