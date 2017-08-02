@@ -3,3 +3,7 @@
   flex-direction: column;
   height: 100%;
 }
+
+.frunze-bom-price {
+  text-align: right;
+}
