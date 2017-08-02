@@ -142,8 +142,8 @@ export class SoftwareEditorViewComponent implements OnInit {
     });
   }
 
-  async onGoToProjectMetadata() {
-    await this.router.navigate([`promo/project/metadata/${this.project.id}`]);
+  onEdit() {
+    this.router.navigate([`promo/project/metadata/${this.project.id}`]);
   }
 
   setActiveComponent(component: ProjectComponent) {

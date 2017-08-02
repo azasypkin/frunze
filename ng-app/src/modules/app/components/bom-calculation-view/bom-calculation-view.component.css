@@ -4,6 +4,28 @@
   height: 100%;
 }
 
-.frunze-bom-price {
+.frunze-bom-link-header {
+  width: 50%;
+}
+
+.frunze-bom-unit-price-header,
+.frunze-bom-total-price-header {
+  width: 7%;
+}
+
+.frunze-bom-count-header {
+  width: 5%;
+}
+
+.frunze-bom-counter-header {
+  width: 1%;
+}
+
+.frunze-bom-count-header,
+.frunze-bom-count-content,
+.frunze-bom-unit-price-header,
+.frunze-bom-unit-price-content,
+.frunze-bom-total-price-header,
+.frunze-bom-total-price-content {
   text-align: right;
 }

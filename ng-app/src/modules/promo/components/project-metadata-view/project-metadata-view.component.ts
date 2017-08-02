@@ -128,7 +128,7 @@ export class ProjectMetadataViewComponent implements OnInit {
     });
   }
 
-  onGoToProjects() {
+  onCancel() {
     this.router.navigate(['promo/projects']);
   }
 

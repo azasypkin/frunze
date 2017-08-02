@@ -3,12 +3,12 @@
   <table *ngIf="bom.items.length > 0" class="frunze-table">
     <thead>
     <tr class="frunze-table-header-row">
-      <th>#</th>
-      <th>Component</th>
-      <th>Link</th>
-      <th>Count</th>
-      <th>Unit price</th>
-      <th>Total price</th>
+      <th class="frunze-bom-counter-header">#</th>
+      <th class="frunze-bom-component-header">Component</th>
+      <th class="frunze-bom-link-header">Distributors link</th>
+      <th class="frunze-bom-count-header">Count</th>
+      <th class="frunze-bom-unit-price-header">Unit price</th>
+      <th class="frunze-bom-total-price-header">Total price</th>
     </tr>
     </thead>
     <tbody>
@@ -19,20 +19,26 @@
         <a *ngIf="item.url" [href]="item.url" target="_blank">{{item.url}}</a>
         <span *ngIf="!item.url">n/a</span>
       </td>
-      <td>{{item.count}}</td>
-      <td class="frunze-bom-price">{{item.price + ' $' || 'n/a'}}</td>
-      <td class="frunze-bom-price">{{item.price ? (item.count * item.price) + ' $' : 'n/a'}}</td>
+      <td class="frunze-bom-count-content">{{item.count}}</td>
+      <td class="frunze-bom-unit-price-content">
+        {{item.price ? item.price.toFixed(2) + ' $' : 'n/a'}}
+      </td>
+      <td class="frunze-bom-total-price-content">
+        {{item.price ? (item.count * item.price).toFixed(2) + ' $' : 'n/a'}}
+      </td>
     </tr>
     </tbody>
     <tfoot>
     <tr class="frunze-table-footer-row">
-      <td colspan="5"><b>Total:</b></td>
-      <td class="frunze-bom-price"><b>{{bom.totalPrice}} $</b></td>
+      <td colspan="5" class="frunze-bom-total-price-content"><b>Total:</b></td>
+      <td class="frunze-bom-total-price-content">
+        <b>{{bom.totalPrice ? bom.totalPrice.toFixed(2) + ' $' : 'n/a'}}</b>
+      </td>
     </tr>
     </tfoot>
   </table>
   <div>
-    <button type="button" class="frunze-button" (click)="onGoToProjectSoftware()">To Metadata</button>
+    <button type="button" class="frunze-button" (click)="onEdit()">Edit</button>
     <button type="button" class="frunze-button" (click)="onNext()">Next</button>
   </div>
 </article>

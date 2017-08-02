@@ -63,7 +63,7 @@ export class BomCalculationViewComponent implements OnInit {
     });
   }
 
-  onGoToProjectSoftware() {
+  onEdit() {
     this.router.navigate([`promo/project/software/${this.project.id}`]);
   }
 
@@ -107,7 +107,7 @@ export class BomCalculationViewComponent implements OnInit {
       const bestOffer = part.offers.find((offer) => offer.moq === 1 && offer.prices.has(1));
       if (bestOffer) {
         item.price = bestOffer.prices.get(1);
-        this.bom.totalPrice += item.price * item.count;
+        this.bom.totalPrice += (item.price * item.count);
       }
     }
   }
