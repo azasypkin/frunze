@@ -12,6 +12,7 @@ import {ProjectService} from './services/project.service';
 
 import {BootstrapComponent} from './components/bootstrap/bootstrap.component';
 import {ModalDialogComponent} from './components/modal-dialog/modal-dialog.component';
+import {SchematicViewComponent} from './components/schematic-view/schematic-view.component';
 import {SoftwareEditorViewComponent} from './components/software-editor-view/software-editor-view.component';
 import {BomCalculationViewComponent} from './components/bom-calculation-view/bom-calculation-view.component';
 import {
@@ -28,6 +29,7 @@ import {AppRoutingModule} from './app-routing.module';
   declarations: [
     BootstrapComponent,
     ModalDialogComponent,
+    SchematicViewComponent,
     SoftwareEditorViewComponent,
     BomCalculationViewComponent,
     ExpandableGroupsComponent,

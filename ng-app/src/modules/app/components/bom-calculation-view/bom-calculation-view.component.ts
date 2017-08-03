@@ -59,7 +59,7 @@ export class BomCalculationViewComponent implements OnInit {
 
   onNext() {
     this.projectService.saveProject(this.project).subscribe(() => {
-      console.log('Project successfully saved.');
+      this.router.navigate([`promo/project/schematic/${this.project.id}`]);
     });
   }
 

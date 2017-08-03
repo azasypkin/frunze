@@ -1,0 +1,5 @@
+.frunze-schematic-view-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
