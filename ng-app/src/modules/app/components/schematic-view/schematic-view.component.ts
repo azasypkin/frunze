@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {Observable} from 'rxjs/Observable';
 
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/forkJoin';
 
-import {ComponentsService} from '../../services/components.service';
 import {ProjectService} from '../../services/project.service';
+import {SchematicService} from '../../services/schematic.service';
 import {Project} from '../../core/projects/project';
-import {ComponentSchema} from '../../core/components/component-schema';
 
 @Component({
   templateUrl: 'schematic-view.component.html',
@@ -17,36 +17,41 @@ import {ComponentSchema} from '../../core/components/component-schema';
 })
 export class SchematicViewComponent implements OnInit {
   project: Project;
-  componentSchemas: Map<string, ComponentSchema>;
+  schematic: SafeUrl;
 
   constructor(private route: ActivatedRoute, private router: Router,
+              private sanitizer: DomSanitizer,
               private projectService: ProjectService,
-              private componentsService: ComponentsService) {
+              private schematicService: SchematicService) {
   }
 
   ngOnInit(): void {
     this.route.params
         .switchMap((params: Params) => {
           return Observable.forkJoin(
-            this.componentsService.getSchemas(),
+            this.schematicService.getProjectSchematic(params['id']),
             this.projectService.getProject(params['id'])
           )
         })
-        .subscribe(([schemas, project]) => {
+        .subscribe(([schematic, project]) => {
           this.project = project;
-          this.componentSchemas = schemas;
-        },(e) => {
-          console.error('Error occurred while retrieving of project.', e)
+          this.schematic = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(schematic));
+        }, (e) => {
+          console.error('Error occurred while retrieving of project schematic.', e)
         });
   }
 
   onNext() {
+    window.URL.revokeObjectURL(this.schematic as string);
+
     this.projectService.saveProject(this.project).subscribe(() => {
       console.log('Project successfully saved.');
     });
   }
 
   onEdit() {
+    window.URL.revokeObjectURL(this.schematic as string);
+
     this.router.navigate([`promo/project/bom/${this.project.id}`]);
   }
 }

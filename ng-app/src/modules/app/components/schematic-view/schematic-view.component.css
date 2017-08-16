@@ -3,3 +3,8 @@
   flex-direction: column;
   height: 100%;
 }
+
+.frunze-schematic-preview {
+  width: 100%;
+  height: 100%;
+}
