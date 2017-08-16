@@ -9,6 +9,7 @@ import {BomService} from './services/bom.service';
 import {ComponentsService} from './services/components.service';
 import {ModalDialogService} from './services/modal-dialog.service';
 import {ProjectService} from './services/project.service';
+import {SchematicService} from './services/schematic.service';
 
 import {BootstrapComponent} from './components/bootstrap/bootstrap.component';
 import {ModalDialogComponent} from './components/modal-dialog/modal-dialog.component';
@@ -44,7 +45,14 @@ import {AppRoutingModule} from './app-routing.module';
     PromoModule,
     AppRoutingModule
   ],
-  providers: [Config, BomService, ComponentsService, ModalDialogService, ProjectService],
+  providers: [
+    Config,
+    BomService,
+    ComponentsService,
+    ModalDialogService,
+    ProjectService,
+    SchematicService
+  ],
   bootstrap: [BootstrapComponent],
   entryComponents: [TriggersEditorDialogComponent]
 })
