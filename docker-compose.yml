@@ -24,3 +24,9 @@ services:
     volumes:
       - ./db/data-files:/data/db
       - ./db/preloaded:/data/preloaded
+
+  fritzing:
+    build: fritzing
+    ports:
+      - "8010:8010"
+    network_mode: "host"

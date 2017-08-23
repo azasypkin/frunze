@@ -60,6 +60,28 @@ To stop mongoDB:
 $ docker-compose stop db
 ``` 
 
+### Fritzing
+
+Frunze uses [Fritzing](http://fritzing.org/home/) to work with project schematic (build, export to SVG etc.). To save you
+some time we provide Docker image with the latest compiled Fritzing ready for your disposal. When you run Fritzing
+container for the first time you'll have to create it:
+
+```bash
+$ docker-compose create fritzing
+```
+
+After that just run it:
+
+```bash
+$ docker-compose run fritzing
+``` 
+
+To stop Fritzing container:
+
+```bash
+$ docker-compose stop fritzing
+``` 
+
 Checkout `docker-compose.yml` for default settings that you can modify if you want to.
 
 ### API Server
