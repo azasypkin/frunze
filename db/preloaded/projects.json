@@ -10,13 +10,13 @@
       "mic",
       "speaker"
     ],
-    "platform": "psf-a85",
+    "platform": "wemos-d1-mini",
     "components": [
       {
         "id": "8d5a105f-6e62-46d1-a160-9262547bdaea",
-        "type": "hardware-platform-psf-a85",
+        "type": "hardware-platform-wemos-d1-mini",
         "properties": {
-          "name": "Main Module"
+          "name": "Main Module (Wemos D1 Mini)"
         },
         "triggers": {}
       },

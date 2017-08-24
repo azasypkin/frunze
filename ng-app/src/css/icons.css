@@ -1,129 +1,133 @@
 /* Platform icons */
 
 .project-entity-icon {
-    background: no-repeat center center;
-    background-size: contain;
+  background: no-repeat center center;
+  background-size: contain;
 }
 
 .project-entity-icon-platform-attiny {
-    background-image: url("../assets/images/icons/platforms/attiny.png");
+  background-image: url("../assets/images/icons/platforms/attiny.png");
 }
 
 .project-entity-icon-platform-raspberry-pi-zero-w {
-    background-image: url("../assets/images/icons/platforms/raspberry-pi-zero-w.png");
+  background-image: url("../assets/images/icons/platforms/raspberry-pi-zero-w.png");
 }
 
 .project-entity-icon-platform-raspberry-pi-3 {
-    background-image: url("../assets/images/icons/platforms/raspberry-pi-3.png");
+  background-image: url("../assets/images/icons/platforms/raspberry-pi-3.png");
 }
 
 .project-entity-icon-platform-psf-a85 {
-    background-image: url("../assets/images/icons/platforms/psf-a85.png");
+  background-image: url("../assets/images/icons/platforms/psf-a85.png");
 }
 
 .project-entity-icon-platform-tessel-2 {
-    background-image: url("../assets/images/icons/platforms/tessel-2.png");
+  background-image: url("../assets/images/icons/platforms/tessel-2.png");
+}
+
+.project-entity-icon-platform-wemos-d1-mini {
+  background-image: url("../assets/images/icons/platforms/wemos-d1-mini.png");
 }
 
 /* Capability icons */
 
 /* Capability Connection icons */
 .project-entity-icon-capability-wifi {
-    background-image: url("../assets/images/icons/capabilities/wifi.png");
+  background-image: url("../assets/images/icons/capabilities/wifi.png");
 }
 
 .project-entity-icon-capability-ethernet {
-    background-image: url("../assets/images/icons/capabilities/ethernet.png");
+  background-image: url("../assets/images/icons/capabilities/ethernet.png");
 }
 
 .project-entity-icon-capability-bluetooth {
-    background-image: url("../assets/images/icons/capabilities/bluetooth.png");
+  background-image: url("../assets/images/icons/capabilities/bluetooth.png");
 }
 
 .project-entity-icon-capability-cellular {
-    background-image: url("../assets/images/icons/capabilities/cellular.png");
+  background-image: url("../assets/images/icons/capabilities/cellular.png");
 }
 
 .project-entity-icon-capability-nfc {
-    background-image: url("../assets/images/icons/capabilities/nfc.png");
+  background-image: url("../assets/images/icons/capabilities/nfc.png");
 }
 
 .project-entity-icon-capability-lora {
-    background-image: url("../assets/images/icons/capabilities/lora.png");
+  background-image: url("../assets/images/icons/capabilities/lora.png");
 }
 
 /* Capability Indicators icons */
 .project-entity-icon-capability-led {
-    background-image: url("../assets/images/icons/capabilities/led.png");
+  background-image: url("../assets/images/icons/capabilities/led.png");
 }
 
 .project-entity-icon-capability-led-display {
-    background-image: url("../assets/images/icons/capabilities/led-display.png");
+  background-image: url("../assets/images/icons/capabilities/led-display.png");
 }
 
 .project-entity-icon-capability-lcd-display {
-    background-image: url("../assets/images/icons/capabilities/lcd-display.png");
+  background-image: url("../assets/images/icons/capabilities/lcd-display.png");
 }
 
 .project-entity-icon-capability-speaker {
-    background-image: url("../assets/images/icons/capabilities/speaker.png");
+  background-image: url("../assets/images/icons/capabilities/speaker.png");
 }
 
 .project-entity-icon-capability-beeper {
-    background-image: url("../assets/images/icons/capabilities/beeper.png");
+  background-image: url("../assets/images/icons/capabilities/beeper.png");
 }
 
 /* Capability Sensor and Inputs icons */
 .project-entity-icon-capability-light {
-    background-image: url("../assets/images/icons/capabilities/light.png");
+  background-image: url("../assets/images/icons/capabilities/light.png");
 }
 
 .project-entity-icon-capability-mic {
-    background-image: url("../assets/images/icons/capabilities/mic.png");
+  background-image: url("../assets/images/icons/capabilities/mic.png");
 }
 
 .project-entity-icon-capability-humidity {
-    background-image: url("../assets/images/icons/capabilities/humidity.png");
+  background-image: url("../assets/images/icons/capabilities/humidity.png");
 }
 
 .project-entity-icon-capability-motion {
-    background-image: url("../assets/images/icons/capabilities/motion.png");
+  background-image: url("../assets/images/icons/capabilities/motion.png");
 }
 
 .project-entity-icon-capability-temperature {
-    background-image: url("../assets/images/icons/capabilities/temperature.png");
+  background-image: url("../assets/images/icons/capabilities/temperature.png");
 }
 
 .project-entity-icon-capability-air-pollution {
-    background-image: url("../assets/images/icons/capabilities/air-pollution.png");
+  background-image: url("../assets/images/icons/capabilities/air-pollution.png");
 }
 
 .project-entity-icon-capability-magnetic {
-    background-image: url("../assets/images/icons/capabilities/magnetic.png");
+  background-image: url("../assets/images/icons/capabilities/magnetic.png");
 }
 
 /* Capability Mechanical icons */
 .project-entity-icon-capability-dc-motor {
-    background-image: url("../assets/images/icons/capabilities/dc-motor.png");
+  background-image: url("../assets/images/icons/capabilities/dc-motor.png");
 }
 
 .project-entity-icon-capability-servo-motor {
-    background-image: url("../assets/images/icons/capabilities/servo-motor.png");
+  background-image: url("../assets/images/icons/capabilities/servo-motor.png");
 }
 
 .project-entity-icon-capability-vibration-motor {
-    background-image: url("../assets/images/icons/capabilities/vibration-motor.png");
+  background-image: url("../assets/images/icons/capabilities/vibration-motor.png");
 }
 
 /* Capability Switches */
 .project-entity-icon-capability-momentary-switch {
-    background-image: url("../assets/images/icons/capabilities/momentary-switch.png");
+  background-image: url("../assets/images/icons/capabilities/momentary-switch.png");
 }
 
 .project-entity-icon-capability-maintained-switch {
-    background-image: url("../assets/images/icons/capabilities/maintained-switch.png");
+  background-image: url("../assets/images/icons/capabilities/maintained-switch.png");
 }
 
 .project-entity-icon-capability-rotary-switch {
-    background-image: url("../assets/images/icons/capabilities/rotary-switch.png");
+  background-image: url("../assets/images/icons/capabilities/rotary-switch.png");
 }

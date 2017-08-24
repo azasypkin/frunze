@@ -84,6 +84,27 @@
     ]
   },
   {
+    "type": "wemos-d1-mini",
+    "name": "Wemos D1 Mini board",
+    "description": "A mini wifi board with 4MB flash based on ESP-8266EX.",
+    "capabilities": [
+      "uart",
+      "wifi",
+      "led",
+      "speaker",
+      "beeper",
+      "mic",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
     "type": "tessel-2",
     "name": "Tessel 2",
     "description": "The Tessel 2 development board.",

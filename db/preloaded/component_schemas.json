@@ -28,6 +28,34 @@
     "triggers": {}
   },
   {
+    "type": "hardware-platform-wemos-d1-mini",
+    "name": "Wemos D1 Mini board",
+    "description": "A mini wifi board with 4MB flash based on ESP-8266EX.",
+    "mpn": "ZC884300",
+    "properties": {
+      "name": {
+        "type": "name",
+        "kind": "custom",
+        "name": "Name",
+        "description": "Unique name of the main platform component.",
+        "defaultValue": "Platform"
+      }
+    },
+    "actions": {
+      "on": {
+        "type": "on",
+        "name": "Turn on",
+        "description": "Turns on Wemos D1 Mini board."
+      },
+      "off": {
+        "type": "off",
+        "name": "Turn off",
+        "description": "Turns off Wemos D1 Mini board."
+      }
+    },
+    "triggers": {}
+  },
+  {
     "type": "hardware-connection-wifi",
     "name": "WiFi Connection",
     "description": "Enables WiFi connectivity.",
