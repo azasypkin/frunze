@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -54,16 +54,12 @@ interface RawPropertySchema {
 export class ComponentsService {
   private schemas: Observable<Map<string, ComponentSchema>> = null;
 
-  private static handleError(error: Response | Error) {
-    let errorMessage: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      errorMessage = `${error.status} - ${error.statusText || ''} ${body.error || JSON.stringify(body)}`;
-    } else if (error instanceof Error) {
-      errorMessage = error.message ? error.message : error.toString();
-    }
+  private static handleError(error: HttpErrorResponse) {
+    const errorMessage: string = error.error instanceof Error
+      ? error.error.message
+      : error.message;
 
-    console.error(errorMessage);
+    console.log(error);
     return Observable.throw(errorMessage);
   }
 
@@ -189,16 +185,15 @@ export class ComponentsService {
    * @returns {Array.<T>}
    * @private
    */
-  private static constructCollection<T>(response: Response, constructor: (rawItem: any) => T): T[] {
-    const jsonRawValue = response.json();
-    if (!jsonRawValue) {
+  private static constructCollection<T>(response: any, constructor: (rawItem: any) => T): T[] {
+    if (!response) {
       return [];
     }
 
-    return jsonRawValue.map((rawItem) => constructor(rawItem));
+    return response.map((rawItem) => constructor(rawItem));
   }
 
-  constructor(private config: Config, private http: Http) {
+  constructor(private config: Config, private http: HttpClient) {
   }
 
   getGroups(): Observable<ComponentGroup[]> {
@@ -220,7 +215,7 @@ export class ComponentsService {
     }
 
     return this.schemas = this.http.get(`${this.config.apiDomain}/${APIPaths.schemas}`)
-      .map((response: Response) => {
+      .map((response) => {
         const schemas = new Map(
           ComponentsService.constructCollection(response, ComponentsService.constructComponentSchema).map(
             (schema) => [schema.type, schema] as [string, ComponentSchema]

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -30,20 +30,16 @@ export class ProjectService {
   private capabilityGroups: Observable<ProjectCapabilityGroup[]> = null;
   private platforms: Observable<ProjectPlatform[]> = null;
 
-  private static handleError(error: Response | any) {
-    let errorMessage: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      errorMessage = `${error.status} - ${error.statusText || ''} ${body.error || JSON.stringify(body)}`;
-    } else {
-      errorMessage = error.message ? error.message : error.toString();
-    }
+  private static handleError(error: HttpErrorResponse) {
+    const errorMessage: string = error.error instanceof Error
+      ? error.error.message
+      : error.message;
 
-    console.error(errorMessage);
+    console.log(error);
     return Observable.throw(errorMessage);
   }
 
-  constructor(private config: Config, private http: Http) {
+  constructor(private config: Config, private http: HttpClient) {
   }
 
   /**
@@ -57,12 +53,11 @@ export class ProjectService {
       this.getPlatforms(),
       this.http.get(`${this.config.apiDomain}/${APIPaths.project}/${id}`)
     ).map(([capabilities, platforms, response]) => {
-      const jsonResponse = response.json();
-      if (!jsonResponse) {
+      if (!response) {
         return null;
       }
 
-      return this.constructProject(capabilities, platforms, jsonResponse);
+      return this.constructProject(capabilities, platforms, response);
     })
     .catch(ProjectService.handleError);
   }
@@ -73,10 +68,10 @@ export class ProjectService {
    * @returns {Observable<Project>} Project that has been saved.
    */
   saveProject(project: Project): Observable<Project> {
-    return this.http.post(`${this.config.apiDomain}/${APIPaths.project}`, project.toJSON())
+    return this.http.post(`${this.config.apiDomain}/${APIPaths.project}`, project.toJSON(), {responseType: 'text'})
       .map((response) => {
         return new Project(
-          response.text(),
+          response,
           project.name,
           project.description,
           project.capabilities,
@@ -125,7 +120,7 @@ export class ProjectService {
     }
 
     return this.capabilities = this.http.get(`${this.config.apiDomain}/${APIPaths.projectCapabilities}`)
-      .map((response: Response) => {
+      .map((response) => {
         const capabilities = this.constructCollection<ProjectCapability>(
           response,
           this.constructCapability.bind(this)
@@ -295,12 +290,11 @@ export class ProjectService {
    * @returns {Array.<T>}
    * @private
    */
-  private constructCollection<T>(response: Response, constructor: (rawItem: any) => T): T[] {
-    const jsonRawValue = response.json();
-    if (!jsonRawValue) {
+  private constructCollection<T>(response, constructor: (rawItem: any) => T): T[] {
+    if (!response) {
       return [];
     }
 
-    return jsonRawValue.map((rawItem) => constructor(rawItem));
+    return response.map((rawItem) => constructor(rawItem));
   }
 }

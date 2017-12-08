@@ -1,6 +1,6 @@
-import {TestBed, async, inject} from '@angular/core/testing';
-import {HttpModule, XHRBackend, Response, ResponseOptions} from '@angular/http';
-import {MockBackend, MockConnection} from '@angular/http/testing';
+import {async, inject, TestBed} from '@angular/core/testing';
+
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 
 import {Config} from '../config';
 
@@ -14,33 +14,21 @@ describe('Services/ComponentsService', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule],
+      imports: [HttpClientTestingModule],
       providers: [
-        {provide: XHRBackend, useClass: MockBackend},
         Config,
         ComponentsService
       ]
     });
+
+    backend = TestBed.get(HttpTestingController);
   }));
 
-  beforeEach(inject([ComponentsService, XHRBackend], (componentService, mockBackend) => {
+  beforeEach(inject([ComponentsService], (componentService) => {
     service = componentService;
-    backend = mockBackend;
   }));
 
   it('getGroups() correctly calls backend to fetch component groups', async(() => {
-    backend.connections.subscribe((connection: MockConnection) => {
-      const options = new ResponseOptions({
-        body: JSON.stringify([{
-          type: 'test group#1',
-          name: 'test Group #1',
-          description: 'test Group #1 Description',
-          items: [{type: 'test type#11', name: 'test Item #11', description: 'test Item #11 Description'}]
-        }])
-      });
-      connection.mockRespond(new Response(options));
-    });
-
     service.getGroups()
       .subscribe((groups: ComponentGroup[]) => {
         expect(groups.length).toEqual(1);
@@ -60,6 +48,29 @@ describe('Services/ComponentsService', () => {
       }, (e) => {
         console.error('Error occurred while retrieving of component groups.', e);
       });
+
+    backend
+      .expectOne('http://0.0.0.0:8009/component-groups')
+      .flush([{
+        type: 'test group#1',
+        name: 'test Group #1',
+        description: 'test Group #1 Description',
+        items: ['test type#11']
+      }]);
+
+    backend
+      .expectOne('http://0.0.0.0:8009/component-schemas')
+      .flush([{
+        type: 'test type#11',
+        name: 'test Item #11',
+        description: 'test Item #11 Description',
+        mpn: '2821',
+        properties: {},
+        actions: {},
+        triggers: {}
+      }]);
+
+    backend.verify();
   }));
 });
 

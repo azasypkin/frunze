@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -37,16 +37,12 @@ interface RawPart {
 
 @Injectable()
 export class BomService {
-  private static handleError(error: Response | Error) {
-    let errorMessage: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      errorMessage = `${error.status} - ${error.statusText || ''} ${body.error || JSON.stringify(body)}`;
-    } else if (error instanceof Error) {
-      errorMessage = error.message ? error.message : error.toString();
-    }
+  private static handleError(error: HttpErrorResponse) {
+    const errorMessage: string = error.error instanceof Error
+      ? error.error.message
+      : error.message;
 
-    console.error(errorMessage);
+    console.log(error);
     return Observable.throw(errorMessage);
   }
 
@@ -81,20 +77,19 @@ export class BomService {
     return new Part(rawPart.uid, rawPart.mpn, rawPart.url, offers);
   }
 
-  constructor(private config: Config, private http: Http) {
+  constructor(private config: Config, private http: HttpClient) {
   }
 
   getForMpns(mpns: string[]): Observable<Map<string, Part>> {
     return this.http.get(`${this.config.apiDomain}/bom/${APIPaths.parts}/${mpns.join(',')}`)
-      .map((response: Response) => {
-        const jsonRawValue = response.json();
-        if (!jsonRawValue) {
+      .map((response) => {
+        if (!response) {
           return new Map();
         }
 
         return new Map(
-          Object.keys(jsonRawValue).map((mpn) => {
-            return [mpn, BomService.constructPart(jsonRawValue[mpn] as RawPart)] as [string, Part]
+          Object.keys(response).map((mpn) => {
+            return [mpn, BomService.constructPart(response[mpn] as RawPart)] as [string, Part]
           })
         );
       })

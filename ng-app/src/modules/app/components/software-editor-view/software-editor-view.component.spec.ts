@@ -1,8 +1,8 @@
 import {TestBed, async} from '@angular/core/testing';
 import {ReactiveFormsModule} from '@angular/forms';
-import {HttpModule, XHRBackend} from '@angular/http';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+
 import {ActivatedRoute, Router} from '@angular/router';
-import {MockBackend} from '@angular/http/testing';
 import {Observable} from 'rxjs/Observable';
 import {By} from '@angular/platform-browser';
 
@@ -30,7 +30,7 @@ describe('Components/SoftwareEditorViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpModule, ReactiveFormsModule],
+      imports: [HttpClientTestingModule, ReactiveFormsModule],
       declarations: [
         SoftwareEditorViewComponent,
         ExpandableGroupsComponent,
@@ -38,7 +38,6 @@ describe('Components/SoftwareEditorViewComponent', () => {
         TriggerEditorComponent
       ],
       providers: [
-        {provide: XHRBackend, useClass: MockBackend},
         {provide: ActivatedRoute, useClass: ActivatedRouteStub},
         {provide: Router, useClass: RouterStub},
         Config,

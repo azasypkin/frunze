@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -13,20 +13,16 @@ const APIPaths = Object.freeze({
 
 @Injectable()
 export class SchematicService {
-  private static handleError(error: Response | any) {
-    let errorMessage: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      errorMessage = `${error.status} - ${error.statusText || ''} ${body.error || JSON.stringify(body)}`;
-    } else {
-      errorMessage = error.message ? error.message : error.toString();
-    }
+  private static handleError(error: HttpErrorResponse) {
+    const errorMessage: string = error.error instanceof Error
+      ? error.error.message
+      : error.message;
 
-    console.error(errorMessage);
+    console.log(error);
     return Observable.throw(errorMessage);
   }
 
-  constructor(private config: Config, private http: Http) {
+  constructor(private config: Config, private http: HttpClient) {
   }
 
   /**
@@ -36,14 +32,13 @@ export class SchematicService {
    */
   getProjectSchematic(projectId: string): Observable<Blob> {
     return this.http
-      .get(`${this.config.apiDomain}/${APIPaths.schematic}/${projectId}`)
+      .get(`${this.config.apiDomain}/${APIPaths.schematic}/${projectId}`, {responseType: 'text'})
       .map((response) => {
-        const textResponse = response.text();
-        if (!textResponse) {
+        if (!response) {
           return null;
         }
 
-        return new Blob([textResponse], {type: 'image/svg+xml'});
+        return new Blob([response], {type: 'image/svg+xml'});
       })
     .catch(SchematicService.handleError);
   }

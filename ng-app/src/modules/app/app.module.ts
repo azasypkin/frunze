@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 
 import {Config} from './config';
 
@@ -16,9 +16,7 @@ import {ModalDialogComponent} from './components/modal-dialog/modal-dialog.compo
 import {SchematicViewComponent} from './components/schematic-view/schematic-view.component';
 import {SoftwareEditorViewComponent} from './components/software-editor-view/software-editor-view.component';
 import {BomCalculationViewComponent} from './components/bom-calculation-view/bom-calculation-view.component';
-import {
-  TriggersEditorDialogComponent
-} from './components/dialogs/triggers-editor-dialog/triggers-editor-dialog.component';
+import {TriggersEditorDialogComponent} from './components/dialogs/triggers-editor-dialog/triggers-editor-dialog.component';
 import {ExpandableGroupsComponent} from './components/expandable-groups/expandable-groups.component';
 import {PropertyEditorComponent} from './components/property-editor/property-editor.component'
 import {TriggerEditorComponent} from './components/trigger-editor/trigger-editor.component'
@@ -41,7 +39,7 @@ import {AppRoutingModule} from './app-routing.module';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     PromoModule,
     AppRoutingModule
   ],
