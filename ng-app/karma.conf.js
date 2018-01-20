@@ -38,7 +38,14 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: [process.env.TRAVIS ? 'ChromeHeadless' : 'Chrome'],
+    browsers: [process.env.TRAVIS ? 'ChromeNoSandbox' : 'Chrome'],
+    // See https://docs.travis-ci.com/user/chrome#Sandboxing
+    customLaunchers: {
+      ChromeNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
     singleRun: false
   });
 };
