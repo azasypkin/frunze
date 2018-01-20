@@ -47,7 +47,7 @@ Usually you don't have to deal with the DB itself too much, so you can leverage 
 exposed port:
 
 ```bash
-$ docker-compose create db
+$ docker-compose up --no-start db
 $ docker-compose start db
 ``` 
 
@@ -67,7 +67,7 @@ some time we provide Docker image with the latest compiled Fritzing ready for yo
 container for the first time you'll have to create it:
 
 ```bash
-$ docker-compose create fritzing
+$ docker-compose up --no-start fritzing
 ```
 
 After that just run it:
