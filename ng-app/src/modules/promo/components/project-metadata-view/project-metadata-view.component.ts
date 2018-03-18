@@ -1,21 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
-import {ProjectService} from '../../../app/services/project.service';
+import { ProjectService } from '../../../app/services/project.service';
 
-import {Project} from '../../../app/core/projects/project';
-import {ProjectCapability} from '../../../app/core/projects/project-capability';
-import {ProjectCapabilityGroup} from '../../../app/core/projects/project-capability-group';
-import {ProjectPlatform} from '../../../app/core/projects/project-platform';
+import { Project } from '../../../app/core/projects/project';
+import { ProjectCapability } from '../../../app/core/projects/project-capability';
+import { ProjectCapabilityGroup } from '../../../app/core/projects/project-capability-group';
+import { ProjectPlatform } from '../../../app/core/projects/project-platform';
 
 @Component({
   templateUrl: 'project-metadata-view.component.html',
-  styleUrls: ['project-metadata-view.component.css']
+  styleUrls: ['project-metadata-view.component.css'],
 })
 export class ProjectMetadataViewComponent implements OnInit {
   project: Project;
@@ -26,13 +26,17 @@ export class ProjectMetadataViewComponent implements OnInit {
 
   projectEditor: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
-              private projectService: ProjectService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private projectService: ProjectService
+  ) {
     this.projectEditor = this.formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
       capabilities: this.formBuilder.array([]),
-      platform: ['', Validators.required]
+      platform: ['', Validators.required],
     });
   }
 
@@ -41,9 +45,15 @@ export class ProjectMetadataViewComponent implements OnInit {
 
     // FIXME: Use reverse capability-group index to quickly check needed capabilities.
     this.project.capabilities.forEach((projectCapability) => {
-      for (let groupIndex = 0; groupIndex < this.capabilityGroups.length; groupIndex++) {
-        const capabilityIndex = this.capabilityGroups[groupIndex].capabilities.findIndex(
-            (capability) => capability.type === projectCapability.type
+      for (
+        let groupIndex = 0;
+        groupIndex < this.capabilityGroups.length;
+        groupIndex++
+      ) {
+        const capabilityIndex = this.capabilityGroups[
+          groupIndex
+        ].capabilities.findIndex(
+          (capability) => capability.type === projectCapability.type
         );
 
         if (capabilityIndex >= 0) {
@@ -56,7 +66,7 @@ export class ProjectMetadataViewComponent implements OnInit {
     this.projectEditor.patchValue({
       name: this.project.name,
       description: this.project.description,
-      platform: this.project.platform ? this.project.platform.type : ''
+      platform: this.project.platform ? this.project.platform.type : '',
     });
   }
 
@@ -64,14 +74,18 @@ export class ProjectMetadataViewComponent implements OnInit {
     this.capabilityGroups = capabilityGroups;
 
     const capabilityGroupsControl = this.formBuilder.array(
-      capabilityGroups.map(
-        (group) => this.formBuilder.array(
-            group.capabilities.map((capability) => this.formBuilder.control(false))
+      capabilityGroups.map((group) =>
+        this.formBuilder.array(
+          group.capabilities.map((capability) =>
+            this.formBuilder.control(false)
+          )
         )
       )
     );
 
-    capabilityGroupsControl.valueChanges.forEach(() => this.onCapabilityChanged());
+    capabilityGroupsControl.valueChanges.forEach(() =>
+      this.onCapabilityChanged()
+    );
 
     this.projectEditor.setControl('capabilities', capabilityGroupsControl);
   }
@@ -82,9 +96,15 @@ export class ProjectMetadataViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.projectService.getCapabilities().subscribe((capabilities) => this.capabilities = capabilities);
-    this.projectService.getCapabilityGroups().subscribe((groups) => this.updateCapabilityGroups(groups));
-    this.projectService.getPlatforms().subscribe((platforms) => this.updatePlatforms(platforms));
+    this.projectService
+      .getCapabilities()
+      .subscribe((capabilities) => (this.capabilities = capabilities));
+    this.projectService
+      .getCapabilityGroups()
+      .subscribe((groups) => this.updateCapabilityGroups(groups));
+    this.projectService
+      .getPlatforms()
+      .subscribe((platforms) => this.updatePlatforms(platforms));
 
     this.route.params
       .switchMap((params: Params) => {
@@ -92,14 +112,25 @@ export class ProjectMetadataViewComponent implements OnInit {
           return this.projectService.getProject(params['id']);
         }
 
-        return Observable.of(new Project('', 'New Project', 'New Project Description', [], null, []));
+        return Observable.of(
+          new Project(
+            '',
+            'New Project',
+            'New Project Description',
+            [],
+            null,
+            []
+          )
+        );
       })
       .subscribe((project: Project) => this.updateProject(project));
   }
 
   onNext() {
     const capabilities = [];
-    const capabilitiesEditor = this.projectEditor.get('capabilities') as FormArray;
+    const capabilitiesEditor = this.projectEditor.get(
+      'capabilities'
+    ) as FormArray;
 
     this.capabilityGroups.forEach((group, groupIndex) => {
       group.capabilities.forEach((capability, capabilityIndex) => {
@@ -114,12 +145,14 @@ export class ProjectMetadataViewComponent implements OnInit {
 
     // Update project.
     this.project = new Project(
-        this.project.id,
-        this.projectEditor.get('name').value.toString(),
-        this.projectEditor.get('description').value.toString(),
-        capabilities,
-        platformType ? this.platforms.find((platform) => platform.type === platformType) : null,
-        this.project.components
+      this.project.id,
+      this.projectEditor.get('name').value.toString(),
+      this.projectEditor.get('description').value.toString(),
+      capabilities,
+      platformType
+        ? this.platforms.find((platform) => platform.type === platformType)
+        : null,
+      this.project.components
     );
 
     // Now we should save the project and edit its software part.
@@ -144,11 +177,21 @@ export class ProjectMetadataViewComponent implements OnInit {
   updateNotSupportedPlatforms() {
     // TODO: Very ineffective way of handling the use case, migrate to Map's.
     this.notSupportedPlatforms = new Set();
-    const capabilitiesEditor = this.projectEditor.get('capabilities') as FormArray;
+    const capabilitiesEditor = this.projectEditor.get(
+      'capabilities'
+    ) as FormArray;
 
-    for (let groupIndex = 0; groupIndex < this.capabilityGroups.length; groupIndex++) {
+    for (
+      let groupIndex = 0;
+      groupIndex < this.capabilityGroups.length;
+      groupIndex++
+    ) {
       const group = this.capabilityGroups[groupIndex];
-      for (let capabilityIndex = 0; capabilityIndex < group.capabilities.length; capabilityIndex++) {
+      for (
+        let capabilityIndex = 0;
+        capabilityIndex < group.capabilities.length;
+        capabilityIndex++
+      ) {
         const capabilityEditor = capabilitiesEditor.at(groupIndex) as FormArray;
         if (!capabilityEditor.at(capabilityIndex).value) {
           continue;
@@ -163,7 +206,10 @@ export class ProjectMetadataViewComponent implements OnInit {
           }
 
           // If Platform doesn't have selected capability, we can't choose it.
-          if (platform.capabilities.findIndex((c) => c.type === capability.type) < 0) {
+          if (
+            platform.capabilities.findIndex((c) => c.type === capability.type) <
+            0
+          ) {
             this.notSupportedPlatforms.add(platform.type);
 
             // Check if we already marked all platforms as not supported.
@@ -185,7 +231,9 @@ export class ProjectMetadataViewComponent implements OnInit {
   }
 
   getCapabilityEditor(groupIndex, capabilityIndex) {
-    const capabilityEditor = (this.projectEditor.get('capabilities') as FormArray).at(groupIndex);
+    const capabilityEditor = (this.projectEditor.get(
+      'capabilities'
+    ) as FormArray).at(groupIndex);
     return (capabilityEditor as FormArray).at(capabilityIndex);
   }
 }

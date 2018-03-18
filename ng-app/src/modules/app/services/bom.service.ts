@@ -1,17 +1,17 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import {Config} from '../config';
+import { Config } from '../config';
 
-import {Part} from '../core/bom/part';
-import {PartOffer} from '../core/bom/part-offer';
-import {Seller} from '../core/bom/seller';
+import { Part } from '../core/bom/part';
+import { PartOffer } from '../core/bom/part-offer';
+import { Seller } from '../core/bom/seller';
 
 const APIPaths = Object.freeze({
-  parts: 'parts'
+  parts: 'parts',
 });
 
 interface RawSeller {
@@ -38,9 +38,8 @@ interface RawPart {
 @Injectable()
 export class BomService {
   private static handleError(error: HttpErrorResponse) {
-    const errorMessage: string = error.error instanceof Error
-      ? error.error.message
-      : error.message;
+    const errorMessage: string =
+      error.error instanceof Error ? error.error.message : error.message;
 
     console.log(error);
     return Observable.throw(errorMessage);
@@ -60,28 +59,31 @@ export class BomService {
         continue;
       }
 
-      offers.push(new PartOffer(
-        rawOffer.sku,
-        new Seller(rawOffer.seller.uid, rawOffer.seller.name),
-        new Map(
-          rawOffer.prices.usd.map(
-            ([bucket, price]) => [bucket, Number.parseFloat(price)] as [number, number]
-          )
-        ),
-        rawOffer.inStockQuantity,
-        rawOffer.moq,
-        rawOffer.packaging
-      ));
+      offers.push(
+        new PartOffer(
+          rawOffer.sku,
+          new Seller(rawOffer.seller.uid, rawOffer.seller.name),
+          new Map(
+            rawOffer.prices.usd.map(
+              ([bucket, price]) =>
+                [bucket, Number.parseFloat(price)] as [number, number]
+            )
+          ),
+          rawOffer.inStockQuantity,
+          rawOffer.moq,
+          rawOffer.packaging
+        )
+      );
     }
 
     return new Part(rawPart.uid, rawPart.mpn, rawPart.url, offers);
   }
 
-  constructor(private config: Config, private http: HttpClient) {
-  }
+  constructor(private config: Config, private http: HttpClient) {}
 
   getForMpns(mpns: string[]): Observable<Map<string, Part>> {
-    return this.http.get(`${this.config.apiDomain}/bom/${APIPaths.parts}/${mpns.join(',')}`)
+    return this.http
+      .get(`${this.config.apiDomain}/bom/${APIPaths.parts}/${mpns.join(',')}`)
       .map((response) => {
         if (!response) {
           return new Map();
@@ -89,7 +91,10 @@ export class BomService {
 
         return new Map(
           Object.keys(response).map((mpn) => {
-            return [mpn, BomService.constructPart(response[mpn] as RawPart)] as [string, Part]
+            return [
+              mpn,
+              BomService.constructPart(response[mpn] as RawPart),
+            ] as [string, Part];
           })
         );
       })

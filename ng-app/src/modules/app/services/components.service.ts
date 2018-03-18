@@ -1,53 +1,60 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/forkJoin';
 
-import {Config} from '../config';
+import { Config } from '../config';
 
-import {TypedEntity} from '../core/typed-entity';
-import {ComponentGroup} from '../core/components/component-group';
-import {ComponentSchema} from '../core/components/component-schema';
+import { TypedEntity } from '../core/typed-entity';
+import { ComponentGroup } from '../core/components/component-group';
+import { ComponentSchema } from '../core/components/component-schema';
 import {
   PropertySchema,
   PredefinedPropertySchema,
-  ComponentPropertySchema
+  ComponentPropertySchema,
 } from '../core/components/component-property-schema';
-import {ComponentActionSchema} from '../core/components/component-action-schema';
-import {ComponentTriggerSchema} from '../core/components/component-trigger-schema';
+import { ComponentActionSchema } from '../core/components/component-action-schema';
+import { ComponentTriggerSchema } from '../core/components/component-trigger-schema';
 
 const APIPaths = Object.freeze({
   groups: 'component-groups',
-  schemas: 'component-schemas'
+  schemas: 'component-schemas',
 });
 
 interface RawPredefinedPropertyKind {
-  predefined: TypedEntity[]
+  predefined: TypedEntity[];
 }
 
 interface RawComponentPropertyKind {
-  component: string[]
+  component: string[];
 }
 
-type PropertyKind = 'custom' | RawPredefinedPropertyKind | RawComponentPropertyKind;
+type PropertyKind =
+  | 'custom'
+  | RawPredefinedPropertyKind
+  | RawComponentPropertyKind;
 
-function isPredefinedPropertyKind(propertyKind: PropertyKind): propertyKind is RawPredefinedPropertyKind {
+function isPredefinedPropertyKind(
+  propertyKind: PropertyKind
+): propertyKind is RawPredefinedPropertyKind {
   return (<RawPredefinedPropertyKind>propertyKind).predefined !== undefined;
 }
 
-function isComponentPropertyKind(propertyKind: PropertyKind): propertyKind is RawComponentPropertyKind {
+function isComponentPropertyKind(
+  propertyKind: PropertyKind
+): propertyKind is RawComponentPropertyKind {
   return (<RawComponentPropertyKind>propertyKind).component !== undefined;
 }
 
 interface RawPropertySchema {
-  type: string,
-  name: string
-  description: string,
-  defaultValue: string,
-  kind: PropertyKind
+  type: string;
+  name: string;
+  description: string;
+  defaultValue: string;
+  kind: PropertyKind;
 }
 
 @Injectable()
@@ -55,9 +62,8 @@ export class ComponentsService {
   private schemas: Observable<Map<string, ComponentSchema>> = null;
 
   private static handleError(error: HttpErrorResponse) {
-    const errorMessage: string = error.error instanceof Error
-      ? error.error.message
-      : error.message;
+    const errorMessage: string =
+      error.error instanceof Error ? error.error.message : error.message;
 
     console.log(error);
     return Observable.throw(errorMessage);
@@ -69,7 +75,9 @@ export class ComponentsService {
    * @returns {PropertySchema}
    * @private
    */
-  private static constructPropertySchema(rawPropertySchema: RawPropertySchema): PropertySchema {
+  private static constructPropertySchema(
+    rawPropertySchema: RawPropertySchema
+  ): PropertySchema {
     if (rawPropertySchema.kind === 'custom') {
       return new PropertySchema(
         rawPropertySchema.type,
@@ -146,30 +154,39 @@ export class ComponentsService {
         Object.keys(rawComponentSchema.properties).map((key) => {
           return [
             key,
-            ComponentsService.constructPropertySchema(rawComponentSchema.properties[key])
-          ] as [string, PropertySchema]
+            ComponentsService.constructPropertySchema(
+              rawComponentSchema.properties[key]
+            ),
+          ] as [string, PropertySchema];
         })
       ),
       new Map(
         Object.keys(rawComponentSchema.actions).map((key) => {
           return [
             key,
-            ComponentsService.constructActionSchema(rawComponentSchema.actions[key])
-          ] as [string, ComponentActionSchema]
+            ComponentsService.constructActionSchema(
+              rawComponentSchema.actions[key]
+            ),
+          ] as [string, ComponentActionSchema];
         })
       ),
       new Map(
         Object.keys(rawComponentSchema.triggers).map((key) => {
           return [
             key,
-            ComponentsService.constructTriggerSchema(rawComponentSchema.triggers[key])
-          ] as [string, ComponentTriggerSchema]
+            ComponentsService.constructTriggerSchema(
+              rawComponentSchema.triggers[key]
+            ),
+          ] as [string, ComponentTriggerSchema];
         })
       )
     );
   }
 
-  private static constructGroup(schemas: Map<string, ComponentSchema>, rawGroup: any) {
+  private static constructGroup(
+    schemas: Map<string, ComponentSchema>,
+    rawGroup: any
+  ) {
     return new ComponentGroup(
       rawGroup.type,
       rawGroup.name,
@@ -185,7 +202,10 @@ export class ComponentsService {
    * @returns {Array.<T>}
    * @private
    */
-  private static constructCollection<T>(response: any, constructor: (rawItem: any) => T): T[] {
+  private static constructCollection<T>(
+    response: any,
+    constructor: (rawItem: any) => T
+  ): T[] {
     if (!response) {
       return [];
     }
@@ -193,20 +213,21 @@ export class ComponentsService {
     return response.map((rawItem) => constructor(rawItem));
   }
 
-  constructor(private config: Config, private http: HttpClient) {
-  }
+  constructor(private config: Config, private http: HttpClient) {}
 
   getGroups(): Observable<ComponentGroup[]> {
     return Observable.forkJoin(
       this.getSchemas(),
       this.http.get(`${this.config.apiDomain}/${APIPaths.groups}`)
-    ).map(([schemas, response]) => {
-      return ComponentsService.constructCollection(
-        response,
-        (rawComponentGroup) => ComponentsService.constructGroup(schemas, rawComponentGroup)
-      );
-    })
-    .catch(ComponentsService.handleError);
+    )
+      .map(([schemas, response]) => {
+        return ComponentsService.constructCollection(
+          response,
+          (rawComponentGroup) =>
+            ComponentsService.constructGroup(schemas, rawComponentGroup)
+        );
+      })
+      .catch(ComponentsService.handleError);
   }
 
   getSchemas(): Observable<Map<string, ComponentSchema>> {
@@ -214,18 +235,20 @@ export class ComponentsService {
       return this.schemas;
     }
 
-    return this.schemas = this.http.get(`${this.config.apiDomain}/${APIPaths.schemas}`)
+    return (this.schemas = this.http
+      .get(`${this.config.apiDomain}/${APIPaths.schemas}`)
       .map((response) => {
         const schemas = new Map(
-          ComponentsService.constructCollection(response, ComponentsService.constructComponentSchema).map(
-            (schema) => [schema.type, schema] as [string, ComponentSchema]
-          )
+          ComponentsService.constructCollection(
+            response,
+            ComponentsService.constructComponentSchema
+          ).map((schema) => [schema.type, schema] as [string, ComponentSchema])
         );
 
         this.schemas = Observable.of(schemas);
 
         return schemas;
       })
-      .catch(ComponentsService.handleError);
+      .catch(ComponentsService.handleError));
   }
 }

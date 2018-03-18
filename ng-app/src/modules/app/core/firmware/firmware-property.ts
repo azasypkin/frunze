@@ -1,4 +1,4 @@
-import {TypedEntity} from '../typed-entity';
+import { TypedEntity } from '../typed-entity';
 
 /**
  * Class that describes firmware property.

@@ -1,14 +1,14 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms'
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
-import {Project} from '../../../core/projects/project';
-import {ProjectComponent} from '../../../core/projects/project-component';
-import {ProjectComponentTriggerAction} from '../../../core/projects/project-component-trigger-action';
-import {ComponentSchema} from '../../../core/components/component-schema';
+import { Project } from '../../../core/projects/project';
+import { ProjectComponent } from '../../../core/projects/project-component';
+import { ProjectComponentTriggerAction } from '../../../core/projects/project-component-trigger-action';
+import { ComponentSchema } from '../../../core/components/component-schema';
 
-import {ComponentsService} from '../../../services/components.service';
+import { ComponentsService } from '../../../services/components.service';
 
-import {MODAL_DIALOG_PARAMETERS} from '../../modal-dialog/modal-dialog.component';
+import { MODAL_DIALOG_PARAMETERS } from '../../modal-dialog/modal-dialog.component';
 
 export interface IDialogInputs {
   project: Project;
@@ -19,7 +19,7 @@ export interface IDialogInputs {
 @Component({
   selector: 'frunze-triggers-editor-dialog',
   templateUrl: 'triggers-editor-dialog.component.html',
-  styleUrls: ['triggers-editor-dialog.component.css']
+  styleUrls: ['triggers-editor-dialog.component.css'],
 })
 export class TriggersEditorDialogComponent implements OnInit {
   schemas: Map<string, ComponentSchema>;
@@ -29,8 +29,10 @@ export class TriggersEditorDialogComponent implements OnInit {
   triggerActions: ProjectComponentTriggerAction[];
   componentsWithActions: ProjectComponent[] = [];
 
-  constructor(@Inject(MODAL_DIALOG_PARAMETERS) readonly inputs: IDialogInputs,
-              private componentsService: ComponentsService) {
+  constructor(
+    @Inject(MODAL_DIALOG_PARAMETERS) readonly inputs: IDialogInputs,
+    private componentsService: ComponentsService
+  ) {
     this.componentEditor.setValue('');
     this.actionEditor.setValue('');
 
@@ -48,7 +50,10 @@ export class TriggersEditorDialogComponent implements OnInit {
       }
 
       this.triggerActions.push(
-        new ProjectComponentTriggerAction(this.componentEditor.value, this.actionEditor.value)
+        new ProjectComponentTriggerAction(
+          this.componentEditor.value,
+          this.actionEditor.value
+        )
       );
 
       this.componentEditor.setValue('');
@@ -60,24 +65,30 @@ export class TriggersEditorDialogComponent implements OnInit {
     this.componentsService.getSchemas().subscribe((schemas) => {
       this.schemas = schemas;
 
-      this.componentsWithActions = this.inputs.project.components.filter((component) => {
-        return this.schemas.get(component.type).actions.size > 0;
-      });
+      this.componentsWithActions = this.inputs.project.components.filter(
+        (component) => {
+          return this.schemas.get(component.type).actions.size > 0;
+        }
+      );
     });
   }
 
   getComponentName(component: ProjectComponent) {
-    return component.properties.get('name') ||
-      this.schemas.get(component.type).name;
+    return (
+      component.properties.get('name') || this.schemas.get(component.type).name
+    );
   }
 
   getTriggerComponentName(triggerAction: ProjectComponentTriggerAction) {
-    return this.getComponentName(this.findComponentById(triggerAction.component));
+    return this.getComponentName(
+      this.findComponentById(triggerAction.component)
+    );
   }
 
   getTriggerActionName(triggerAction: ProjectComponentTriggerAction) {
     const component = this.findComponentById(triggerAction.component);
-    return this.schemas.get(component.type).actions.get(triggerAction.action).name;
+    return this.schemas.get(component.type).actions.get(triggerAction.action)
+      .name;
   }
 
   getActions() {

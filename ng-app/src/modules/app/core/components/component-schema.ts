@@ -1,7 +1,7 @@
-import {TypedEntity} from '../typed-entity';
-import {PropertySchema} from './component-property-schema';
-import {ComponentActionSchema} from './component-action-schema';
-import {ComponentTriggerSchema} from './component-trigger-schema';
+import { TypedEntity } from '../typed-entity';
+import { PropertySchema } from './component-property-schema';
+import { ComponentActionSchema } from './component-action-schema';
+import { ComponentTriggerSchema } from './component-trigger-schema';
 
 export class ComponentSchema extends TypedEntity {
   /**
@@ -29,10 +29,15 @@ export class ComponentSchema extends TypedEntity {
    */
   readonly triggers: Map<string, ComponentTriggerSchema>;
 
-  constructor(type: string, name: string, description: string, mpn: string,
-              properties: Map<string, PropertySchema>,
-              actions: Map<string, ComponentActionSchema>,
-              triggers: Map<string, ComponentTriggerSchema>) {
+  constructor(
+    type: string,
+    name: string,
+    description: string,
+    mpn: string,
+    properties: Map<string, PropertySchema>,
+    actions: Map<string, ComponentActionSchema>,
+    triggers: Map<string, ComponentTriggerSchema>
+  ) {
     super(type, name, description);
 
     this.mpn = mpn;

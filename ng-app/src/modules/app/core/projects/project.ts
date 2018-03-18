@@ -1,6 +1,6 @@
-import {ProjectCapability} from './project-capability';
-import {ProjectComponent} from './project-component';
-import {ProjectPlatform} from './project-platform';
+import { ProjectCapability } from './project-capability';
+import { ProjectComponent } from './project-component';
+import { ProjectPlatform } from './project-platform';
 
 /**
  * Class that describes the specific project.
@@ -42,8 +42,14 @@ export class Project {
    */
   readonly components: ProjectComponent[];
 
-  constructor(id: string, name: string, description: string, capabilities: ProjectCapability[],
-              platform: ProjectPlatform, components: ProjectComponent[]) {
+  constructor(
+    id: string,
+    name: string,
+    description: string,
+    capabilities: ProjectCapability[],
+    platform: ProjectPlatform,
+    components: ProjectComponent[]
+  ) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -64,7 +70,7 @@ export class Project {
       description: this.description,
       platform: this.platform.type,
       capabilities: this.capabilities.map((capability) => capability.type),
-      components: this.components.map((component) => component.toJSON())
+      components: this.components.map((component) => component.toJSON()),
     };
   }
 }

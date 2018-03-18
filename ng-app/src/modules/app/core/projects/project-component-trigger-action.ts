@@ -27,7 +27,7 @@ export class ProjectComponentTriggerAction {
   toJSON() {
     return {
       component: this.component,
-      action: this.action
+      action: this.action,
     };
   }
 }

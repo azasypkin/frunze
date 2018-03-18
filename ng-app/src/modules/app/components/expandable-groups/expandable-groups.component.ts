@@ -1,4 +1,4 @@
-import {Component, Input, TemplateRef, ContentChild} from '@angular/core';
+import { Component, Input, TemplateRef, ContentChild } from '@angular/core';
 
 export interface IExpandableGroup {
   name: string;
@@ -9,11 +9,10 @@ export interface IExpandableGroup {
 @Component({
   selector: 'frunze-expandable-groups',
   templateUrl: 'expandable-groups.component.html',
-  styleUrls: ['expandable-groups.component.css']
+  styleUrls: ['expandable-groups.component.css'],
 })
 export class ExpandableGroupsComponent {
   @Input() groups: IExpandableGroup[] = [];
 
-  @ContentChild(TemplateRef)
-  public itemTemplate: TemplateRef<any>;
+  @ContentChild(TemplateRef) public itemTemplate: TemplateRef<any>;
 }

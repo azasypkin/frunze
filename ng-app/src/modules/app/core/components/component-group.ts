@@ -1,5 +1,5 @@
-import {TypedEntity} from '../typed-entity';
-import {ComponentSchema} from './component-schema';
+import { TypedEntity } from '../typed-entity';
+import { ComponentSchema } from './component-schema';
 
 /**
  * ComponentGroup represents group of related components.
@@ -11,7 +11,12 @@ export class ComponentGroup extends TypedEntity {
    */
   readonly items: ComponentSchema[];
 
-  constructor(type: string, name: string, description: string, items: ComponentSchema[]) {
+  constructor(
+    type: string,
+    name: string,
+    description: string,
+    items: ComponentSchema[]
+  ) {
     super(type, name, description);
 
     this.items = items;

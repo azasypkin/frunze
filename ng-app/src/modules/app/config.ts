@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 const API_DOMAIN = 'http://0.0.0.0:8009';
 

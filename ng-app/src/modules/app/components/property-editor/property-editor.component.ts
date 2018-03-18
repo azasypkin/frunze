@@ -1,20 +1,19 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms'
-import {Project} from '../../core/projects/project';
-import {ComponentSchema} from '../../core/components/component-schema';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Project } from '../../core/projects/project';
+import { ComponentSchema } from '../../core/components/component-schema';
 import {
   PropertySchema,
   ComponentPropertySchema,
-  PredefinedPropertySchema
+  PredefinedPropertySchema,
 } from '../../core/components/component-property-schema';
-import {ComponentsService} from '../../services/components.service';
-import {ProjectComponent} from '../../core/projects/project-component';
-
+import { ComponentsService } from '../../services/components.service';
+import { ProjectComponent } from '../../core/projects/project-component';
 
 @Component({
   selector: 'frunze-property-editor',
   templateUrl: 'property-editor.component.html',
-  styleUrls: ['property-editor.component.css']
+  styleUrls: ['property-editor.component.css'],
 })
 export class PropertyEditorComponent implements OnChanges, OnInit {
   @Input() project: Project;
@@ -32,17 +31,23 @@ export class PropertyEditorComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges() {
-    const value = !this.component ?
-      '' :
-      this.component.properties.get(this.schema.type) || this.schema.defaultValue;
-    this.valueEditor.setValue(value)
+    const value = !this.component
+      ? ''
+      : this.component.properties.get(this.schema.type) ||
+        this.schema.defaultValue;
+    this.valueEditor.setValue(value);
   }
 
   ngOnInit() {
-    this.componentsService.getSchemas()
-      .subscribe((schemas) => this.componentSchemas = schemas, (e) => {
-        console.error('Error occurred while retrieving of component schemas.', e);
-      });
+    this.componentsService.getSchemas().subscribe(
+      (schemas) => (this.componentSchemas = schemas),
+      (e) => {
+        console.error(
+          'Error occurred while retrieving of component schemas.',
+          e
+        );
+      }
+    );
   }
 
   isCustomValue() {
@@ -65,7 +70,8 @@ export class PropertyEditorComponent implements OnChanges, OnInit {
 
   getComponents() {
     if (this.isComponentValue()) {
-      const componentTypes = (<ComponentPropertySchema>this.schema).componentTypes;
+      const componentTypes = (<ComponentPropertySchema>this.schema)
+        .componentTypes;
       const components = [];
 
       for (const component of this.project.components) {
@@ -73,7 +79,10 @@ export class PropertyEditorComponent implements OnChanges, OnInit {
           continue;
         }
 
-        components.push({ id: component.id, name: this.getComponentName(component) });
+        components.push({
+          id: component.id,
+          name: this.getComponentName(component),
+        });
       }
 
       return components;
@@ -81,7 +90,9 @@ export class PropertyEditorComponent implements OnChanges, OnInit {
   }
 
   private getComponentName(component: ProjectComponent) {
-    return component.properties.get('name') ||
-      this.componentSchemas.get(component.type).name;
+    return (
+      component.properties.get('name') ||
+      this.componentSchemas.get(component.type).name
+    );
   }
 }

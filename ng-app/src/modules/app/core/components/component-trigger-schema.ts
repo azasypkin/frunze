@@ -1,4 +1,3 @@
-import {TypedEntity} from '../typed-entity';
+import { TypedEntity } from '../typed-entity';
 
-export class ComponentTriggerSchema extends TypedEntity {
-}
+export class ComponentTriggerSchema extends TypedEntity {}

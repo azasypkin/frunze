@@ -1,5 +1,5 @@
-import {ComponentGroup} from './component-group';
-import {ComponentSchema} from './component-schema';
+import { ComponentGroup } from './component-group';
+import { ComponentSchema } from './component-schema';
 
 describe('Core/ComponentGroup', () => {
   it('all properties should be correctly initialized', () => {
@@ -16,8 +16,24 @@ describe('Core/ComponentGroup', () => {
 
     expect(group.items.length).toEqual(0);
 
-    const item1 = new ComponentSchema('type1', 'Name1', 'Description1', '', new Map(), new Map(), new Map());
-    const item2 = new ComponentSchema('type2', 'Name2', 'Description2', '', new Map(), new Map(), new Map());
+    const item1 = new ComponentSchema(
+      'type1',
+      'Name1',
+      'Description1',
+      '',
+      new Map(),
+      new Map(),
+      new Map()
+    );
+    const item2 = new ComponentSchema(
+      'type2',
+      'Name2',
+      'Description2',
+      '',
+      new Map(),
+      new Map(),
+      new Map()
+    );
 
     group = new ComponentGroup('type', 'Name', 'Description', [item1, item2]);
 

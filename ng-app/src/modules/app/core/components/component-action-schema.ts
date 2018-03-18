@@ -1,4 +1,3 @@
-import {TypedEntity} from '../typed-entity';
+import { TypedEntity } from '../typed-entity';
 
-export class ComponentActionSchema extends TypedEntity {
-}
+export class ComponentActionSchema extends TypedEntity {}

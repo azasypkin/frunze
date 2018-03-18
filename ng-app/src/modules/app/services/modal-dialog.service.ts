@@ -1,16 +1,19 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 export interface IDialog {
-  componentType: any,
-  title: string,
-  inputs?: any
+  componentType: any;
+  title: string;
+  inputs?: any;
 }
 
 @Injectable()
 export class ModalDialogService {
   private dialogs: IDialog[] = [];
-  private subject = new BehaviorSubject<IDialog>({ componentType: null, title: null });
+  private subject = new BehaviorSubject<IDialog>({
+    componentType: null,
+    title: null,
+  });
 
   readonly events$ = this.subject.asObservable();
 
@@ -38,9 +41,7 @@ export class ModalDialogService {
 
   private onUpdate() {
     this.subject.next(
-      this.dialogs.length > 0 ?
-        this.dialogs[this.dialogs.length - 1] :
-        null
+      this.dialogs.length > 0 ? this.dialogs[this.dialogs.length - 1] : null
     );
   }
 }

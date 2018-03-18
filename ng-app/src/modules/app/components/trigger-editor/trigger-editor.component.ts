@@ -1,19 +1,20 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import {ComponentsService} from '../../services/components.service';
-import {ModalDialogService} from '../../services/modal-dialog.service';
+import { ComponentsService } from '../../services/components.service';
+import { ModalDialogService } from '../../services/modal-dialog.service';
 
-import {ComponentTriggerSchema} from '../../core/components/component-trigger-schema';
-import {Project} from '../../core/projects/project';
-import {ProjectComponent} from '../../core/projects/project-component';
+import { ComponentTriggerSchema } from '../../core/components/component-trigger-schema';
+import { Project } from '../../core/projects/project';
+import { ProjectComponent } from '../../core/projects/project-component';
 import {
-  TriggersEditorDialogComponent, IDialogInputs
+  TriggersEditorDialogComponent,
+  IDialogInputs,
 } from '../dialogs/triggers-editor-dialog/triggers-editor-dialog.component';
 
 @Component({
   selector: 'frunze-trigger-editor',
   templateUrl: 'trigger-editor.component.html',
-  styleUrls: ['trigger-editor.component.css']
+  styleUrls: ['trigger-editor.component.css'],
 })
 export class TriggerEditorComponent implements OnInit {
   @Input() project: Project;
@@ -22,9 +23,10 @@ export class TriggerEditorComponent implements OnInit {
   @Input() type: string;
   schema: ComponentTriggerSchema;
 
-  constructor(private componentsService: ComponentsService,
-              private dialogService: ModalDialogService) {
-  }
+  constructor(
+    private componentsService: ComponentsService,
+    private dialogService: ModalDialogService
+  ) {}
 
   ngOnInit() {
     this.componentsService.getSchemas().subscribe((schemas) => {
@@ -39,7 +41,7 @@ export class TriggerEditorComponent implements OnInit {
       <IDialogInputs>{
         project: this.project,
         component: this.component,
-        type: this.type
+        type: this.type,
       }
     );
   }

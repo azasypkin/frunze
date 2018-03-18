@@ -1,21 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/of';
 
-import {ProjectService} from '../../services/project.service';
-import {Project} from '../../core/projects/project';
-import {ProjectComponent} from '../../core/projects/project-component';
-import {ComponentGroup} from '../../core/components/component-group';
-import {ComponentSchema} from '../../core/components/component-schema';
-import {Guid} from '../../core/utils/guid';
-import {ComponentsService} from '../../services/components.service';
-import {IExpandableGroup} from '../expandable-groups/expandable-groups.component';
+import { ProjectService } from '../../services/project.service';
+import { Project } from '../../core/projects/project';
+import { ProjectComponent } from '../../core/projects/project-component';
+import { ComponentGroup } from '../../core/components/component-group';
+import { ComponentSchema } from '../../core/components/component-schema';
+import { Guid } from '../../core/utils/guid';
+import { ComponentsService } from '../../services/components.service';
+import { IExpandableGroup } from '../expandable-groups/expandable-groups.component';
 
 @Component({
   templateUrl: 'software-editor-view.component.html',
-  styleUrls: ['software-editor-view.component.css']
+  styleUrls: ['software-editor-view.component.css'],
 })
 export class SoftwareEditorViewComponent implements OnInit {
   project: Project;
@@ -27,60 +27,78 @@ export class SoftwareEditorViewComponent implements OnInit {
   propertiesGroup: IExpandableGroup = {
     name: 'Properties',
     expanded: false,
-    items: []
+    items: [],
   };
 
   triggersGroup: IExpandableGroup = {
     name: 'Triggers',
     expanded: false,
-    items: []
+    items: [],
   };
 
-  constructor(private route: ActivatedRoute, private router: Router,
-              private projectService: ProjectService,
-              private componentsService: ComponentsService) {
-  }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private projectService: ProjectService,
+    private componentsService: ComponentsService
+  ) {}
 
   ngOnInit(): void {
     this.fetchSchemas();
     this.fetchGroups();
 
     this.route.params
-        .switchMap((params: Params) => this.projectService.getProject(params['id']))
-        .subscribe((project: Project) => this.project = project, (e) => {
+      .switchMap((params: Params) =>
+        this.projectService.getProject(params['id'])
+      )
+      .subscribe(
+        (project: Project) => (this.project = project),
+        (e) => {
           console.error('Error occurred while retrieving of project.', e);
-        });
+        }
+      );
   }
 
   /**
    * Fetches groups from the ComponentsService.
    */
   private fetchGroups() {
-    this.componentsService.getGroups().subscribe((groups) => {
-      this.componentGroups = groups.sort((a, b) => {
-        if (a.name < b.name) {
-          return -1;
-        }
+    this.componentsService.getGroups().subscribe(
+      (groups) => {
+        this.componentGroups = groups.sort((a, b) => {
+          if (a.name < b.name) {
+            return -1;
+          }
 
-        if (a.name > b.name) {
-          return 1;
-        }
+          if (a.name > b.name) {
+            return 1;
+          }
 
-        return 0;
-      });
-    }, (e) => {
-      console.error('Error occurred while retrieving of component groups.', e);
-    });
+          return 0;
+        });
+      },
+      (e) => {
+        console.error(
+          'Error occurred while retrieving of component groups.',
+          e
+        );
+      }
+    );
   }
 
   /**
    * Fetches component schemas from the ComponentsService.
    */
   private fetchSchemas() {
-    this.componentsService.getSchemas()
-      .subscribe((schemas) => this.componentSchemas = schemas, (e) => {
-        console.error('Error occurred while retrieving of component schemas.', e);
-      });
+    this.componentsService.getSchemas().subscribe(
+      (schemas) => (this.componentSchemas = schemas),
+      (e) => {
+        console.error(
+          'Error occurred while retrieving of component schemas.',
+          e
+        );
+      }
+    );
   }
 
   onDragStart(e: DragEvent, item: ComponentSchema) {
@@ -130,9 +148,14 @@ export class SoftwareEditorViewComponent implements OnInit {
     const componentSchema = this.componentSchemas.get(componentType);
     if (componentSchema) {
       const defaultComponentProperties = new Map(
-        Array.from(componentSchema.properties).map(([propertyKey, propertySchema]) => {
-          return [propertyKey, propertySchema.defaultValue] as [string, string]
-        })
+        Array.from(componentSchema.properties).map(
+          ([propertyKey, propertySchema]) => {
+            return [propertyKey, propertySchema.defaultValue] as [
+              string,
+              string
+            ];
+          }
+        )
       );
 
       this.project.components.push(
@@ -165,12 +188,14 @@ export class SoftwareEditorViewComponent implements OnInit {
 
     this.activeComponent = component;
     if (this.activeComponent === null) {
-      return
+      return;
     }
 
     const componentSchema = this.componentSchemas.get(component.type);
 
-    this.propertiesGroup.items = Array.from(componentSchema.properties.values()).sort((a, b) => {
+    this.propertiesGroup.items = Array.from(
+      componentSchema.properties.values()
+    ).sort((a, b) => {
       if (a.name < b.name) {
         return -1;
       }
@@ -181,12 +206,16 @@ export class SoftwareEditorViewComponent implements OnInit {
 
       return 0;
     });
-    this.triggersGroup.items = Array.from(componentSchema.triggers.keys()).sort();
+    this.triggersGroup.items = Array.from(
+      componentSchema.triggers.keys()
+    ).sort();
   }
 
   getComponentName(component: ProjectComponent) {
-    return component.properties.get('name') ||
-      this.componentSchemas.get(component.type).name;
+    return (
+      component.properties.get('name') ||
+      this.componentSchemas.get(component.type).name
+    );
   }
 
   removeComponent(index: number) {

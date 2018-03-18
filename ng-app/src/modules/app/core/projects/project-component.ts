@@ -1,4 +1,4 @@
-import {ProjectComponentTriggerAction} from './project-component-trigger-action';
+import { ProjectComponentTriggerAction } from './project-component-trigger-action';
 
 /**
  * Class that describes the specific project component.
@@ -28,8 +28,12 @@ export class ProjectComponent {
    */
   readonly triggers: Map<string, ProjectComponentTriggerAction[]>;
 
-  constructor(id: string, type: string, properties: Map<string, string>,
-              triggers: Map<string, ProjectComponentTriggerAction[]>) {
+  constructor(
+    id: string,
+    type: string,
+    properties: Map<string, string>,
+    triggers: Map<string, ProjectComponentTriggerAction[]>
+  ) {
     this.id = id;
     this.type = type;
     this.properties = properties;
@@ -44,14 +48,20 @@ export class ProjectComponent {
     return {
       id: this.id,
       type: this.type,
-      properties: Array.from(this.properties.entries()).reduce((map, [key, value]) => {
-        map[key] = value;
-        return map;
-      }, {}),
-      triggers: Array.from(this.triggers.entries()).reduce((map, [key, actions]) => {
-        map[key] = actions.map((action) => action.toJSON());
-        return map;
-      }, {})
+      properties: Array.from(this.properties.entries()).reduce(
+        (map, [key, value]) => {
+          map[key] = value;
+          return map;
+        },
+        {}
+      ),
+      triggers: Array.from(this.triggers.entries()).reduce(
+        (map, [key, actions]) => {
+          map[key] = actions.map((action) => action.toJSON());
+          return map;
+        },
+        {}
+      ),
     };
   }
 }

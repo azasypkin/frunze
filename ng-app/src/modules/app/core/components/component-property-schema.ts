@@ -1,4 +1,4 @@
-import {TypedEntity} from '../typed-entity';
+import { TypedEntity } from '../typed-entity';
 
 export class PropertySchema extends TypedEntity {
   /**
@@ -7,7 +7,12 @@ export class PropertySchema extends TypedEntity {
    */
   readonly defaultValue: string;
 
-  constructor(type: string, name: string, description: string, defaultValue: string) {
+  constructor(
+    type: string,
+    name: string,
+    description: string,
+    defaultValue: string
+  ) {
     super(type, name, description);
     this.defaultValue = defaultValue;
   }
@@ -20,7 +25,13 @@ export class PredefinedPropertySchema extends PropertySchema {
    */
   readonly options: TypedEntity[];
 
-  constructor(type: string, name: string, description: string, defaultValue: string, options: TypedEntity[]) {
+  constructor(
+    type: string,
+    name: string,
+    description: string,
+    defaultValue: string,
+    options: TypedEntity[]
+  ) {
     super(type, name, description, defaultValue);
 
     this.options = options;
@@ -34,7 +45,13 @@ export class ComponentPropertySchema extends PropertySchema {
    */
   readonly componentTypes: string[];
 
-  constructor(type: string, name: string, description: string, defaultValue: string, componentTypes: string[]) {
+  constructor(
+    type: string,
+    name: string,
+    description: string,
+    defaultValue: string,
+    componentTypes: string[]
+  ) {
     super(type, name, description, defaultValue);
     this.componentTypes = componentTypes;
   }
