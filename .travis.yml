@@ -14,14 +14,15 @@ before_install:
   - cd ng-app
 
 install:
-  - npm install -g @angular/cli
-  - npm install
+  - yarn
 
 script:
-  - ng test --watch false
+  - yarn test --watch false
 
 cache:
-  directories: ng-app/node_modules
+  yarn: true
+  directories:
+    - ng-app/node_modules
 
 notifications:
   email:
