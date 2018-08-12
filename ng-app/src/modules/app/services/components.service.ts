@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/forkJoin';
+import { Observable, of, forkJoin, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { Config } from '../config';
 
@@ -66,7 +63,7 @@ export class ComponentsService {
       error.error instanceof Error ? error.error.message : error.message;
 
     console.log(error);
-    return Observable.throw(errorMessage);
+    return throwError(errorMessage);
   }
 
   /**
@@ -215,40 +212,45 @@ export class ComponentsService {
 
   constructor(private config: Config, private http: HttpClient) {}
 
-  getGroups(): Observable<ComponentGroup[]> {
-    return Observable.forkJoin(
+  getGroups() {
+    return forkJoin(
       this.getSchemas(),
       this.http.get(`${this.config.apiDomain}/${APIPaths.groups}`)
-    )
-      .map(([schemas, response]) => {
+    ).pipe(
+      map(([schemas, response]) => {
         return ComponentsService.constructCollection(
           response,
           (rawComponentGroup) =>
             ComponentsService.constructGroup(schemas, rawComponentGroup)
         );
-      })
-      .catch(ComponentsService.handleError);
+      }),
+      catchError(ComponentsService.handleError)
+    );
   }
 
-  getSchemas(): Observable<Map<string, ComponentSchema>> {
+  getSchemas() {
     if (this.schemas) {
       return this.schemas;
     }
 
     return (this.schemas = this.http
       .get(`${this.config.apiDomain}/${APIPaths.schemas}`)
-      .map((response) => {
-        const schemas = new Map(
-          ComponentsService.constructCollection(
-            response,
-            ComponentsService.constructComponentSchema
-          ).map((schema) => [schema.type, schema] as [string, ComponentSchema])
-        );
+      .pipe(
+        map((response) => {
+          const schemas = new Map(
+            ComponentsService.constructCollection(
+              response,
+              ComponentsService.constructComponentSchema
+            ).map(
+              (schema) => [schema.type, schema] as [string, ComponentSchema]
+            )
+          );
 
-        this.schemas = Observable.of(schemas);
+          this.schemas = of(schemas);
 
-        return schemas;
-      })
-      .catch(ComponentsService.handleError));
+          return schemas;
+        }),
+        catchError(ComponentsService.handleError)
+      ));
   }
 }

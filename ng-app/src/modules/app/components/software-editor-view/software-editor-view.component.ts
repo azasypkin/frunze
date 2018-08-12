@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/of';
+import { switchMap } from 'rxjs/operators';
 
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../core/projects/project';
@@ -48,8 +47,10 @@ export class SoftwareEditorViewComponent implements OnInit {
     this.fetchGroups();
 
     this.route.params
-      .switchMap((params: Params) =>
-        this.projectService.getProject(params['id'])
+      .pipe(
+        switchMap((params: Params) =>
+          this.projectService.getProject(params['id'])
+        )
       )
       .subscribe(
         (project: Project) => (this.project = project),

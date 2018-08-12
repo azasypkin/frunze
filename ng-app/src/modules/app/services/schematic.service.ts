@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import { Config } from '../config';
 
@@ -18,7 +17,7 @@ export class SchematicService {
       error.error instanceof Error ? error.error.message : error.message;
 
     console.log(error);
-    return Observable.throw(errorMessage);
+    return throwError(errorMessage);
   }
 
   constructor(private config: Config, private http: HttpClient) {}
@@ -28,18 +27,20 @@ export class SchematicService {
    * @param {string} projectId Unique identifier of the project to load schematic for.
    * @returns {Observable.<Blob>}
    */
-  getProjectSchematic(projectId: string): Observable<Blob> {
+  getProjectSchematic(projectId: string) {
     return this.http
       .get(`${this.config.apiDomain}/${APIPaths.schematic}/${projectId}`, {
         responseType: 'text',
       })
-      .map((response) => {
-        if (!response) {
-          return null;
-        }
+      .pipe(
+        map((response) => {
+          if (!response) {
+            return null;
+          }
 
-        return new Blob([response], { type: 'image/svg+xml' });
-      })
-      .catch(SchematicService.handleError);
+          return new Blob([response], { type: 'image/svg+xml' });
+        }),
+        catchError(SchematicService.handleError)
+      );
   }
 }

@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/forkJoin';
+import { forkJoin } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 import { ComponentsService } from '../../services/components.service';
 import { ProjectService } from '../../services/project.service';
@@ -43,18 +40,20 @@ export class BomCalculationViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params
-      .switchMap((params: Params) => {
-        return Observable.forkJoin(
-          this.componentsService.getSchemas(),
-          this.projectService.getProject(params['id'])
-        );
-      })
-      .switchMap(([schemas, project]) => {
-        this.project = project;
-        return this.bomService.getForMpns(
-          this.updateProjectMPNs(schemas, project)
-        );
-      })
+      .pipe(
+        switchMap((params: Params) => {
+          return forkJoin(
+            this.componentsService.getSchemas(),
+            this.projectService.getProject(params['id'])
+          );
+        }),
+        switchMap(([schemas, project]) => {
+          this.project = project;
+          return this.bomService.getForMpns(
+            this.updateProjectMPNs(schemas, project)
+          );
+        })
+      )
       .subscribe(
         (bom: Map<string, Part>) => this.updatePrices(bom),
         (e) => console.error('Error occurred while retrieving of project.', e)

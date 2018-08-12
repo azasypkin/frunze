@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { Config } from '../config';
 
@@ -42,7 +41,7 @@ export class BomService {
       error.error instanceof Error ? error.error.message : error.message;
 
     console.log(error);
-    return Observable.throw(errorMessage);
+    return throwError(errorMessage);
   }
 
   /**
@@ -81,23 +80,25 @@ export class BomService {
 
   constructor(private config: Config, private http: HttpClient) {}
 
-  getForMpns(mpns: string[]): Observable<Map<string, Part>> {
+  getForMpns(mpns: string[]) {
     return this.http
       .get(`${this.config.apiDomain}/bom/${APIPaths.parts}/${mpns.join(',')}`)
-      .map((response) => {
-        if (!response) {
-          return new Map();
-        }
+      .pipe(
+        map((response) => {
+          if (!response) {
+            return new Map();
+          }
 
-        return new Map(
-          Object.keys(response).map((mpn) => {
-            return [
-              mpn,
-              BomService.constructPart(response[mpn] as RawPart),
-            ] as [string, Part];
-          })
-        );
-      })
-      .catch(BomService.handleError);
+          return new Map(
+            Object.keys(response).map((mpn) => {
+              return [
+                mpn,
+                BomService.constructPart(response[mpn] as RawPart),
+              ] as [string, Part];
+            })
+          );
+        }),
+        catchError(BomService.handleError)
+      );
   }
 }

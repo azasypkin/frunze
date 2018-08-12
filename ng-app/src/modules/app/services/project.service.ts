@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/forkJoin';
+import { Observable, of, forkJoin, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import { Config } from '../config';
 
@@ -35,7 +32,7 @@ export class ProjectService {
       error.error instanceof Error ? error.error.message : error.message;
 
     console.log(error);
-    return Observable.throw(errorMessage);
+    return throwError(errorMessage);
   }
 
   constructor(private config: Config, private http: HttpClient) {}
@@ -45,20 +42,21 @@ export class ProjectService {
    * @param {string} id Unique identifier of the project to load from the server.
    * @returns {Observable.<Project>}
    */
-  getProject(id: string): Observable<Project> {
-    return Observable.forkJoin(
+  getProject(id: string) {
+    return forkJoin(
       this.getCapabilities(),
       this.getPlatforms(),
       this.http.get(`${this.config.apiDomain}/${APIPaths.project}/${id}`)
-    )
-      .map(([capabilities, platforms, response]) => {
+    ).pipe(
+      map(([capabilities, platforms, response]) => {
         if (!response) {
           return null;
         }
 
         return this.constructProject(capabilities, platforms, response);
-      })
-      .catch(ProjectService.handleError);
+      }),
+      catchError(ProjectService.handleError)
+    );
   }
 
   /**
@@ -66,22 +64,24 @@ export class ProjectService {
    * @param {Project} project Project to save.
    * @returns {Observable<Project>} Project that has been saved.
    */
-  saveProject(project: Project): Observable<Project> {
+  saveProject(project: Project) {
     return this.http
       .post(`${this.config.apiDomain}/${APIPaths.project}`, project.toJSON(), {
         responseType: 'text',
       })
-      .map((response) => {
-        return new Project(
-          response,
-          project.name,
-          project.description,
-          project.capabilities,
-          project.platform,
-          project.components
-        );
-      })
-      .catch(ProjectService.handleError);
+      .pipe(
+        map((response) => {
+          return new Project(
+            response,
+            project.name,
+            project.description,
+            project.capabilities,
+            project.platform,
+            project.components
+          );
+        }),
+        catchError(ProjectService.handleError)
+      );
   }
 
   /**
@@ -89,71 +89,74 @@ export class ProjectService {
    * @param {string} id Unique identifier of the project to delete.
    * @returns {Observable}
    */
-  deleteProject(id: string): Observable<void> {
+  deleteProject(id: string) {
     return this.http
       .delete(`${this.config.apiDomain}/${APIPaths.project}/${id}`)
-      .catch(ProjectService.handleError);
+      .pipe(catchError(ProjectService.handleError));
   }
 
   /**
    * Returns an array of projects saved on the back-end.
    * @returns {Observable.<Project[]>}
    */
-  getProjects(): Observable<Project[]> {
-    return Observable.forkJoin(
+  getProjects() {
+    return forkJoin(
       this.getCapabilities(),
       this.getPlatforms(),
       this.http.get(`${this.config.apiDomain}/${APIPaths.projects}`)
-    )
-      .map(([capabilities, platforms, response]) => {
+    ).pipe(
+      map(([capabilities, platforms, response]) => {
         return this.constructCollection(response, (rawProject) =>
           this.constructProject(capabilities, platforms, rawProject)
         );
-      })
-      .catch(ProjectService.handleError);
+      }),
+      catchError(ProjectService.handleError)
+    );
   }
 
   /**
    * Returns an array of project capabilities (either from inline cache or from server).
    * @returns {Observable.<ProjectCapability[]>}
    */
-  getCapabilities(): Observable<ProjectCapability[]> {
+  getCapabilities() {
     if (this.capabilities) {
       return this.capabilities;
     }
 
     return (this.capabilities = this.http
       .get(`${this.config.apiDomain}/${APIPaths.projectCapabilities}`)
-      .map((response) => {
-        const capabilities = this.constructCollection<ProjectCapability>(
-          response,
-          this.constructCapability.bind(this)
-        );
+      .pipe(
+        map((response) => {
+          const capabilities = this.constructCollection<ProjectCapability>(
+            response,
+            this.constructCapability.bind(this)
+          );
 
-        // Copy an array to avoid side modifications.
-        this.capabilities = Observable.of(capabilities).map((c) => [...c]);
+          // Copy an array to avoid side modifications.
+          this.capabilities = of(capabilities).pipe(map((c) => [...c]));
 
-        return capabilities;
-      })
-      .catch(ProjectService.handleError));
+          return capabilities;
+        }),
+        catchError(ProjectService.handleError)
+      ));
   }
 
   /**
    * Returns an array of project capability groups (either from inline cache or from server).
    * @returns {Observable.<ProjectCapabilityGroup[]>}
    */
-  getCapabilityGroups(): Observable<ProjectCapabilityGroup[]> {
+  getCapabilityGroups() {
     if (this.capabilityGroups) {
       return this.capabilityGroups;
     }
 
-    return (this.capabilityGroups = Observable.forkJoin(
+    return (this.capabilityGroups = forkJoin(
       this.getCapabilities(),
       this.http.get(
         `${this.config.apiDomain}/${APIPaths.projectCapabilityGroups}`
       )
-    )
-      .map(([capabilities, response]) => {
+    ).pipe(
+      map(([capabilities, response]) => {
         const capabilityGroups = this.constructCollection(
           response,
           (rawCapabilityGroup) =>
@@ -161,39 +164,39 @@ export class ProjectService {
         );
 
         // Copy an array to avoid side modifications.
-        this.capabilityGroups = Observable.of(capabilityGroups).map((c) => [
-          ...c,
-        ]);
+        this.capabilityGroups = of(capabilityGroups).pipe(map((c) => [...c]));
 
         return capabilityGroups;
-      })
-      .catch(ProjectService.handleError));
+      }),
+      catchError(ProjectService.handleError)
+    ));
   }
 
   /**
    * Returns an array of project platforms (either from inline cache or from server).
    * @returns {Observable.<ProjectPlatform[]>}
    */
-  getPlatforms(): Observable<ProjectPlatform[]> {
+  getPlatforms() {
     if (this.platforms) {
       return this.platforms;
     }
 
-    return (this.platforms = Observable.forkJoin(
+    return (this.platforms = forkJoin(
       this.getCapabilities(),
       this.http.get(`${this.config.apiDomain}/${APIPaths.projectPlatforms}`)
-    )
-      .map(([capabilities, response]) => {
+    ).pipe(
+      map(([capabilities, response]) => {
         const platforms = this.constructCollection(response, (rawPlatform) =>
           this.constructPlatform(capabilities, rawPlatform)
         );
 
         // Copy an array to avoid side modifications.
-        this.platforms = Observable.of(platforms).map((c) => [...c]);
+        this.platforms = of(platforms).pipe(map((c) => [...c]));
 
         return platforms;
-      })
-      .catch(ProjectService.handleError));
+      }),
+      catchError(ProjectService.handleError)
+    ));
   }
 
   /**

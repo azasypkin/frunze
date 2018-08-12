@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
-
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/forkJoin';
+import { forkJoin } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 import { ProjectService } from '../../services/project.service';
 import { SchematicService } from '../../services/schematic.service';
@@ -29,12 +26,14 @@ export class SchematicViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params
-      .switchMap((params: Params) => {
-        return Observable.forkJoin(
-          this.schematicService.getProjectSchematic(params['id']),
-          this.projectService.getProject(params['id'])
-        );
-      })
+      .pipe(
+        switchMap((params: Params) => {
+          return forkJoin(
+            this.schematicService.getProjectSchematic(params['id']),
+            this.projectService.getProject(params['id'])
+          );
+        })
+      )
       .subscribe(
         ([schematic, project]) => {
           this.project = project;

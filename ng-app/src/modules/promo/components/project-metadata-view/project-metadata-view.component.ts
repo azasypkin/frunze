@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/of';
+import { of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 import { ProjectService } from '../../../app/services/project.service';
 
@@ -76,9 +75,7 @@ export class ProjectMetadataViewComponent implements OnInit {
     const capabilityGroupsControl = this.formBuilder.array(
       capabilityGroups.map((group) =>
         this.formBuilder.array(
-          group.capabilities.map((capability) =>
-            this.formBuilder.control(false)
-          )
+          group.capabilities.map(() => this.formBuilder.control(false))
         )
       )
     );
@@ -107,22 +104,24 @@ export class ProjectMetadataViewComponent implements OnInit {
       .subscribe((platforms) => this.updatePlatforms(platforms));
 
     this.route.params
-      .switchMap((params: Params) => {
-        if (params['id']) {
-          return this.projectService.getProject(params['id']);
-        }
+      .pipe(
+        switchMap((params: Params) => {
+          if (params['id']) {
+            return this.projectService.getProject(params['id']);
+          }
 
-        return Observable.of(
-          new Project(
-            '',
-            'New Project',
-            'New Project Description',
-            [],
-            null,
-            []
-          )
-        );
-      })
+          return of(
+            new Project(
+              '',
+              'New Project',
+              'New Project Description',
+              [],
+              null,
+              []
+            )
+          );
+        })
+      )
       .subscribe((project: Project) => this.updateProject(project));
   }
 
