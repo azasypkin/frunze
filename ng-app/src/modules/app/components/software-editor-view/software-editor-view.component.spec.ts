@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 
 import { ActivatedRouteStub } from '../../../../testing/stubs/activated-route';
@@ -26,134 +26,119 @@ import { TriggerEditorComponent } from '../trigger-editor/trigger-editor.compone
 describe('Components/SoftwareEditorViewComponent', () => {
   let fixture, componentsServiceSpy, projectServiceSpy;
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule, ReactiveFormsModule],
-        declarations: [
-          SoftwareEditorViewComponent,
-          ExpandableGroupsComponent,
-          PropertyEditorComponent,
-          TriggerEditorComponent,
-        ],
-        providers: [
-          { provide: ActivatedRoute, useClass: ActivatedRouteStub },
-          { provide: Router, useClass: RouterStub },
-          Config,
-          ComponentsService,
-          ProjectService,
-        ],
-      })
-        .compileComponents()
-        .then(() => {
-          fixture = TestBed.createComponent(SoftwareEditorViewComponent);
-          const componentsService = fixture.debugElement.injector.get(
-            ComponentsService
-          );
-          componentsServiceSpy = spyOn(
-            componentsService,
-            'getGroups'
-          ).and.returnValue(
-            Observable.of([
-              new ComponentGroup(
-                'group#1test',
-                'Group #1 Test',
-                'Group #1 Description Test',
-                [
-                  new ComponentSchema(
-                    'type#11',
-                    'Item #11',
-                    'Item #11 Description',
-                    '',
-                    new Map(),
-                    new Map(),
-                    new Map()
-                  ),
-                  new ComponentSchema(
-                    'type#12',
-                    'Item #12',
-                    'Item #12 Description',
-                    '',
-                    new Map(),
-                    new Map(),
-                    new Map()
-                  ),
-                ]
-              ),
-            ])
-          );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, ReactiveFormsModule],
+      declarations: [
+        SoftwareEditorViewComponent,
+        ExpandableGroupsComponent,
+        PropertyEditorComponent,
+        TriggerEditorComponent,
+      ],
+      providers: [
+        { provide: ActivatedRoute, useClass: ActivatedRouteStub },
+        { provide: Router, useClass: RouterStub },
+        Config,
+        ComponentsService,
+        ProjectService,
+      ],
+    })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(SoftwareEditorViewComponent);
+        const componentsService = fixture.debugElement.injector.get(
+          ComponentsService
+        );
+        componentsServiceSpy = spyOn(
+          componentsService,
+          'getGroups'
+        ).and.returnValue(
+          of([
+            new ComponentGroup(
+              'group#1test',
+              'Group #1 Test',
+              'Group #1 Description Test',
+              [
+                new ComponentSchema(
+                  'type#11',
+                  'Item #11',
+                  'Item #11 Description',
+                  '',
+                  new Map(),
+                  new Map(),
+                  new Map()
+                ),
+                new ComponentSchema(
+                  'type#12',
+                  'Item #12',
+                  'Item #12 Description',
+                  '',
+                  new Map(),
+                  new Map(),
+                  new Map()
+                ),
+              ]
+            ),
+          ])
+        );
 
-          const projectService = fixture.debugElement.injector.get(
-            ProjectService
-          );
-          projectServiceSpy = spyOn(
-            projectService,
-            'getProject'
-          ).and.returnValue(
-            Observable.of(
-              new Project(
-                '',
-                'New Project',
-                'New Project Description',
-                [],
-                null,
-                []
-              )
+        const projectService = fixture.debugElement.injector.get(
+          ProjectService
+        );
+        projectServiceSpy = spyOn(projectService, 'getProject').and.returnValue(
+          of(
+            new Project(
+              '',
+              'New Project',
+              'New Project Description',
+              [],
+              null,
+              []
             )
-          );
+          )
+        );
 
-          const activatedRoute = fixture.debugElement.injector.get(
-            ActivatedRoute
-          ) as ActivatedRouteStub;
-          activatedRoute.setParameters({ id: '' });
-        });
-    })
-  );
+        const activatedRoute = fixture.debugElement.injector.get(
+          ActivatedRoute
+        ) as ActivatedRouteStub;
+        activatedRoute.setParameters({ id: '' });
+      });
+  }));
 
-  it(
-    'should create the app',
-    async(() => {
-      const app = fixture.debugElement.componentInstance;
-      expect(app).toBeTruthy();
-    })
-  );
+  it('should create the app', async(() => {
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
+  }));
 
-  it(
-    'should render all main editor components',
-    async(() => {
+  it('should render all main editor components', async(() => {
+    fixture.detectChanges();
+
+    fixture.whenStable().then(() => {
       fixture.detectChanges();
 
-      fixture.whenStable().then(() => {
-        fixture.detectChanges();
-
-        const element = fixture.debugElement;
-        expect(
-          element.query(
-            By.css(
-              '.frunze-software-editor__components frunze-expandable-groups'
-            )
+      const element = fixture.debugElement;
+      expect(
+        element.query(
+          By.css('.frunze-software-editor__components frunze-expandable-groups')
+        )
+      ).not.toBeNull();
+      expect(element.query(By.css('.frunze-workspace-editor'))).not.toBeNull();
+      // No component is selected, so this should not be rendered.
+      expect(
+        element.query(
+          By.css(
+            '.frunze-software-editor__properties > frunze-expandable-groups'
           )
-        ).not.toBeNull();
-        expect(
-          element.query(By.css('.frunze-workspace-editor'))
-        ).not.toBeNull();
-        // No component is selected, so this should not be rendered.
-        expect(
-          element.query(
-            By.css(
-              '.frunze-software-editor__properties > frunze-expandable-groups'
-            )
-          )
-        ).toBeNull();
+        )
+      ).toBeNull();
 
-        // Check that we have passed groups to ExpandedGroupsComponent correctly.
-        const expandableGroupsComponent = element.query(
-          By.css('frunze-expandable-groups')
-        ).componentInstance;
-        expect(expandableGroupsComponent).toBeTruthy();
-        expect(expandableGroupsComponent.groups.length).toEqual(1);
-        expect(expandableGroupsComponent.groups[0].type).toEqual('group#1test');
-      });
-    })
-  );
+      // Check that we have passed groups to ExpandedGroupsComponent correctly.
+      const expandableGroupsComponent = element.query(
+        By.css('frunze-expandable-groups')
+      ).componentInstance;
+      expect(expandableGroupsComponent).toBeTruthy();
+      expect(expandableGroupsComponent.groups.length).toEqual(1);
+      expect(expandableGroupsComponent.groups[0].type).toEqual('group#1test');
+    });
+  }));
 });

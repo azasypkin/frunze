@@ -17,10 +17,13 @@ import {
   styleUrls: ['trigger-editor.component.css'],
 })
 export class TriggerEditorComponent implements OnInit {
-  @Input() project: Project;
-  @Input() component: ProjectComponent;
+  @Input()
+  project: Project;
+  @Input()
+  component: ProjectComponent;
 
-  @Input() type: string;
+  @Input()
+  type: string;
   schema: ComponentTriggerSchema;
 
   constructor(

@@ -16,9 +16,12 @@ import { ProjectComponent } from '../../core/projects/project-component';
   styleUrls: ['property-editor.component.css'],
 })
 export class PropertyEditorComponent implements OnChanges, OnInit {
-  @Input() project: Project;
-  @Input() component: ProjectComponent;
-  @Input() schema: PropertySchema;
+  @Input()
+  project: Project;
+  @Input()
+  component: ProjectComponent;
+  @Input()
+  schema: PropertySchema;
 
   componentSchemas: Map<string, ComponentSchema>;
 

@@ -12,7 +12,9 @@ export interface IExpandableGroup {
   styleUrls: ['expandable-groups.component.css'],
 })
 export class ExpandableGroupsComponent {
-  @Input() groups: IExpandableGroup[] = [];
+  @Input()
+  groups: IExpandableGroup[] = [];
 
-  @ContentChild(TemplateRef) public itemTemplate: TemplateRef<any>;
+  @ContentChild(TemplateRef)
+  public itemTemplate: TemplateRef<any>;
 }
