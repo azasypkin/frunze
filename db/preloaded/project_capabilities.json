@@ -5,6 +5,16 @@
     "description": "Enables WiFi connectivity."
   },
   {
+    "type": "gps",
+    "name": "GPS Connection",
+    "description": "Enables GPS tracking."
+  },
+  {
+    "type": "ble",
+    "name": "BLE Connection",
+    "description": "Enables Bluetooth Low Energy connection."
+  },
+  {
     "type": "ethernet",
     "name": "Ethernet Connection",
     "description": "Enables Ethernet connectivity."
@@ -16,23 +26,18 @@
   },
   {
     "type": "cellular",
-    "name": "Cellular connection",
+    "name": "Cellular Connection",
     "description": "Enables Cellular connectivity."
   },
   {
-    "type": "nfc",
-    "name": "NFC connection",
-    "description": "Enables Near field communication connectivity."
+    "type": "rfid",
+    "name": "RFID Connection",
+    "description": "Enables RFID connectivity."
   },
   {
     "type": "lora",
-    "name": "LoRa WAN connection",
+    "name": "LoRa WAN Connection",
     "description": "Enables LoRa WAN connectivity."
-  },
-  {
-    "type": "uart",
-    "name": "UART connection",
-    "description": "Enables UART connectivity."
   },
   {
     "type": "led",
@@ -46,7 +51,7 @@
   },
   {
     "type": "lcd-display",
-    "name": "Display",
+    "name": "LCD Display",
     "description": "Allows your device to use LCD."
   },
   {
@@ -110,6 +115,21 @@
     "description": "Allows your device to vibrate."
   },
   {
+    "type": "usb-connector",
+    "name": "USB Connector",
+    "description": "Allows your device to have USB input/output."
+  },
+  {
+    "type": "terminal-connector",
+    "name": "Terminal Connector",
+    "description": "Allows your device to have Terminal connector."
+  },
+  {
+    "type": "heating-element",
+    "name": "Heating Element",
+    "description": "Allows your device to have a heating element."
+  },
+  {
     "type": "momentary-switch",
     "name": "Momentary Switch",
     "description": "Allows your device to have a mechanical momentary switch."
@@ -123,5 +143,25 @@
     "type": "rotary-switch",
     "name": "Rotary Switch",
     "description": "Allows your device to have a rotary switch."
+  },
+  {
+    "type": "relay-switch",
+    "name": "Relay",
+    "description": "Allows your device to have electrically operated switch."
+  },
+  {
+    "type": "transistor-switch",
+    "name": "Transistor Switch",
+    "description": "Allows your device to have a low voltage DC electrically operated switch."
+  },
+  {
+    "type": "capacitive-switch",
+    "name": "Capacitive Switch",
+    "description": "Allows your device to have a touch-controlled electrical switch."
+  },
+  {
+    "type": "tilt-switch",
+    "name": "Tilt Switch",
+    "description": "Allows your device to have a tilt-controlled electrical switch."
   }
 ]

@@ -4,25 +4,21 @@
     "name": "Connectivity",
     "description": "Everything that allows devices to be connected.",
     "capabilities": [
+      "ble",
       "wifi",
       "ethernet",
       "bluetooth",
       "cellular",
-      "nfc",
-      "lora"
+      "rfid",
+      "lora",
+      "gps"
     ]
   },
   {
     "type": "output",
     "name": "Indicators and Output",
     "description": "Items in this group allows your device to talk to the world or indicate something (various audio/visual indicators).",
-    "capabilities": [
-      "led",
-      "led-display",
-      "lcd-display",
-      "speaker",
-      "beeper"
-    ]
+    "capabilities": ["led", "led-display", "lcd-display", "speaker", "beeper"]
   },
   {
     "type": "input",
@@ -45,7 +41,10 @@
     "capabilities": [
       "dc-motor",
       "servo-motor",
-      "vibration-motor"
+      "vibration-motor",
+      "usb-connector",
+      "terminal-connector",
+      "heating-element"
     ]
   },
   {
@@ -55,7 +54,11 @@
     "capabilities": [
       "momentary-switch",
       "maintained-switch",
-      "rotary-switch"
+      "rotary-switch",
+      "relay-switch",
+      "transistor-switch",
+      "capacitive-switch",
+      "tilt-switch"
     ]
   }
 ]

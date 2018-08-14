@@ -128,6 +128,14 @@
 /* Capability icons */
 
 /* Capability Connection icons */
+.project-entity-icon-capability-gps {
+  background-image: url('../assets/images/icons/capabilities/gps.png');
+}
+
+.project-entity-icon-capability-ble {
+  background-image: url('../assets/images/icons/capabilities/ble.png');
+}
+
 .project-entity-icon-capability-wifi {
   background-image: url('../assets/images/icons/capabilities/wifi.png');
 }
@@ -144,8 +152,8 @@
   background-image: url('../assets/images/icons/capabilities/cellular.png');
 }
 
-.project-entity-icon-capability-nfc {
-  background-image: url('../assets/images/icons/capabilities/nfc.png');
+.project-entity-icon-capability-rfid {
+  background-image: url('../assets/images/icons/capabilities/rfid.png');
 }
 
 .project-entity-icon-capability-lora {
@@ -215,6 +223,18 @@
   background-image: url('../assets/images/icons/capabilities/vibration-motor.png');
 }
 
+.project-entity-icon-capability-usb-connector {
+  background-image: url('../assets/images/icons/capabilities/usb-connector.png');
+}
+
+.project-entity-icon-capability-terminal-connector {
+  background-image: url('../assets/images/icons/capabilities/terminal-connector.png');
+}
+
+.project-entity-icon-capability-heating-element {
+  background-image: url('../assets/images/icons/capabilities/heating-element.png');
+}
+
 /* Capability Switches */
 .project-entity-icon-capability-momentary-switch {
   background-image: url('../assets/images/icons/capabilities/momentary-switch.png');
@@ -226,4 +246,20 @@
 
 .project-entity-icon-capability-rotary-switch {
   background-image: url('../assets/images/icons/capabilities/rotary-switch.png');
+}
+
+.project-entity-icon-capability-relay-switch {
+  background-image: url('../assets/images/icons/capabilities/relay-switch.png');
+}
+
+.project-entity-icon-capability-transistor-switch {
+  background-image: url('../assets/images/icons/capabilities/transistor-switch.png');
+}
+
+.project-entity-icon-capability-capacitive-switch {
+  background-image: url('../assets/images/icons/capabilities/capacitive-switch.png');
+}
+
+.project-entity-icon-capability-tilt-switch {
+  background-image: url('../assets/images/icons/capabilities/tilt-switch.png');
 }
