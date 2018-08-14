@@ -88,7 +88,9 @@ export class ProjectMetadataViewComponent implements OnInit {
   }
 
   updatePlatforms(platforms: ProjectPlatform[]) {
-    this.platforms = platforms;
+    this.platforms = platforms.sort((platformA, platformB) =>
+      platformA.name.localeCompare(platformB.name)
+    );
     this.notSupportedPlatforms = new Set();
   }
 

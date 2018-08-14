@@ -1,8 +1,297 @@
 [
   {
-    "type": "attiny",
-    "name": "Atmel ATtiny85",
+    "type": "esp-32-wroom-32",
+    "name": "ESP32 WROOM 32",
+    "description": "Powerful, generic Wi-Fi+BT+BLE MCU based on Espressif’s flagship SoC.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "orange-pi-plus",
+    "name": "Orange Pi Pc Plus",
+    "description": "Open-source single-board computer running Android 4.4, Ubuntu, or Raspbian.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "intel-edison",
+    "name": "Intel® Edison",
+    "description": "Intel® Edison Development Board.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "stm32-f0",
+    "name": "STM32 F0 (Cortex M0)",
+    "description": "Entry level MCU 97 CoreMark 48 MHz/38 DMIPS.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "stm32-l0",
+    "name": "STM32 L0 (Cortex M0)",
+    "description": "Ultra-low-power MCU 75 CoreMark 32 MHz/26 DMIPS.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "stm32-l1",
+    "name": "STM32 L1 (Cortex M3)",
+    "description": "Ultra-low-power MCU 93 CoreMark 32 MHz/33 DMIPS.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "stm32-f1",
+    "name": "STM32 F1 (Cortex M3)",
+    "description": "Mainstream MCU 174 CoreMark 72 MHz/61 DMIPS.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "stm32-f2",
+    "name": "STM32 F2 (Cortex M3)",
+    "description": "High performance MCU 397 CoreMark 120 MHz/150 DMIPS.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "stm32-f3",
+    "name": "STM32 F3  (Cortex M4)",
+    "description": "Mixed signal MCU with DSP and FPU 245 CoreMark 72 MHz/90 DMIPS.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "stm32-f4",
+    "name": "STM32 F4 (Cortex M4)",
+    "description": "High performance MCU with DSP and FPU 606 CoreMark 180 MHz/225 DMIPS.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "stm32-l4",
+    "name": "STM32 L4 (Cortex M4)",
+    "description": "Ultra-low-power MCU 273 CoreMark 80 MHz/100 DMIPS.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "stm32-wb",
+    "name": "STM32 WB (Cortex M0/M4)",
+    "description": "Wireless MCU 216 CoreMark Dual Core 32/64 MHz/80 DMIPS.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "attiny-85",
+    "name": "Atmel® ATtiny85",
     "description": "High Performance, Low Power AVR® 8-Bit Microcontroller.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+
+  {
+    "type": "attiny-45",
+    "name": "Atmel® ATtiny45",
+    "description": "High Performance, Low Power AVR® 8-Bit Microcontroller.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "attiny-25",
+    "name": "Atmel® ATtiny25",
+    "description": "High Performance, Low Power AVR® 8-Bit Microcontroller.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "atmega-328",
+    "name": "Atmel® ATmega328",
+    "description": "High Performance, Low Power AVR® 8-Bit Microcontroller.",
+    "capabilities": [
+      "uart",
+      "mic",
+      "beeper",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "arduino",
+    "name": "Arduino Genuino Uno Rev3",
+    "description": "Open-source electronics platform based on easy-to-use hardware and software.",
     "capabilities": [
       "uart",
       "mic",
@@ -40,9 +329,119 @@
     ]
   },
   {
-    "type": "raspberry-pi-3",
-    "name": "The Raspberry Pi 3",
-    "description": "The Raspberry Pi 3 Microcomputer.",
+    "type": "raspberry-pi-zero",
+    "name": "The Raspberry Pi Zero",
+    "description": "The Raspberry Pi Zero Microcomputer.",
+    "capabilities": [
+      "uart",
+      "wifi",
+      "bluetooth",
+      "led",
+      "speaker",
+      "beeper",
+      "mic",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "raspberry-pi-1-a",
+    "name": "The Raspberry Pi 1 Model A+",
+    "description": "The Raspberry Pi 1 Model A+ Microcomputer.",
+    "capabilities": [
+      "uart",
+      "wifi",
+      "bluetooth",
+      "led",
+      "speaker",
+      "beeper",
+      "mic",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "raspberry-pi-1-b",
+    "name": "The Raspberry Pi 1 Model B+",
+    "description": "The Raspberry Pi 1 Model B+ Microcomputer.",
+    "capabilities": [
+      "uart",
+      "wifi",
+      "bluetooth",
+      "led",
+      "speaker",
+      "beeper",
+      "mic",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "raspberry-pi-2-b",
+    "name": "The Raspberry Pi 2 Model B",
+    "description": "The Raspberry Pi 2 Model B Microcomputer.",
+    "capabilities": [
+      "uart",
+      "wifi",
+      "bluetooth",
+      "led",
+      "speaker",
+      "beeper",
+      "mic",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "raspberry-pi-3-b",
+    "name": "The Raspberry Pi 3 Model B",
+    "description": "The Raspberry Pi 3 Model B Microcomputer.",
+    "capabilities": [
+      "uart",
+      "wifi",
+      "bluetooth",
+      "led",
+      "speaker",
+      "beeper",
+      "mic",
+      "light",
+      "humidity",
+      "motion",
+      "temperature",
+      "magnetic",
+      "momentary-switch",
+      "maintained-switch",
+      "rotary-switch"
+    ]
+  },
+  {
+    "type": "raspberry-pi-3-b-plus",
+    "name": "The Raspberry Pi 3 Model B+",
+    "description": "The Raspberry Pi 3 Model B+ Microcomputer.",
     "capabilities": [
       "uart",
       "wifi",

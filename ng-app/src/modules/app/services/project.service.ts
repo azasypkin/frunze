@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 
 import { Observable, of, forkJoin, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -91,7 +95,11 @@ export class ProjectService {
    */
   deleteProject(id: string) {
     return this.http
-      .delete(`${this.config.apiDomain}/${APIPaths.project}/${id}`)
+      .delete(`${this.config.apiDomain}/${APIPaths.project}/${id}`, {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        }),
+      })
       .pipe(catchError(ProjectService.handleError));
   }
 
